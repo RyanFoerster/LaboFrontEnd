@@ -14,6 +14,15 @@ const routes: Routes = [
     {
         path: "home",
         loadComponent: () => import("./app/home/home.component").then(module => module.HomeComponent)
+    },
+    {
+        path: "",
+        loadChildren: () => import("./app/auth/auth.routes")
+    },
+    {
+        path: "**",
+        redirectTo: "home",
+        pathMatch: "full"
     }
 ]
 
@@ -22,8 +31,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserModule),
     provideRouter(routes),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
-    provideAnimations()
+    provideHttpClient(withInterceptorsFromDi())
 ]
 })
     .catch(err => console.error(err));

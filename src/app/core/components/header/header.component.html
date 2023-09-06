@@ -1,7 +1,10 @@
 <mat-toolbar class="mat-primary">
-    <mat-toolbar-row class="flex justify-center">
-        <button mat-button>Home</button>
-        <button mat-button>About</button>
-        <button mat-button>Contact</button>
+    <mat-toolbar-row class="flex justify-end">
+        <button mat-button class="btn" routerLink="/home">Home</button>
+        <button mat-button class="btn">About</button>
+        <button mat-button class="btn">Contact</button>
+        <button mat-button class="btn" routerLink="/login">
+            <mat-icon fontIcon="login"></mat-icon>
+        </button>
     </mat-toolbar-row>
 </mat-toolbar>

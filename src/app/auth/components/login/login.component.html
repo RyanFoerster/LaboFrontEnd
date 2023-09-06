@@ -1,0 +1,21 @@
+<div class="w-full">
+    <form [formGroup]="loginForm" class="flex m-1 flex-col justify-center items-center" (ngSubmit)="login()">
+
+        <div class="w-3/12 flex justify-between">
+            <mat-form-field class="w-56">
+                <mat-label>username</mat-label>
+                <input formControlName="username" matInput required>
+            </mat-form-field>
+
+            <mat-form-field class="w-56">
+                <mat-label>password</mat-label>
+                <input formControlName="password" type="password" matInput required>
+            </mat-form-field>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" class="w-3/12">Login</button>
+    </form>
+</div>
+
+
+<button mat-flat-button routerLink="/register">Register</button>
