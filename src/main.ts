@@ -4,6 +4,7 @@ import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {AppComponent} from "./app/app.component";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideRouter, Routes} from "@angular/router";
+import {SessionService} from "./app/shared/services/session.service";
 
 const routes: Routes = [
     {
@@ -13,6 +14,7 @@ const routes: Routes = [
     },
     {
         path: "home",
+        providers: [SessionService],
         loadComponent: () => import("./app/home/home.component").then(module => module.HomeComponent)
     },
     {
