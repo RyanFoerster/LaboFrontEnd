@@ -1,19 +1,27 @@
-import {Injectable, Signal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {User} from "../models/User";
+import {UserRegister} from "../models/UserRegister";
 import {environments} from "../../../environments/environments";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, map, Observable, tap} from "rxjs";
 import {Token} from "../models/Token";
+import {User} from "../models/User";
 
-@Injectable()
+@Injectable({
+    providedIn: "root"
+})
 export class AuthService {
 
-    private _token: string | undefined = ""
+
+    private _token$: BehaviorSubject<Token | null>
+
 
     constructor(private _httpClient: HttpClient) {
+        const tokenFromSession = localStorage.getItem('token')
+        this._token$ = new BehaviorSubject<Token | null>(tokenFromSession ? JSON.parse(tokenFromSession) : null)
+        this._token$.subscribe(console.log)
     }
 
-    register(user:User): Observable<User>{
+    register(user:UserRegister): Observable<User>{
         return this._httpClient.post<User>(`${environments.apiUrl}/auth/dev-register`, user)
     }
 
@@ -22,11 +30,48 @@ export class AuthService {
             username,
             password
         }).pipe(
-            tap(response => this._token = response.token)
+            tap(response => this.addToSession(response) )
         )
     }
 
-    get token(){
-        return this._token;
+    logout(){
+        this.removeFromSession()
+    }
+
+
+    private addToSession(token: Token) {
+        localStorage.setItem('token', JSON.stringify(token))
+
+        this._token$.next(token)
+    }
+
+    private removeFromSession(){
+        localStorage.removeItem('token')
+
+        this._token$.next(null)
+    }
+
+    get token(): Token | null {
+        return this._token$.getValue()
+    }
+
+    get token$(): Observable<Token | null>{
+        return this._token$.asObservable()
+    }
+
+    get user(){
+        return this.token?.userDTO;
+    }
+
+    get user$(): Observable<User | undefined>{
+        return this._token$.pipe(
+            map( token => token?.userDTO )
+        )
+    }
+
+    get isLogged$() {
+        return this._token$.pipe(
+            map( token => !!token )
+        )
     }
 }

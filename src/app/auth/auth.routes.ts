@@ -1,10 +1,8 @@
 import {Routes} from "@angular/router";
 import {AuthService} from "../shared/services/auth.service";
-import {SessionService} from "../shared/services/session.service";
 
 export default [{
     path: "",
-    providers: [AuthService, SessionService],
     children: [
         {
             path: "login",

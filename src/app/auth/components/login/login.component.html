@@ -1,3 +1,4 @@
+
 <div class="w-full">
     <form [formGroup]="loginForm" class="flex m-1 flex-col justify-center items-center" (ngSubmit)="login()">
 
@@ -14,8 +15,7 @@
         </div>
 
         <button type="submit" mat-flat-button color="primary" class="w-3/12">Login</button>
+        <button type="button" color="warn" mat-flat-button class="w-3/12 mt-2" routerLink="/register">Register</button>
     </form>
 </div>
 
-
-<button mat-flat-button routerLink="/register">Register</button>

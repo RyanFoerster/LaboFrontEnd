@@ -1,21 +1,22 @@
 import {importProvidersFrom} from '@angular/core';
 import {bootstrapApplication, BrowserModule} from '@angular/platform-browser';
-import {provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
 import {AppComponent} from "./app/app.component";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideRouter, Routes} from "@angular/router";
-import {SessionService} from "./app/shared/services/session.service";
+import {authGuard} from "./app/guards/auth.guard";
+import {AuthService} from "./app/shared/services/auth.service";
 
 const routes: Routes = [
     {
         path: "",
         redirectTo: "home",
-        pathMatch: "full"
+        pathMatch: "full",
     },
     {
         path: "home",
-        providers: [SessionService],
-        loadComponent: () => import("./app/home/home.component").then(module => module.HomeComponent)
+        loadComponent: () => import("./app/home/home.component").then(module => module.HomeComponent),
+        canActivate: [authGuard]
     },
     {
         path: "",
@@ -24,16 +25,17 @@ const routes: Routes = [
     {
         path: "**",
         redirectTo: "home",
-        pathMatch: "full"
+        pathMatch: "full",
     }
 ]
 
 bootstrapApplication(AppComponent, {
     providers: [
-    importProvidersFrom(BrowserModule),
-    provideRouter(routes),
-    provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi())
-]
+        importProvidersFrom(BrowserModule),
+        // {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+        provideRouter(routes),
+        provideAnimations(),
+        provideHttpClient(withInterceptorsFromDi())
+    ]
 })
     .catch(err => console.error(err));

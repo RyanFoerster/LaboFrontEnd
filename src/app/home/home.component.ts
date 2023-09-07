@@ -1,7 +1,8 @@
-import {Component, OnInit, signal} from '@angular/core';
-import {User} from "../shared/models/User";
-import {SessionService} from "../shared/services/session.service";
+import {Component, OnInit} from '@angular/core';
+import {UserRegister} from "../shared/models/UserRegister";
 import {NgIf} from "@angular/common";
+import {AuthService} from "../shared/services/auth.service";
+import {User} from "../shared/models/User";
 
 @Component({
     selector: 'app-home',
@@ -15,13 +16,13 @@ import {NgIf} from "@angular/common";
 export class HomeComponent implements OnInit{
     user?: User
 
-    constructor(private _sessionService: SessionService) {
+    constructor(private _authService: AuthService) {
     }
 
     ngOnInit() {
-        
-        if(this._sessionService.getToken()){
-            this.user = this._sessionService.getToken()?.userDTO
+
+        if(this._authService.token){
+            this.user = this._authService.user
         }
 
     }

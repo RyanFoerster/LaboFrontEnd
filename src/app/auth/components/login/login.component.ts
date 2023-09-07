@@ -5,8 +5,15 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {AuthService} from "../../../shared/services/auth.service";
-import {data} from "autoprefixer";
-import {SessionService} from "../../../shared/services/session.service";
+import {
+    bounceAnimation,
+    fadeInOnEnterAnimation, fadeInRightAnimation, fadeInRightOnEnterAnimation,
+    fadeOutOnLeaveAnimation,
+    pulseAnimation,
+    rubberBandAnimation
+} from "angular-animations";
+import {NgIf} from "@angular/common";
+import {MatStepperModule} from "@angular/material/stepper";
 
 @Component({
     selector: 'app-login',
@@ -18,9 +25,12 @@ import {SessionService} from "../../../shared/services/session.service";
         FormsModule,
         MatFormFieldModule,
         MatInputModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgIf,
+        MatStepperModule
     ],
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.scss'],
+    animations: []
 })
 export class LoginComponent {
 
@@ -28,7 +38,6 @@ export class LoginComponent {
 
     constructor(private _formBuilder: FormBuilder,
                 private _authService: AuthService,
-                private _sessionService: SessionService,
                 private _router: Router) {
 
         this.loginForm = _formBuilder.group({
@@ -42,10 +51,14 @@ export class LoginComponent {
         let username: string = this.loginForm.get("username")?.value
         let password: string = this.loginForm.get("password")?.value
 
-        this._authService.login(username, password).subscribe(data => {
-            this._sessionService.addToSession(data)
-            this._router.navigateByUrl("/home")
-        })
+        this._authService.login(username, password)
+            .subscribe({
+                next : data=> {
+                    console.log(data)
+                    this._router.navigateByUrl("/home")
+                },
+                error: console.error
+            })
     }
 
 }
