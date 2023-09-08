@@ -52,8 +52,16 @@ export class RegisterComponent {
                 private _authService: AuthService) {
 
         this.userInfoForm = _formBuilder.group({
-            username: [null, [Validators.required]],
-            password: [null, [Validators.required]],
+            username: [null, [
+                Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(20)
+            ]],
+            password: [null, [
+                Validators.required,
+                Validators.minLength(6),
+                Validators.pattern("^(?=.*[!=@#$%^&*()_+{}\\\\[\\\\]:;<>,.?~\\\\-]).*(?=.*[A-Z]).*(?=.*[0-9]).*$")
+            ]],
             firstName: [null, [Validators.required]],
             lastName: [null, [Validators.required]],
             email: [null, [Validators.required, Validators.email]]
