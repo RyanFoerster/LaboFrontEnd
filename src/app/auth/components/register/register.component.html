@@ -74,10 +74,8 @@
                     </mat-form-field>
                 </div>
 
-<!--                                <mat-radio-group aria-label="Quel est votre rôle ?">-->
-<!--                                    <mat-radio-button value="Developer" [(ngModel)]="role">Developpeur</mat-radio-button>-->
-<!--                                    <mat-radio-button value="Recruiter" [(ngModel)]="role">Recruteur</mat-radio-button>-->
-<!--                                </mat-radio-group>-->
+                <mat-checkbox (click)="toggleRole()">Vous êtes un recruteur ?</mat-checkbox>
+
 
 
                 <div>
@@ -86,122 +84,198 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="devInfoForm" label="Profil de développeur">
-            <form [formGroup]="devInfoForm" class="flex m-1 flex-col justify-center items-center">
+        <div *ngIf="!isRecruiter">
+            <mat-step [stepControl]="devInfoForm" label="Profil de développeur">
+                <form [formGroup]="devInfoForm" class="flex m-1 flex-col justify-center items-center">
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput
-                                  cdkTextareaAutosize
-                                  #autosize="cdkTextareaAutosize"
-                                  cdkAutosizeMinRows="1"
-                                  cdkAutosizeMaxRows="5"
-                        formControlName="description">
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput
+                                      cdkTextareaAutosize
+                                      #autosize="cdkTextareaAutosize"
+                                      cdkAutosizeMinRows="1"
+                                      cdkAutosizeMaxRows="5"
+                                      formControlName="description">
                         </textarea>
-                    </mat-form-field>
+                        </mat-form-field>
 
-                </div>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Pseudo</mat-label>
-                        <input formControlName="pseudo" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Pseudo</mat-label>
+                            <input formControlName="pseudo" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Technologies back-end</mat-label>
-                        <mat-select formControlName="technologyBackEnds" multiple>
-                            <mat-option *ngFor="let technology of technologyBackEnd"
-                                        [value]="technology">{{technology}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Technologies back-end</mat-label>
+                            <mat-select formControlName="technologyBackEnds" multiple>
+                                <mat-option *ngFor="let technology of technologyBackEnd"
+                                            [value]="technology">{{technology}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Technologies front-end</mat-label>
-                        <mat-select formControlName="technologyFrontEnds" multiple>
-                            <mat-option *ngFor="let technology of technologyFrontEnd"
-                                        [value]="technology">{{technology}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Technologies front-end</mat-label>
+                            <mat-select formControlName="technologyFrontEnds" multiple>
+                                <mat-option *ngFor="let technology of technologyFrontEnd"
+                                            [value]="technology">{{technology}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Github</mat-label>
-                        <input formControlName="github" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Github</mat-label>
+                            <input formControlName="github" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>LinkedIn</mat-label>
-                        <input formControlName="linkedIn" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>LinkedIn</mat-label>
+                            <input formControlName="linkedIn" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Date de naissance</mat-label>
-                        <input type="date" formControlName="birthDate" matInput>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                </div>
-            </form>
-        </mat-step>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Date de naissance</mat-label>
+                            <input type="date" formControlName="birthDate" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
 
-        <mat-step [stepControl]="addressForm" label="Votre adresse">
-            <form [formGroup]="addressForm" class="flex m-1 flex-col justify-center items-center">
+            <mat-step [stepControl]="addressForm" label="Votre adresse">
+                <form [formGroup]="addressForm" class="flex m-1 flex-col justify-center items-center">
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Rue</mat-label>
-                        <input formControlName="street" matInput>
-                    </mat-form-field>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Rue</mat-label>
+                            <input formControlName="street" matInput>
+                        </mat-form-field>
 
-                </div>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Numéro</mat-label>
-                        <input formControlName="number" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Numéro</mat-label>
+                            <input formControlName="number" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Ville</mat-label>
-                        <input formControlName="city" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Ville</mat-label>
+                            <input formControlName="city" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Code postal</mat-label>
-                        <input formControlName="zipcode" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Code postal</mat-label>
+                            <input formControlName="zipcode" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div class="w-3/12 flex justify-between">
-                    <mat-form-field class="w-full">
-                        <mat-label>Pays</mat-label>
-                        <input formControlName="country" matInput>
-                    </mat-form-field>
-                </div>
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Pays</mat-label>
+                            <input formControlName="country" matInput>
+                        </mat-form-field>
+                    </div>
 
-                <div>
-                    <button mat-button matStepperPrevious>Retour</button>
-                    <button mat-button matStepperNext>Suivant</button>
-                </div>
-            </form>
-        </mat-step>
+                    <div>
+                        <button mat-button matStepperPrevious>Retour</button>
+                        <button mat-button matStepperNext>Suivant</button>
+                    </div>
+                </form>
+            </mat-step>
+        </div>
+
+        <div *ngIf="isRecruiter">
+
+            <mat-step *ngIf="isRecruiter" [stepControl]="companyForm" label="Information de l'entreprise">
+                <form [formGroup]="companyForm" class="flex m-1 flex-col justify-center items-center">
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Nom</mat-label>
+                            <input formControlName="name" matInput>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Description</mat-label>
+                            <input formControlName="description" matInput>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <button mat-button matStepperPrevious>Retour</button>
+                        <button mat-button matStepperNext>Suivant</button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step *ngIf="isRecruiter" [stepControl]="addressForm" label="Adresse de votre entreprise">
+                <form [formGroup]="addressForm" class="flex m-1 flex-col justify-center items-center">
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Rue</mat-label>
+                            <input formControlName="street" matInput>
+                        </mat-form-field>
+
+                    </div>
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Numéro</mat-label>
+                            <input formControlName="number" matInput>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Ville</mat-label>
+                            <input formControlName="city" matInput>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Code postal</mat-label>
+                            <input formControlName="zipcode" matInput>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-3/12 flex justify-between">
+                        <mat-form-field class="w-full">
+                            <mat-label>Pays</mat-label>
+                            <input formControlName="country" matInput>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <button mat-button matStepperPrevious>Retour</button>
+                        <button mat-button matStepperNext>Suivant</button>
+                    </div>
+                </form>
+            </mat-step>
+        </div>
 
         <mat-step>
             <ng-template matStepLabel>Finaliser</ng-template>

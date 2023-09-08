@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {UserRegister} from "../models/UserRegister";
+import {DevRegister} from "../models/DevRegister";
 import {environments} from "../../../environments/environments";
 import {BehaviorSubject, map, Observable, tap} from "rxjs";
 import {Token} from "../models/Token";
 import {User} from "../models/User";
+import {RecruiterRegister} from "../models/RecruiterRegister";
 
 @Injectable({
     providedIn: "root"
@@ -21,8 +22,13 @@ export class AuthService {
         this._token$.subscribe(console.log)
     }
 
-    register(user:UserRegister): Observable<User>{
+    registerDev(user:DevRegister): Observable<User>{
         return this._httpClient.post<User>(`${environments.apiUrl}/auth/dev-register`, user)
+    }
+
+    registerRecruiter(user: RecruiterRegister): Observable<User> {
+        console.log(user)
+        return this._httpClient.post<User>(`${environments.apiUrl}/auth/recruiter-register`, user)
     }
 
     login(username: string, password: string): Observable<Token>{

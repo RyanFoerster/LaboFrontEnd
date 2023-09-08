@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserRegister} from "../shared/models/UserRegister";
+import {DevRegister} from "../shared/models/DevRegister";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../shared/services/auth.service";
 import {User} from "../shared/models/User";

@@ -10,9 +10,12 @@ import {MatStepperModule} from "@angular/material/stepper";
 import {MatRadioModule} from "@angular/material/radio";
 import {TechnologyBackEnd} from "../../../shared/models/enums/TechnologyBackEnd";
 import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEnd";
-import {UserRegister} from "../../../shared/models/UserRegister";
+import {DevRegister} from "../../../shared/models/DevRegister";
 import {Address} from "../../../shared/models/Address";
 import {DevInfoForm} from "../../../shared/models/DevInfoForm";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {RecruiterRegister} from "../../../shared/models/RecruiterRegister";
+import {CompanyForm} from "../../../shared/models/CompanyForm";
 
 @Component({
     selector: 'app-register',
@@ -28,7 +31,8 @@ import {DevInfoForm} from "../../../shared/models/DevInfoForm";
         MatButtonModule,
         MatStepperModule,
         MatRadioModule,
-        FormsModule
+        FormsModule,
+        MatCheckboxModule
     ],
     styleUrls: ['./register.component.scss']
 })
@@ -36,11 +40,11 @@ export class RegisterComponent {
 
     userInfoForm: FormGroup
     devInfoForm: FormGroup
-    recruiterInfoForm!: FormGroup
+    companyForm: FormGroup
     addressForm: FormGroup
     technologyBackEnd = Object.values(TechnologyBackEnd)
     technologyFrontEnd = Object.values(TechnologyFrontEnd)
-    role!: string
+    isRecruiter: boolean = false
     roles: string[] = ["RECRUITER", "DEVELOPER"]
     isLinear = false;
 
@@ -72,26 +76,56 @@ export class RegisterComponent {
             zipcode: [null, []],
             country: [null, []]
         })
+
+        this.companyForm = _formBuilder.group({
+            name: [null, [Validators.required]],
+            description: [null, [Validators.required]]
+        })
     }
 
     register(): void {
-        if(this.userInfoForm.valid){
-            console.log(this.userInfoForm.value)
-            const user = mapToUser(  this.userInfoForm.value, this.devInfoForm.value, this.addressForm.value)
-            this._authService.register(user).subscribe(data => console.log(data))
+        if (!this.isRecruiter) {
+            if (this.userInfoForm.valid) {
+                const user = this.mapToUser(this.userInfoForm.value, this.devInfoForm.value, this.addressForm.value)
+                this._authService.registerDev(user).subscribe(data => console.log(data))
+            }
+        }
+        if (this.isRecruiter) {
+            if (this.userInfoForm.valid) {
+                const user = this.mapToRecruiter(this.userInfoForm.value, this.companyForm.value, this.addressForm.value)
+                this._authService.registerRecruiter(user).subscribe(data => console.log(data))
+            }
         }
     }
 
+    toggleRole() {
+        this.isRecruiter = !this.isRecruiter
+    }
+
+    mapToUser(userInfoForm: DevRegister, devInfoForm: DevInfoForm, addressForm: Address): DevRegister {
+        return {
+            username: userInfoForm.username || '',
+            password: userInfoForm.password || '',
+            firstName: userInfoForm.firstName || '',
+            lastName: userInfoForm.lastName || '',
+            email: userInfoForm.email || '',
+            devProfileUpdateForm: devInfoForm,
+            addressForm: addressForm
+        };
+    }
+
+    mapToRecruiter(descriptionInfoForm: RecruiterRegister, companyForm: CompanyForm, addressForm: Address): RecruiterRegister {
+
+        companyForm.addressForm = addressForm;
+        return {
+            username: descriptionInfoForm.username || '',
+            password: descriptionInfoForm.password || '',
+            firstName: descriptionInfoForm.firstName || '',
+            lastName: descriptionInfoForm.lastName || '',
+            email: descriptionInfoForm.email || '',
+            companyForm: companyForm,
+        };
+    }
 }
 
-function mapToUser(userInfoForm: UserRegister, devInfoForm: DevInfoForm, addressForm: Address): UserRegister {
-    return {
-        username: userInfoForm.username || '',
-        password: userInfoForm.password || '',
-        firstName: userInfoForm.firstName || '',
-        lastName: userInfoForm.lastName || '',
-        email: userInfoForm.email || '',
-        devProfileUpdateForm: devInfoForm,
-        addressForm: addressForm
-    } ;
-}
+
