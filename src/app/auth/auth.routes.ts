@@ -1,5 +1,4 @@
 import {Routes} from "@angular/router";
-import {AuthService} from "../shared/services/auth.service";
 
 export default [{
     path: "",

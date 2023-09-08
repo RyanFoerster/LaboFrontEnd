@@ -6,6 +6,7 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideRouter, Routes} from "@angular/router";
 import {authGuard} from "./app/guards/auth.guard";
 import {AuthService} from "./app/shared/services/auth.service";
+import {JwtInterceptor} from "./app/interceptors/jwt.interceptor";
 
 const routes: Routes = [
     {
@@ -32,7 +33,7 @@ const routes: Routes = [
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(BrowserModule),
-        // {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         provideRouter(routes),
         provideAnimations(),
         provideHttpClient(withInterceptorsFromDi())
