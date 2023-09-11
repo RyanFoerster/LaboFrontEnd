@@ -6,7 +6,111 @@
         <form [formGroup]="newJobOfferForm" (ngSubmit)="createJobOffer()">
             <div>
                 <p>Intitulé de l'offre</p>
-
+                <input type="text" placeholder="Intitulé de l'offre" formControlName="title">
+                <span class="error" *ngIf="newJobOfferForm.get('title')?.touched && newJobOfferForm.get('title')?.errors?.['required']">Ce champ est requis</span>
+            </div>
+            <div>
+                <p>Description de l'offre</p>
+                <input type="text" placeholder="Description de l'offre" formControlName="description">
+                <span class="error" *ngIf="newJobOfferForm.get('description')?.touched && newJobOfferForm.get('description')?.errors?.['required']">Ce champ est requis</span>
+            </div>
+            <div>
+                <p>Technologies front-end (minimum 1)</p>
+                <label>
+                    <input type="checkbox" value="REACT" (change)="updateTechnologyFrontEnds($event)">
+                    React
+                </label>
+                <label >
+                    <input type="checkbox" value="VUE" (change)="updateTechnologyFrontEnds($event)">
+                    Vue
+                </label>
+                <label>
+                    <input type="checkbox" value="ANGULAR" (change)="updateTechnologyFrontEnds($event)">
+                    Angular
+                </label>
+                <label>
+                    <input type="checkbox" value="SVELTE" (change)="updateTechnologyFrontEnds($event)">
+                    Svelte
+                </label>
+                <label>
+                    <input type="checkbox" value="JQUERY" (change)="updateTechnologyFrontEnds($event)">
+                    JQuery
+                </label>
+                <label>
+                    <input type="checkbox" value="EMBER" (change)="updateTechnologyFrontEnds($event)">
+                    Ember
+                </label>
+                <label>
+                    <input type="checkbox" value="BACKBONE" (change)="updateTechnologyFrontEnds($event)">
+                    BackBone
+                </label>
+                <label>
+                    <input type="checkbox" value="PREACT" (change)="updateTechnologyFrontEnds($event)">
+                    PReact
+                </label>
+             </div>
+            <div>
+                <p>Technologies back-end (minimum 1)</p>
+                <label>
+                    <input type="checkbox" value="NODE" (change)="updateTechnologyBackEnds($event)">
+                    Node
+                </label>
+                <label>
+                    <input type="checkbox" value="PYTHON_DJANGO" (change)="updateTechnologyBackEnds($event)">
+                    Python Django
+                </label>
+                <label>
+                    <input type="checkbox" value="RUBY_ON_RAILS" (change)="updateTechnologyBackEnds($event)">
+                    Ruby on rails
+                </label>
+                <label>
+                    <input type="checkbox" value="SPRING_BOOT" (change)="updateTechnologyBackEnds($event)">
+                    Spring Boot
+                </label>
+                <label>
+                    <input type="checkbox" value="NET_CORE" (change)="updateTechnologyBackEnds($event)">
+                    Net Core
+                </label>
+                <label>
+                    <input type="checkbox" value="PHP_LARAVEL" (change)="updateTechnologyBackEnds($event)">
+                    PHP Lavarel
+                </label>
+                <label>
+                    <input type="checkbox" value="ASP_NET" (change)="updateTechnologyBackEnds($event)">
+                    ASP Net
+                </label>
+                <label>
+                    <input type="checkbox" value="EXPRESS" (change)="updateTechnologyBackEnds($event)">
+                    Express
+                </label>
+                <label>
+                    <input type="checkbox" value="KOA" (change)="updateTechnologyBackEnds($event)">
+                    Koa
+                </label>
+                <label>
+                    <input type="checkbox" value="GO" (change)="updateTechnologyBackEnds($event)">
+                    Go
+                </label>
+                <label>
+                    <input type="checkbox" value="RUST" (change)="updateTechnologyBackEnds($event)">
+                    Rust
+                </label>
+                <label>
+                    <input type="checkbox" value="HASKELL" (change)="updateTechnologyBackEnds($event)">
+                    Haskell
+                </label>
+                <label>
+                    <input type="checkbox" value="SCALA" (change)="updateTechnologyBackEnds($event)">
+                    Scala
+                </label>
+            </div>
+            <div>
+                <p>Lien de l'offre</p>
+                <input type="text" placeholder="Lien de l'offre" formControlName="link">
+                <span class="error" *ngIf="newJobOfferForm.get('link')?.touched && newJobOfferForm.get('link')?.errors?.['required']">Ce champ est requis</span>
+            </div>
+            <div>
+                <input type="submit" value="Créer offre d'emploi">
             </div>
         </form>
     </div>
