@@ -18,6 +18,6 @@ export class JobOfferService {
   }
 
   getJobOffersFromServer():Observable<JobOfferIndex>{
-      return this._http.get<JobOfferIndex>(`${environments.apiUrl}/job/jobs`)
+      return this._http.get<JobOfferIndex>(`${environments.apiUrl}/job`)
   }
 }
