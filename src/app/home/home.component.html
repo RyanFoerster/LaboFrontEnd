@@ -1,3 +1,13 @@
 
 <h1 *ngIf="user">{{user.username}}</h1>
 <h1 *ngIf="!user">Bouffon </h1>
+<div *ngIf="user">
+    <a routerLink="/job-offers">
+        <button>Voir les offres d'emploi</button>
+    </a>
+    <div *ngIf="user.roles.includes('RECRUITER')">
+        <a routerLink="/job-offers/create">
+            <button>Créer une nouvelle offre d'emploi</button>
+        </a>
+    </div>
+</div>

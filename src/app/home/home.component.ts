@@ -3,13 +3,15 @@ import {DevRegister} from "../shared/models/DevRegister";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../shared/services/auth.service";
 import {User} from "../shared/models/User";
+import {RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     imports: [
-        NgIf
+        NgIf,
+        RouterLink
     ],
     styleUrls: ['./home.component.scss']
 })

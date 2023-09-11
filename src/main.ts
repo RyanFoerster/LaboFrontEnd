@@ -22,12 +22,16 @@ const routes: Routes = [
     {
         path: "",
         loadChildren: () => import("./app/auth/auth.routes")
+    }, {
+        path: "job-offers",
+        loadChildren:()=> import("./app/jobOffers/job-offer.routes")
     },
     {
         path: "**",
         redirectTo: "home",
         pathMatch: "full",
     }
+
 ]
 
 bootstrapApplication(AppComponent, {
