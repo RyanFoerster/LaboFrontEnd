@@ -1,1 +1,13 @@
-<p>create-job-offer works!</p>
+<main>
+    <a routerLink="/job-offers">
+        <button>Retour</button>
+    </a>
+    <div>
+        <form [formGroup]="newJobOfferForm" (ngSubmit)="createJobOffer()">
+            <div>
+                <p>Intitulé de l'offre</p>
+
+            </div>
+        </form>
+    </div>
+</main>

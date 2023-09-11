@@ -1,25 +1,27 @@
+<div>
+    <a routerLink="/job-offers/create">
+        <button>Créer une offre d'emploi</button>
+    </a>
 <div *ngIf="jobOffersList$ | async">
     <table>
         <thead>
         <tr>
             <td>Intitulé</td>
-            <td>Description</td>
-            <td>Technologies Front End</td>
-            <td>Technologies Back End</td>
-            <td>Lien</td>
-            <td>Recruteur</td>
+            <td>Technologies</td>
+            <td>Actions</td>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let jobOffer of jobOffers">
             <td>{{jobOffer.title}}</td>
-            <td>{{jobOffer.description}}</td>
-            <td>{{jobOffer.technologyFrontEnds}}</td>
-            <td>{{jobOffer.technologyBackEnds}}</td>
-            <td>{{jobOffer.link}}</td>
-            <td>{{jobOffer.recruiter.lastName}} {{jobOffer.recruiter.firstName}}</td>
+            <td>{{jobOffer.technologyFrontEnds}}, {{jobOffer.technologyBackEnds}}</td>
+            <td>
+                <a routerLink="/job-offers/{{jobOffer.id}}"><button>🔍</button></a>
+                <button (click)="delete(jobOffer.id)" >❌</button>
+            </td>
         </tr>
         </tbody>
     </table>
 
+</div>
 </div>
