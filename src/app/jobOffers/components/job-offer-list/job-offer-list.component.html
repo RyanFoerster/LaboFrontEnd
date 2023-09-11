@@ -1,0 +1,25 @@
+<div *ngIf="jobOffersList$ | async">
+    <table>
+        <thead>
+        <tr>
+            <td>Intitulé</td>
+            <td>Description</td>
+            <td>Technologies Front End</td>
+            <td>Technologies Back End</td>
+            <td>Lien</td>
+            <td>Recruteur</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let jobOffer of jobOffers">
+            <td>{{jobOffer.title}}</td>
+            <td>{{jobOffer.description}}</td>
+            <td>{{jobOffer.technologyFrontEnds}}</td>
+            <td>{{jobOffer.technologyBackEnds}}</td>
+            <td>{{jobOffer.link}}</td>
+            <td>{{jobOffer.recruiter.lastName}} {{jobOffer.recruiter.firstName}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
