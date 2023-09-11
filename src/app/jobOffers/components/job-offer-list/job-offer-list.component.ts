@@ -6,6 +6,8 @@ import {JobOfferService} from "../../../shared/services/job-offer.service";
 import {AuthService} from "../../../shared/services/auth.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {JobOfferIndex} from "../../../shared/models/JobOfferIndex";
+import {RouterLink} from "@angular/router";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
     selector: 'app-job-offer-list',
@@ -14,20 +16,23 @@ import {JobOfferIndex} from "../../../shared/models/JobOfferIndex";
     imports: [
         NgIf,
         AsyncPipe,
-        NgForOf
+        NgForOf,
+        RouterLink
     ],
     styleUrls: ['./job-offer-list.component.scss']
 })
 export class JobOfferListComponent implements OnInit {
 
     jobOffersList$!: Observable<JobOfferIndex>;
-    jobOffers: JobOffer[]|null = [];
+    jobOffers: JobOffer[] | null = [];
     spinner: boolean = false;
 
     connectedUser ?: User;
 
     constructor(private _jobsService: JobOfferService,
-                private _autService: AuthService) {
+                private _autService: AuthService,
+                private _FB : FormBuilder) {
+
         if (this._autService.user) {
             this.connectedUser = this._autService.user;
         } else {
@@ -42,13 +47,17 @@ export class JobOfferListComponent implements OnInit {
     }
 
     private initObservables() {
-        this.jobOffersList$=this._jobsService.getJobOffersFromServer()
+        this.jobOffersList$ = this._jobsService.getJobOffersFromServer()
             .pipe(
-            tap( data=> {
-                this.jobOffers=data.result
-                console.log(data.result)
-            })
-        )
+                tap(data => {
+                    this.jobOffers = data.result
+                    console.log(data.result)
+                })
+            )
     }
 
+    delete(id: string) {
+        this._jobsService.deleteJobFromServer(id).subscribe()
+        setInterval(()=>location.reload(),1000)
+    }
 }
