@@ -60,7 +60,7 @@ export class RegisterComponent {
             password: [null, [
                 Validators.required,
                 Validators.minLength(6),
-                Validators.pattern("^(?=.*[!=@#$%^&*()_+{}\\\\[\\\\]:;<>,.?~\\\\-]).*(?=.*[A-Z]).*(?=.*[0-9]).*$")
+                Validators.pattern(/^(?=.*[!=@#$%^&*()_+{}\[\]:;<>,.?~\-]).*(?=.*[A-Z]).*(?=.*[0-9]).*$/)
             ]],
             firstName: [null, [Validators.required]],
             lastName: [null, [Validators.required]],
@@ -99,7 +99,10 @@ export class RegisterComponent {
             }
         }
         if (this.isRecruiter) {
+            console.log(this.userInfoForm)
+            console.log(`valid : ${this.userInfoForm.valid}`)
             if (this.userInfoForm.valid) {
+                console.log(this.userInfoForm.value)
                 const user = this.mapToRecruiter(this.userInfoForm.value, this.companyForm.value, this.addressForm.value)
                 this._authService.registerRecruiter(user).subscribe(data => console.log(data))
             }
