@@ -35,4 +35,8 @@ export class JobOfferService {
     addJobToServer(newJobOffer : JobOffer):Observable<JobOfferToAdd>{
         return this._http.post<JobOfferToAdd>(`${environments.apiUrl}/job`,newJobOffer)
     }
+
+    updateJob(jobOfferToEdit: JobOffer, id: string):Observable<JobOfferToAdd> {
+        return this._http.put<JobOfferToAdd>(`${environments.apiUrl}/job/${id}`,jobOfferToEdit)
+    }
 }

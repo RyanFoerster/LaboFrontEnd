@@ -14,8 +14,7 @@ import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEn
     imports: [
         RouterLink,
         ReactiveFormsModule,
-        NgIf,
-        NgForOf
+        NgIf
     ],
     styleUrls: ['./create-job-offer.component.scss']
 })
