@@ -4,7 +4,7 @@ import {Comment} from "./Comment";
 import {VoteSujet} from "./VoteSujet";
 
 export interface PostHelp {
-    id?: string
+    id: number
     title: string
     technologyFrontEnd?: TechnologyFrontEnd
     technologyBackEnd?: TechnologyBackEnd

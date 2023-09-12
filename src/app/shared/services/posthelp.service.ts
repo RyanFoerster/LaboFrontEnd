@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {PostHelp} from "../models/PostHelp";
 import {environments} from "../../../environments/environments";
 import {Observable} from "rxjs";
-import {VoteSujet} from "../models/VoteSujet";
 
 @Injectable({
     providedIn: 'root'
@@ -21,8 +20,8 @@ export class PosthelpService {
     }
 
 
-    votePost(id: string | undefined, voteType: string): Observable<PostHelp> {
-        return this._httpClient.post<PostHelp>(
+    votePost(id: number, voteType: VoteType): Observable<Vote> {
+        return this._httpClient.post<Vote>(
             `${environments.apiUrl}/posthelp/${id}/vote`,
             null,
             {
@@ -31,5 +30,12 @@ export class PosthelpService {
         );
     }
 
+    getVote(postId: number){
+        return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/${postId}/vote`)
+    }
+
 
 }
+
+export interface Vote {voteType: string | null, hasVoted: boolean, score: number}
+export type VoteType = 'UPVOTE' | 'DOWNVOTE'

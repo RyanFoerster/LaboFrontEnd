@@ -6,42 +6,9 @@
     </div>
 
     <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen border-2 border-amber-600">
-
-        <mat-card *ngFor="let postHelp of postHelps" color="">
-            <mat-card-header>
-                <mat-card-title>{{ postHelp.title }}</mat-card-title>
-                <mat-card-subtitle>{{ postHelp.description }}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    Technology front end: {{ postHelp.technologyFrontEnd }}
-                </p>
-                <p>
-                    Technology back end: {{ postHelp.technologyBackEnd }}
-                </p>
-                <p>
-                    GitHub link: {{ postHelp.github }}
-                </p>
-                <p>
-                    Status: {{ postHelp.ouvert ? 'Ouvert' : 'Fermé' }}
-                </p>
-                <p>
-                    Nombre de commentaires: {{ postHelp.comments.length }}
-                </p>
-
-            </mat-card-content>
-
-            <mat-card-actions align="end">
-                <button (click)="upvote(postHelp.id)" mat-button>Upvote</button>
-                <div class="align-bottom">
-                    <p class="text-white align-bottom">
-                        Score: {{ postHelp.score }}
-                    </p>
-                </div>
-                <button (click)="downvote(postHelp.id)" mat-button>Downvote</button>
-            </mat-card-actions>
-        </mat-card>
-
+        <ng-container *ngFor="let postHelp of postHelps">
+            <app-post [post]="postHelp" ></app-post>
+        </ng-container>
     </div>
 
     <div class="w-1/6 h-screen border-2 border-amber-600">

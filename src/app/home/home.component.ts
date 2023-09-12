@@ -6,9 +6,10 @@ import {User} from "../shared/models/User";
 
 import {PostHelp} from "../shared/models/PostHelp";
 import {PosthelpService} from "../shared/services/posthelp.service";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {PostComponent} from "../post/post.component";
 
 
 @Component({
@@ -20,7 +21,8 @@ import {MatButtonModule} from "@angular/material/button";
         AsyncPipe,
         MatCardModule,
         NgForOf,
-        MatButtonModule
+        MatButtonModule,
+        PostComponent
     ],
     styleUrls: ['./home.component.scss']
 })
@@ -40,33 +42,10 @@ export class HomeComponent implements OnInit{
             this.user = this._authService.user
         }
 
-        this.postsHelp$ = this._posthelpService.getAll()
+        this.postsHelp$ = this._posthelpService.getAll().pipe(
+            tap(data => console.log('ici', data))
+        )
 
-    }
-
-    upvote(id: string | undefined) {
-        this._posthelpService.votePost(id, 'UPVOTE').subscribe(
-            response => {
-                console.log('Upvoted successfully', response);
-
-
-            },
-            error => {
-                console.log('Error upvoting', error);
-            }
-        );
-    }
-
-    downvote(id: string | undefined) {
-        this._posthelpService.votePost(id, 'DOWNVOTE').subscribe(
-            response => {
-                console.log('Downvoted successfully', response);
-
-            },
-            error => {
-                console.log('Error downvoting', error);
-            }
-        );
     }
 
 
