@@ -22,9 +22,15 @@ const routes: Routes = [
     {
         path: "",
         loadChildren: () => import("./app/auth/auth.routes")
-    }, {
+    },
+    {
         path: "job-offers",
-        loadChildren:()=> import("./app/jobOffers/job-offer.routes")
+        loadChildren: () => import("./app/jobOffers/job-offer.routes")
+    },
+    {
+        path: "chat",
+        loadComponent: () => import("./app/chat/chat.component").then(module => module.ChatComponent),
+        canActivate: [authGuard]
     },
     {
         path: "**",
