@@ -10,6 +10,7 @@ import {Observable, tap} from "rxjs";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {PostComponent} from "../post/post.component";
+import {data} from "autoprefixer";
 
 
 @Component({
