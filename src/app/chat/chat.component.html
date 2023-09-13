@@ -1,1 +1,22 @@
-chat works
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="connect">WebSocket connection:</label>
+                <button id="connect" class="mat-flat-button bg-gray-800 p-6" (click)="connect()"  [disabled]="connected">Connect</button>
+                <button id="disconnect" class="mat-button bg-amber-300 p-6" (click)="disconnect()"  [disabled]="!connected">Disconnect
+                </button>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <button id="send" class="btn btn-default" type="submit" (click)="sendMessages()">Send</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p *ngFor="let msg of messages">{{msg}}</p>
+        </div>
+    </div>
+</div>
