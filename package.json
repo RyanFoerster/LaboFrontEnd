@@ -24,6 +24,7 @@
     "angular-animations": "^0.11.0",
     "ngx-socket-io": "^4.5.1",
     "rxjs": "~7.8.0",
+    "sockjs-client": "^1.6.1",
     "tslib": "^2.3.0",
     "ws": "^8.14.1",
     "zone.js": "~0.13.0"

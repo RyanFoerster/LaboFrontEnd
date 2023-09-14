@@ -29,8 +29,7 @@ const routes: Routes = [
     },
     {
         path: "chat",
-        loadComponent: () => import("./app/chat/chat.component").then(module => module.ChatComponent),
-        canActivate: [authGuard]
+        loadComponent: () => import("./app/chat/chat.component").then(module => module.ChatComponent)
     },
     {
         path: "**",
