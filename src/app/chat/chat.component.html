@@ -11,13 +11,14 @@
 
         </div>
         <div class="col-md-6">
-            <button id="send" class="btn btn-default" type="submit" (click)="sendName()">Send</button>
+            <input matInput class="border-2 border-amber-300" type="text" [(ngModel)]="messageToSend">
+            <button mat-button color="primary" (click)="sendMessage(messageToSend)">Send</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <p *ngFor="let msg of text">
-                {{msg}}
+                {{userConnected?.username}} : {{msg}}
             </p>
         </div>
     </div>
