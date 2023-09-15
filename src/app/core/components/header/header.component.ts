@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
@@ -8,6 +8,7 @@ import {CommonModule, NgIf} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Observable} from "rxjs";
+import {User} from "../../../shared/models/User";
 
 @Component({
     selector: 'app-header',
@@ -16,10 +17,11 @@ import {Observable} from "rxjs";
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
 
     isLogged$: Observable<boolean>
     showSpinner: boolean = false
+    connectedUser?:User;
 
 
     constructor(private _authService: AuthService,
@@ -28,6 +30,12 @@ export class HeaderComponent {
     }
 
     ngOnInit(): void {
+        if (this._authService.user) {
+            this.connectedUser = this._authService.user;
+        } else {
+            this.connectedUser = undefined;
+        }
+
     }
 
     logout() {

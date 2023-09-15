@@ -20,9 +20,9 @@
             Nombre de commentaires: {{ postHelp.comments.length }}
         </p>
 
-    </mat-card-content>
-
-    <mat-card-actions align="end" *ngIf="vote$ | async as voteInfo">
+    </mat-card-content >
+<div *ngIf="connectedUser && connectedUser.roles && connectedUser.roles.includes('DEVELOPER')">
+    <mat-card-actions align="end" *ngIf=" vote$ | async as voteInfo ">
         <button (click)="vote(postHelp.id, 'UPVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'UPVOTE'}">Upvote</button>
         <div class="align-bottom">
             <p class="text-white align-bottom">
@@ -31,4 +31,5 @@
         </div>
         <button (click)="vote(postHelp.id, 'DOWNVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'DOWNVOTE'}">Downvote</button>
     </mat-card-actions>
+</div>
 </mat-card>

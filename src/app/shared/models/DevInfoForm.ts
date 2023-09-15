@@ -3,7 +3,8 @@ export interface DevInfoForm {
     birthDate: Date | null;
     technologyBackEnds: string[] | null;
     technologyFrontEnds: string[] | null;
-    github: string | null;
+    gitHub: string | null;
     linkedIn: string | null;
+    cv: string | null;
     pseudo: string | null;
 }

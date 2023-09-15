@@ -30,11 +30,11 @@ export class JobOfferListComponent implements OnInit {
     connectedUser ?: User;
 
     constructor(private _jobsService: JobOfferService,
-                private _autService: AuthService,
+                private _authService: AuthService,
                 private _FB : FormBuilder) {
 
-        if (this._autService.user) {
-            this.connectedUser = this._autService.user;
+        if (this._authService.user) {
+            this.connectedUser = this._authService.user;
         } else {
             this.connectedUser = undefined;
         }

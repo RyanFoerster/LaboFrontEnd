@@ -1,5 +1,5 @@
 <div>
-    <a routerLink="/job-offers/create">
+    <a *ngIf="connectedUser && connectedUser.roles && connectedUser.roles.includes('RECRUITER')" routerLink="/job-offers/create">
         <button>Créer une offre d'emploi</button>
     </a>
     <div *ngIf="jobOffersList$ | async">
