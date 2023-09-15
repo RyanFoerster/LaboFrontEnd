@@ -1,35 +1,73 @@
-<mat-card  color="">
-    <mat-card-header>
+<mat-card appearance="outlined" class="p-4 shadow-lg rounded-2xl my-bg mb-3">
+    <mat-card-header class="mb-4">
         <mat-card-title>{{ postHelp.title }}</mat-card-title>
         <mat-card-subtitle>{{ postHelp.description }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-        <p>
-            Technology front end: {{ postHelp.technologyFrontEnd }}
-        </p>
-        <p>
-            Technology back end: {{ postHelp.technologyBackEnd }}
-        </p>
-        <p>
-            GitHub link: {{ postHelp.github }}
-        </p>
-        <p>
-            Status: {{ postHelp.ouvert ? 'Ouvert' : 'Fermé' }}
-        </p>
-        <p>
+    <mat-card-content class="flex flex-col justify-between space-y-4">
+
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Informations
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Test
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>I'm visible because I am open</p>
+                <p class="text-xs text-white-700">
+                    Technology front end: {{ postHelp.technologyFrontEnd }}
+                </p>
+                <p class="text-base text-white-700">
+                    Technology back end: {{ postHelp.technologyBackEnd }}
+                </p>
+                <p class="text-base text-white-700">GitHub link:
+                    <a class="hover:text-purple-700" href="{{ postHelp.github }}">{{ postHelp.github }}</a>
+                </p>
+                <p class="text-base text-white-700">
+                    Status: {{ postHelp.ouvert ? 'Ouvert' : 'Fermé' }}
+                </p>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+
+        <p class="text-base text-white-700">
             Nombre de commentaires: {{ postHelp.comments.length }}
         </p>
 
-    </mat-card-content >
-<div *ngIf="connectedUser && connectedUser.roles && connectedUser.roles.includes('DEVELOPER')">
-    <mat-card-actions align="end" *ngIf=" vote$ | async as voteInfo ">
-        <button (click)="vote(postHelp.id, 'UPVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'UPVOTE'}">Upvote</button>
-        <div class="align-bottom">
-            <p class="text-white align-bottom">
-                Score: {{ voteInfo.score }}
-            </p>
-        </div>
-        <button (click)="vote(postHelp.id, 'DOWNVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'DOWNVOTE'}">Downvote</button>
-    </mat-card-actions>
-</div>
+
+    </mat-card-content>
+
+    <mat-card-footer *ngIf="connectedUser && connectedUser.roles && connectedUser.roles.includes('DEVELOPER')">
+
+        <mat-card-actions *ngIf="vote$ | async as voteInfo"
+                          class="flex justify-between items-center mt-4">
+            <div class="flex space-x-4">
+                <button (click)="votePost(postHelp.id, 'UPVOTE')" mat-raised-button
+                        [ngClass]="{active: voteInfo.voteType == 'UPVOTE'}">Upvote
+                </button>
+                <p class="text-white-700">
+                    Score: {{ voteInfo.score }}
+                </p>
+                <button (click)="votePost(postHelp.id, 'DOWNVOTE')" mat-raised-button
+                        [ngClass]="{active: voteInfo.voteType == 'DOWNVOTE'}">Downvote
+                </button>
+
+            </div>
+
+        </mat-card-actions>
+
+    </mat-card-footer>
+
 </mat-card>
+
+<div>
+
+    <div *ngFor=" let comment of postHelp.comments">
+        <app-comment [comment]="comment"></app-comment>
+    </div>
+</div>
+

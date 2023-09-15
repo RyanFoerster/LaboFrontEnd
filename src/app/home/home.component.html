@@ -5,10 +5,13 @@
 
     </div>
 
-    <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen border-2 border-amber-600">
-        <ng-container *ngFor="let postHelp of postHelps">
-            <app-post [post]="postHelp" ></app-post>
-        </ng-container>
+    <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen border-2 border-amber-600 ">
+        <div class="mt-3  mx-5">
+            <ng-container  *ngFor="let postHelp of postHelps">
+                <app-post [post]="postHelp"></app-post>
+            </ng-container>
+        </div>
+
     </div>
 
     <div class="w-1/6 h-screen border-2 border-amber-600">

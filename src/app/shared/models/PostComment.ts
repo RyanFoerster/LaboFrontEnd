@@ -1,8 +1,8 @@
 import {User} from "./User";
 import {VoteComment} from "./VoteComment";
 
-export interface Comment {
-    id?: string
+export interface PostComment {
+    id: number
     message: string
     dev: User
     voteComments: VoteComment

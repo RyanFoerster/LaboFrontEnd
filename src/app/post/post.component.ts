@@ -7,20 +7,28 @@ import {PosthelpService, Vote, VoteType} from "../shared/services/posthelp.servi
 import {Observable, tap} from "rxjs";
 import {AuthService} from "../shared/services/auth.service";
 import {User} from "../shared/models/User";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatChipsModule} from "@angular/material/chips";
+import {FormsModule} from "@angular/forms";
+import {CommentComponent} from "./comment/comment.component";
 
 @Component({
     selector: 'app-post',
     standalone: true,
-    imports: [CommonModule, MatButtonModule, MatCardModule],
+    imports: [CommonModule, MatButtonModule, MatCardModule, MatExpansionModule, MatChipsModule, FormsModule, CommentComponent],
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
     @Input('post')
     postHelp!: PostHelp;
+
     connectedUser?: User;
 
     vote$!: Observable<Vote>;
+    voteComment$!: Observable<Vote>;
+    panelOpenState: boolean = false;
+
 
     constructor(
         private readonly _posthelpService: PosthelpService,
@@ -46,5 +54,6 @@ export class PostComponent implements OnInit {
             })
         );
     }
+
 
 }
