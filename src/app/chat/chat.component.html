@@ -1,6 +1,6 @@
-<div id="main-content" class="container">
-    <div class="row">
-        <div class="col-md-6">
+<!--<div id="main-content" class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-6">-->
 
             <div class="form-group">
                 <label for="connect">WebSocket connection:</label>
@@ -9,17 +9,32 @@
                 </button>
             </div>
 
-        </div>
+<!--        </div>-->
+<!--        <div class="col-md-6">-->
+<!--            <input matInput class="border-2 border-amber-300" type="text" [(ngModel)]="messageToSend">-->
+<!--            <button mat-button color="primary" (click)="sendMessage(messageToSend)">Send</button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<div *ngIf="relations$ | async as relations">
+    <div *ngFor="let relation of relations">
+        <button>{{relation.name}}</button>
         <div class="col-md-6">
             <input matInput class="border-2 border-amber-300" type="text" [(ngModel)]="messageToSend">
-            <button mat-button color="primary" (click)="sendMessage(messageToSend)">Send</button>
+            <button mat-button color="primary" (click)="sendMessage(messageToSend, relation.id)">Send</button>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p *ngFor="let msg of relation.messages">
+                    {{msg.emitter.username}} : {{msg.message}}
+                </p>
+                <p *ngFor="let txt of text">
+                    {{txt.emitter.username}} : {{txt.message}}
+                </p>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p *ngFor="let msg of text">
-                {{userConnected?.username}} : {{msg}}
-            </p>
-        </div>
-    </div>
+
 </div>

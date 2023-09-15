@@ -1,0 +1,24 @@
+<div class="mat-elevation-z8" *ngIf="devs$ | async as devs">
+    <table mat-table [dataSource]="devs">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let dev"> {{dev.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let dev"> {{dev.firstName}} {{dev.lastName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="button">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let dev"><button mat-button (click)="onMatch(dev.id)">❤️</button></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+

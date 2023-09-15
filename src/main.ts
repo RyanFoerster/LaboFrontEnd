@@ -29,7 +29,13 @@ const routes: Routes = [
     },
     {
         path: "chat",
-        loadComponent: () => import("./app/chat/chat.component").then(module => module.ChatComponent)
+        loadComponent: () => import("./app/chat/chat.component").then(module => module.ChatComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: "relation",
+        loadComponent: () => import("./app/relation/relation.component").then(module => module.RelationComponent),
+        canActivate: [authGuard]
     },
     {
         path: "**",

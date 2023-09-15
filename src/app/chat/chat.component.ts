@@ -6,6 +6,11 @@ import {User} from "../shared/models/User";
 import {AuthService} from "../shared/services/auth.service";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {RelationService} from "../shared/services/relation.service";
+import {Observable} from "rxjs";
+import {Relation} from "../shared/models/Relation";
+import {ReversePipe} from "../shared/pipe/reverse.pipe";
+import {Message} from "../shared/models/Message";
 
 @Component({
     selector: 'app-chat',
@@ -14,26 +19,32 @@ import {MatButtonModule} from "@angular/material/button";
         CommonModule,
         FormsModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        ReversePipe
     ],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
 
     private stompClient!: Client;
-    text: string[] = []
+    text: Message[] = []
     userConnected!: User | undefined
     messageToSend: string = ""
-    sessionId: string = ""
-    constructor(private _authService: AuthService) { }
+    relations$!: Observable<Relation[]>
+
+
+    constructor(private _authService: AuthService,
+                private _relationService: RelationService
+    ) {}
 
     ngOnInit() {
         this.stompClient = new Client({
-            brokerURL: 'ws://localhost:8080/hello'
+            brokerURL: 'ws://localhost:8080/chat'
         });
 
         this.userConnected = this._authService.user
+        this.relations$ = this._relationService.getRelation()
     }
 
     connect() {
@@ -41,8 +52,7 @@ export class ChatComponent implements OnInit{
         this.stompClient.onConnect = (frame) => {
             console.log("connected" + frame)
             this.stompClient.subscribe(`/user/${this.userConnected?.username}/queue/private-reply`, (message) => {
-                this.text.push(message.body)
-                console.log(this.text.length)
+                this.text.push(JSON.parse(message.body))
             });
         };
 
@@ -61,12 +71,13 @@ export class ChatComponent implements OnInit{
         console.log("Disconnected");
     }
 
-    sendMessage(message: string) {
+    sendMessage(message: string, receptorId: number) {
+        console.log(receptorId)
         this.stompClient.publish({
             destination: "/app/private-message",
             body: JSON.stringify({
                 emitter: this.userConnected?.username,
-                receptor: "string2",
+                receptorId: receptorId,
                 message: message
             })
         });

@@ -1,9 +1,10 @@
 import {User} from "./User";
+import {Correspondant} from "./Correspondant";
 
 export interface Message {
-    id?: number
+    id: number
     message: string
-    emitter?: User
-    receptor?: User
-    match?: any
+    emitter: Correspondant
+    receptor: Correspondant
+    matchId: number
 }

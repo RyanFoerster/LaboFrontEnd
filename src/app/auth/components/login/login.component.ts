@@ -5,13 +5,6 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {AuthService} from "../../../shared/services/auth.service";
-import {
-    bounceAnimation,
-    fadeInOnEnterAnimation, fadeInRightAnimation, fadeInRightOnEnterAnimation,
-    fadeOutOnLeaveAnimation,
-    pulseAnimation,
-    rubberBandAnimation
-} from "angular-animations";
 import {NgIf} from "@angular/common";
 import {MatStepperModule} from "@angular/material/stepper";
 
