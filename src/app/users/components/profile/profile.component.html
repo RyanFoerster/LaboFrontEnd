@@ -1,0 +1,31 @@
+<div>
+    <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('DEVELOPER')">
+        <div *ngIf="devInfoSub |  async as dev">
+            <p>{{dev.firstName}}</p>
+            <p>{{dev.lastName}}</p>
+            <p>{{dev.pseudo}}</p>
+            <p>Adresse :</p>
+            <p>{{dev.address.street}}</p>
+            <p>{{dev.address.number}}</p>
+            <p>{{dev.address.city}}</p>
+            <p>{{dev.address.zipcode}}</p>
+            <p>{{dev.address.country}}</p>
+        </div>
+    </div>
+    <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('RECRUITER')">
+        <div *ngIf="recruiterSub | async as recruiter">
+            <p>{{recruiter.firstName}}</p>
+            <p>{{recruiter.lastName}}</p>
+            <p>{{recruiter.email}}</p>
+            <p>Société :</p>
+            <p>{{recruiter.company.name}}</p>
+            <p>{{recruiter.company.description}}</p>
+            <p>Adresse de la société :</p>
+            <p>{{recruiter.company.address.street}}</p>
+            <p>{{recruiter.company.address.number}}</p>
+            <p>{{recruiter.company.address.city}}</p>
+            <p>{{recruiter.company.address.zipcode}}</p>
+            <p>{{recruiter.company.address.country}}</p>
+        </div>
+    </div>
+</div>

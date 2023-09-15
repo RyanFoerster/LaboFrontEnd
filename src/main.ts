@@ -22,9 +22,14 @@ const routes: Routes = [
     {
         path: "",
         loadChildren: () => import("./app/auth/auth.routes")
-    }, {
+    },
+    {
         path: "job-offers",
-        loadChildren:()=> import("./app/jobOffers/job-offer.routes")
+        loadChildren: () => import("./app/jobOffers/job-offer.routes")
+    },
+    {
+        path: "profile",
+        loadChildren: () => import("./app/users/user.routes")
     },
     {
         path: "**",
