@@ -24,7 +24,7 @@ export class PosthelpService {
     }
 
 
-    votePostHelp(id: number, voteType: VoteType): Observable<Vote> {
+    voteHelp(id: number, voteType: VoteType): Observable<Vote> {
         return this._httpClient.post<Vote>(
             `${environments.apiUrl}/posthelp/${id}/vote`,
             null,
@@ -43,7 +43,7 @@ export class PosthelpService {
         );
     }
 
-    getVotePostHelp(postId: number){
+    getVoteHelp(postId: number){
         return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/${postId}/vote`)
     }
     getCommentVote(commentId: number){
