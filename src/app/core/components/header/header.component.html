@@ -1,7 +1,10 @@
 <div *ngIf="!showSpinner">
     <mat-toolbar class="mat-primary" color="primary">
         <mat-toolbar-row class="flex justify-end">
+
             <button mat-button class="btn" routerLink="/home">Home</button>
+            <button *ngIf="connectedUser" mat-button class="btn" routerLink="/profile/{{connectedUser.id}}">Profile</button>
+            <button *ngIf="connectedUser" mat-button class="btn" routerLink="/job-offers">Job Offers</button>
             <button mat-button class="btn">About</button>
             <button mat-button class="btn">Contact</button>
 

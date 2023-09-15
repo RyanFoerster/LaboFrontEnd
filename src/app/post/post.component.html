@@ -38,9 +38,10 @@
             Nombre de commentaires: {{ postHelp.comments.length }}
         </p>
 
+
     </mat-card-content>
 
-    <mat-card-footer>
+    <mat-card-footer *ngIf="connectedUser && connectedUser.roles && connectedUser.roles.includes('DEVELOPER')">
 
         <mat-card-actions *ngIf="vote$ | async as voteInfo"
                           class="flex justify-between items-center mt-4">
@@ -58,6 +59,7 @@
             </div>
 
         </mat-card-actions>
+
     </mat-card-footer>
 
 </mat-card>
