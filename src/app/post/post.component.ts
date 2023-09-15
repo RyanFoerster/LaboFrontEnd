@@ -37,7 +37,7 @@ export class PostComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.vote$ = this._posthelpService.getVote(this.postHelp.id)
+        this.vote$ = this._posthelpService.getVotePostHelp(this.postHelp.id)
 
         if (this._authService.user) {
             this.connectedUser = this._authService.user;
@@ -47,7 +47,7 @@ export class PostComponent implements OnInit {
     }
 
     vote(id: number, type: VoteType) {
-        this.vote$ = this._posthelpService.votePost(id, type).pipe(
+        this.vote$ = this._posthelpService.votePostHelp(id, type).pipe(
             tap({
                 next: response => console.log('Upvoted successfully', response),
                 error: error => console.log('Error upvoting', error)
