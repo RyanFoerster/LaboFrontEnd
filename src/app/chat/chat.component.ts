@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from "@angular/forms"
 import {Client} from '@stomp/stompjs';
@@ -11,6 +11,7 @@ import {Observable} from "rxjs";
 import {Relation} from "../shared/models/Relation";
 import {ReversePipe} from "../shared/pipe/reverse.pipe";
 import {Message} from "../shared/models/Message";
+import {MatCardModule} from "@angular/material/card";
 
 @Component({
     selector: 'app-chat',
@@ -20,12 +21,13 @@ import {Message} from "../shared/models/Message";
         FormsModule,
         MatInputModule,
         MatButtonModule,
-        ReversePipe
+        ReversePipe,
+        MatCardModule
     ],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
 
     private stompClient!: Client;
     text: Message[] = []
@@ -38,10 +40,16 @@ export class ChatComponent implements OnInit {
                 private _relationService: RelationService
     ) {}
 
+    ngOnDestroy(): void {
+        this.disconnect()
+    }
+
     ngOnInit() {
         this.stompClient = new Client({
             brokerURL: 'ws://localhost:8080/chat'
         });
+
+        this.connect()
 
         this.userConnected = this._authService.user
         this.relations$ = this._relationService.getRelation()
@@ -77,8 +85,8 @@ export class ChatComponent implements OnInit {
             destination: "/app/private-message",
             body: JSON.stringify({
                 emitter: this.userConnected?.username,
-                receptorId: receptorId,
-                message: message
+                receptorId,
+                message
             })
         });
 
