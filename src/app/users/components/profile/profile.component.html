@@ -1,15 +1,48 @@
 <div>
     <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('DEVELOPER')">
         <div *ngIf="devInfoSub |  async as dev">
+            <p>Prénom :</p>
             <p>{{dev.firstName}}</p>
+            <p>Nom de famille :</p>
             <p>{{dev.lastName}}</p>
+            <p>Pseudo :</p>
             <p>{{dev.pseudo}}</p>
-            <p>Adresse :</p>
-            <p>{{dev.address.street}}</p>
-            <p>{{dev.address.number}}</p>
-            <p>{{dev.address.city}}</p>
-            <p>{{dev.address.zipcode}}</p>
-            <p>{{dev.address.country}}</p>
+            <p>GitHub :</p>
+            <p><a href="{{dev.gitHub}}">{{dev.gitHub}}</a></p>
+            <p>LinkedIn :</p>
+            <p><a href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
+            <p>CV :</p>
+            <p>{{dev.cv}}</p>
+            <ul>
+                <p>Technologies Back-end :</p>
+                <li *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
+            </ul>
+            <br>
+            <ul>
+                <p>Technologies Front-end :</p>
+                <li *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
+            </ul>
+            <br>
+            <div>
+                <p>Adresse :</p>
+                <p>{{dev.address.street}}</p>
+                <p>{{dev.address.number}}</p>
+                <p>{{dev.address.city}}</p>
+                <p>{{dev.address.zipcode}}</p>
+                <p>{{dev.address.country}}</p>
+            </div>
+            <div>
+                <button (click)="setPassword()">Modifier mot de passe</button>
+                <div *ngIf="editPassword">
+                    <form [formGroup]="newPasswordForm" (ngSubmit)="updateDevPassword()">
+                        <input type="text" placeholder="Nouveau mot de passe" formControlName="password">
+                        <input class="button" type="submit" value="Valider nouveau mot de passe">
+                    </form>
+                </div>
+            </div>
+            <a routerLink="/profile/edit/{{connectedUser.id}}">
+                <button>Modifier profil</button>
+            </a>
         </div>
     </div>
     <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('RECRUITER')">
@@ -20,12 +53,26 @@
             <p>Société :</p>
             <p>{{recruiter.company.name}}</p>
             <p>{{recruiter.company.description}}</p>
+            <div>
             <p>Adresse de la société :</p>
             <p>{{recruiter.company.address.street}}</p>
             <p>{{recruiter.company.address.number}}</p>
             <p>{{recruiter.company.address.city}}</p>
             <p>{{recruiter.company.address.zipcode}}</p>
             <p>{{recruiter.company.address.country}}</p>
+            </div>
         </div>
+        <div>
+            <button (click)="setPassword()">Modifier mot de passe</button>
+            <div *ngIf="editPassword">
+                <form [formGroup]="newPasswordForm" (ngSubmit)="updateRecPassword()">
+                    <input type="text" placeholder="Nouveau Mot de passe" formControlName="password">
+                    <input type="submit" value="Valider nouveau mot de passe">
+                </form>
+            </div>
+        </div>
+        <a routerLink="/profile/edit/{{connectedUser.id}}">
+            <button>Modifier profil</button>
+        </a>
     </div>
 </div>
