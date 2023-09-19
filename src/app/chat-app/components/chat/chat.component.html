@@ -11,7 +11,7 @@
                     <mat-card-title class="text-white">{{relation.name}}</mat-card-title>
                     <mat-card-subtitle class="msg_content">
                         {{
-                        relation.messages[relation.messages.length - 1].emitter.username === userConnected?.username ?
+                        relation.messages[relation.messages.length - 1].emitter === userConnected?.username ?
                             "Vous : " + relation.messages[relation.messages.length - 1].message :
                             relation.messages[relation.messages.length - 1].message
                         }}
@@ -24,8 +24,11 @@
             </mat-card>
         </div>
     </aside>
-    <div>
+    <div *ngIf="chatId">
         <app-private-message [chatId]="chatId"></app-private-message>
+    </div>
+    <div *ngIf="!chatId">
+        <p>Ouais</p>
     </div>
 </div>
 

@@ -4,7 +4,7 @@ import {Correspondant} from "./Correspondant";
 export interface Message {
     id: number
     message: string
-    emitter: Correspondant
-    receptor: Correspondant
+    emitter: string
+    receptor: string
     matchId: number
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Relation} from "../../../shared/models/Relation";
 import {RelationService} from "../../../shared/services/relation.service";
@@ -18,7 +18,7 @@ import {Message} from "../../../shared/models/Message";
   templateUrl: './private-message.component.html',
   styleUrls: ['./private-message.component.scss']
 })
-export class PrivateMessageComponent implements OnChanges, OnInit{
+export class PrivateMessageComponent implements OnChanges, OnInit, OnDestroy{
 
     private stompClient!: Client;
     @Input() chatId!: number
@@ -41,20 +41,10 @@ export class PrivateMessageComponent implements OnChanges, OnInit{
         });
 
         this.connect()
-    }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['chatId'] && this.chatId) {
-            this.relation$ = this._relationService.getRelationById(this.chatId)
-        }
-    }
-
-    connect() {
-        this.stompClient.activate();
         this.stompClient.onConnect = (frame) => {
             console.log("connected" + frame)
-            this.stompClient.subscribe(`/user/${this.userConnected?.username}/queue/private-reply`, (message) => {
-
+            this.stompClient.subscribe(`/user/${this.userConnected?.username}/topic/private-reply`, (message) => {
                 this.messages.push(JSON.parse(message.body))
             });
         };
@@ -69,17 +59,37 @@ export class PrivateMessageComponent implements OnChanges, OnInit{
         };
     }
 
-    disconnect() {
-        this.stompClient.deactivate();
-        console.log("Disconnected");
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['chatId'] && this.chatId) {
+            this.relation$ = this._relationService.getRelationById(this.chatId).pipe(
+                tap(data => this.messages = data.messages)
+            )
+        }
     }
 
-    sendMessage(message: string, receptorId: number) {
+    ngOnDestroy() {
+        this.disconnectWebSocket(); // Appel de la méthode pour déconnecter la WebSocket
+    }
+
+    disconnectWebSocket() {
+        if (this.stompClient && this.stompClient.connected) {
+            this.stompClient.deactivate();
+            console.log("WebSocket Disconnected");
+        }
+    }
+
+    connect() {
+        this.stompClient.activate();
+    }
+
+
+
+    sendMessage(message: string, matchId: number) {
         this.stompClient.publish({
             destination: "/app/private-message",
             body: JSON.stringify({
                 emitter: this.userConnected?.username,
-                receptorId,
+                matchId,
                 message
             })
         });

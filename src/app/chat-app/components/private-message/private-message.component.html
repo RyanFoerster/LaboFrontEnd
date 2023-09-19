@@ -1,7 +1,11 @@
-<p>{{chatId}}</p>
-
 <div *ngIf="relation$ | async as relation">
-    <p *ngFor="let message of messages">{{message.message}}</p>
+    <p *ngFor="let message of messages">{{
+        message.emitter === userConnected?.username ?
+            "Vous : " + message.message :
+            message.receptor + " : " + message.message
+        }}
+    </p>
+
     <div class="col-md-6">
         <input matInput class="border-2 border-amber-300" type="text" [(ngModel)]="messageToSend">
         <button mat-button color="primary" (click)="sendMessage(messageToSend, relation.id)">Send</button>
