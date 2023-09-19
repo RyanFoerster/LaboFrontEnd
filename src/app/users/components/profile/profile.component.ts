@@ -8,6 +8,11 @@ import {Observable, tap} from "rxjs";
 import {UserService} from "../../../shared/services/user.service";
 import {Recruiter} from "../../../shared/models/Recruiter";
 import {Router, RouterLink} from "@angular/router";
+import {TechnologyBackEnd} from "../../../shared/models/enums/TechnologyBackEnd";
+import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEnd";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 @Component({
     selector: 'app-profile',
@@ -18,7 +23,10 @@ import {Router, RouterLink} from "@angular/router";
         ReactiveFormsModule,
         AsyncPipe,
         NgForOf,
-        RouterLink
+        RouterLink,
+        MatFormFieldModule,
+        MatOptionModule,
+        MatSelectModule
     ],
     styleUrls: ['./profile.component.scss']
 })
@@ -28,7 +36,13 @@ export class ProfileComponent implements OnInit {
     devInfoSub!: Observable<DevInfo>;
     recruiterSub!: Observable<Recruiter>;
     editPassword: boolean = false;
+    editProfile: boolean = false;
     newPasswordForm: FormGroup;
+    devInfoForm: FormGroup
+    companyForm: FormGroup
+    addressForm: FormGroup
+    technologyBackEnd = Object.values(TechnologyBackEnd)
+    technologyFrontEnd = Object.values(TechnologyFrontEnd)
 
     constructor(private _authService: AuthService,
                 private _userService: UserService,
@@ -44,6 +58,33 @@ export class ProfileComponent implements OnInit {
                 ]
             }
         )
+
+        this.devInfoForm = _FB.group({
+            firstName: [null, []],
+            lastName: [null, []],
+            email: [null, [ Validators.email]],
+            description: ["", []],
+            birthDate: [null, []],
+            technologyBackEnds: [null, []],
+            technologyFrontEnds: [null, []],
+            gitHub: ["", []],
+            cv: ["", []],
+            linkedIn: ["", []],
+            pseudo: ["", []]
+        })
+
+        this.addressForm = this._FB.group({
+            street: [null, [Validators.required]],
+            number: [null, [Validators.required]],
+            city: [null, [Validators.required]],
+            zipcode: [null, [Validators.required]],
+            country: [null, [Validators.required]]
+        })
+
+        this.companyForm = _FB.group({
+            name: [null, [Validators.required]],
+            description: [null, [Validators.required]]
+        })
     }
 
     ngOnInit(): void {
@@ -71,5 +112,15 @@ export class ProfileComponent implements OnInit {
 
     setPassword() {
         this.editPassword = !this.editPassword;
+    }
+
+    modifyProfile() {
+        this.editProfile = !this.editProfile;
+    }
+
+    updateDevProfile() {
+        this._userService.updateDev(this.devInfoForm.value).pipe(
+            tap(() => this._router.navigateByUrl(`/profile/${this.connectedUser?.id}`)
+            )).subscribe();
     }
 }

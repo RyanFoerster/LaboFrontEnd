@@ -12,6 +12,7 @@ export interface DevInfo {
     gitHub: string;
     linkedIn: string;
     cv: string;
+    birthDate: Date;
     technologyBackEnds: TechnologyBackEnd[];
     technologyFrontEnds: TechnologyFrontEnd[];
     role: string[];
