@@ -28,8 +28,8 @@ const routes: Routes = [
         loadChildren: () => import("./app/jobOffers/job-offer.routes")
     },
     {
-        path: "chat",
-        loadComponent: () => import("./app/chat/chat.component").then(module => module.ChatComponent),
+        path: "",
+        loadChildren: () => import("./app/chat-app/chat.routes"),
         canActivate: [authGuard]
     },
     {

@@ -1,47 +1,38 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from "@angular/forms"
-import {Client} from '@stomp/stompjs';
-import {User} from "../shared/models/User";
-import {AuthService} from "../shared/services/auth.service";
+import {Relation} from "../../../shared/models/Relation";
+import {RelationService} from "../../../shared/services/relation.service";
+import {Observable, tap} from "rxjs";
+import {User} from "../../../shared/models/User";
+import {AuthService} from "../../../shared/services/auth.service";
+import {Client} from "@stomp/stompjs";
+import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import {RelationService} from "../shared/services/relation.service";
-import {Observable} from "rxjs";
-import {Relation} from "../shared/models/Relation";
-import {ReversePipe} from "../shared/pipe/reverse.pipe";
-import {Message} from "../shared/models/Message";
-import {MatCardModule} from "@angular/material/card";
+import {Message} from "../../../shared/models/Message";
 
 @Component({
-    selector: 'app-chat',
-    standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatInputModule,
-        MatButtonModule,
-        ReversePipe,
-        MatCardModule
-    ],
-    templateUrl: './chat.component.html',
-    styleUrls: ['./chat.component.scss']
+  selector: 'app-private-message',
+  standalone: true,
+    imports: [CommonModule, FormsModule, MatInputModule, MatButtonModule],
+  templateUrl: './private-message.component.html',
+  styleUrls: ['./private-message.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy {
+export class PrivateMessageComponent implements OnChanges, OnInit{
 
     private stompClient!: Client;
-    text: Message[] = []
-    userConnected!: User | undefined
+    @Input() chatId!: number
+    relation$!: Observable<Relation>
+    userConnected: User | undefined
     messageToSend: string = ""
-    relations$!: Observable<Relation[]>
+    messages: Message[] = []
 
 
-    constructor(private _authService: AuthService,
-                private _relationService: RelationService
-    ) {}
 
-    ngOnDestroy(): void {
-        this.disconnect()
+    constructor(private _relationService: RelationService,
+                private _authService: AuthService) {
+
+        this.userConnected = this._authService.user
     }
 
     ngOnInit() {
@@ -50,9 +41,12 @@ export class ChatComponent implements OnInit, OnDestroy {
         });
 
         this.connect()
+    }
 
-        this.userConnected = this._authService.user
-        this.relations$ = this._relationService.getRelation()
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['chatId'] && this.chatId) {
+            this.relation$ = this._relationService.getRelationById(this.chatId)
+        }
     }
 
     connect() {
@@ -60,7 +54,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.stompClient.onConnect = (frame) => {
             console.log("connected" + frame)
             this.stompClient.subscribe(`/user/${this.userConnected?.username}/queue/private-reply`, (message) => {
-                this.text.push(JSON.parse(message.body))
+
+                this.messages.push(JSON.parse(message.body))
             });
         };
 
@@ -80,7 +75,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     sendMessage(message: string, receptorId: number) {
-        console.log(receptorId)
         this.stompClient.publish({
             destination: "/app/private-message",
             body: JSON.stringify({

@@ -21,4 +21,8 @@ export class RelationService {
         return this._httpClient.get<Relation[]>(`${environments.apiUrl}/match`)
     }
 
+    getRelationById(matchId: number): Observable<Relation>{
+        return this._httpClient.get<Relation>(`${environments.apiUrl}/match/${matchId}`)
+    }
+
 }

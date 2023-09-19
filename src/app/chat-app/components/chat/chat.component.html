@@ -1,0 +1,31 @@
+
+<div class="flex w-full h-screen">
+    <aside class="w-3/12 h-full main_color__bg">
+
+        <h1 class="text-white p-5">Discussions</h1>
+        <div *ngIf="relations$ | async as relations" class="container_block">
+
+            <mat-card class="cursor-pointer hover:bg-neutral-600 card" *ngFor="let relation of relations" (click)="sendChatId(relation.id)">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title class="text-white">{{relation.name}}</mat-card-title>
+                    <mat-card-subtitle class="msg_content">
+                        {{
+                        relation.messages[relation.messages.length - 1].emitter.username === userConnected?.username ?
+                            "Vous : " + relation.messages[relation.messages.length - 1].message :
+                            relation.messages[relation.messages.length - 1].message
+                        }}
+
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="text-white">
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </aside>
+    <div>
+        <app-private-message [chatId]="chatId"></app-private-message>
+    </div>
+</div>
+
