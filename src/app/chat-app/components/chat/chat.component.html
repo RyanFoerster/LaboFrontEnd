@@ -1,34 +1,49 @@
 
-<div class="flex w-full h-screen">
-    <aside class="w-3/12 h-full main_color__bg">
+<!--<div class="flex w-full h-screen">-->
+<!--    <aside class="w-3/12 h-full main_color__bg">-->
 
-        <h1 class="text-white p-5">Discussions</h1>
-        <div *ngIf="relations$ | async as relations" class="container_block">
+<!--        <h1 class="text-white p-5">Discussions</h1>-->
+<!--        <div *ngIf="relations$ | async as relations" class="container_block">-->
 
-            <mat-card class="cursor-pointer hover:bg-neutral-600 card" *ngFor="let relation of relations" (click)="sendChatId(relation.id)">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title class="text-white">{{relation.name}}</mat-card-title>
-                    <mat-card-subtitle class="msg_content">
-                        {{
-                        relation.messages[relation.messages.length - 1].emitter === userConnected?.username ?
-                            "Vous : " + relation.messages[relation.messages.length - 1].message :
-                            relation.messages[relation.messages.length - 1].message
-                        }}
+<!--            <mat-card class="cursor-pointer hover:bg-neutral-600 card" *ngFor="let relation of relations" (click)="sendChatId(relation.id)">-->
+<!--                <mat-card-header>-->
+<!--                    <div mat-card-avatar class="example-header-image"></div>-->
+<!--                    <mat-card-title class="text-white">{{relation.name}}</mat-card-title>-->
+<!--                    <mat-card-subtitle class="msg_content" *ngIf="relation.messages.length > 0">-->
+<!--                        {{-->
+<!--                        relation.messages[relation.messages.length - 1].emitterId === userConnected?.id ?-->
+<!--                            "Vous : " + relation.messages[relation.messages.length - 1].message :-->
+<!--                            relation.messages[relation.messages.length - 1].message-->
+<!--                        }}-->
 
-                    </mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content class="text-white">
+<!--                    </mat-card-subtitle>-->
+<!--                    <mat-card-subtitle class="msg_content" *ngIf="relation.messages.length === 0">-->
+<!--                        <p>Démarrer la conversation</p>-->
+<!--                    </mat-card-subtitle>-->
+<!--                </mat-card-header>-->
+<!--                <mat-card-content class="text-white">-->
 
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </aside>
-    <div *ngIf="chatId">
-        <app-private-message [chatId]="chatId"></app-private-message>
-    </div>
-    <div *ngIf="!chatId">
-        <p>Ouais</p>
-    </div>
-</div>
+<!--                </mat-card-content>-->
+<!--            </mat-card>-->
+<!--        </div>-->
+<!--    </aside>-->
+<!--    <div *ngIf="chatId">-->
+<!--        <div *ngIf="relation$ | async as relation">-->
+<!--            <p *ngFor="let message of messages">{{-->
+<!--                message.emitterId === userConnected?.id ?-->
+<!--                    "Vous : " + message.message :-->
+<!--                    message.receptor + " : " + message.message-->
+<!--                }}-->
+<!--            </p>-->
+
+<!--            <div class="col-md-6">-->
+<!--                <input matInput class="border-2 border-amber-300" type="text" [(ngModel)]="messageToSend">-->
+<!--                <button mat-button color="primary" (click)="sendMessage(messageToSend, relation.id)">Send</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div *ngIf="!chatId">-->
+<!--        <p>Ouais</p>-->
+<!--    </div>-->
+<!--</div>-->
 

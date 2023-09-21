@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {DevRegister} from "../shared/models/DevRegister";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {AuthService} from "../shared/services/auth.service";
 import {User} from "../shared/models/User";
@@ -7,8 +6,6 @@ import {User} from "../shared/models/User";
 import {PostHelp} from "../shared/models/PostHelp";
 import {PosthelpService} from "../shared/services/posthelp.service";
 import {Observable, tap} from "rxjs";
-import {MatCardModule} from "@angular/material/card";
-import {MatButtonModule} from "@angular/material/button";
 import {PostComponent} from "../post/post.component";
 
 
@@ -19,9 +16,7 @@ import {PostComponent} from "../post/post.component";
     imports: [
         NgIf,
         AsyncPipe,
-        MatCardModule,
         NgForOf,
-        MatButtonModule,
         PostComponent
     ],
     styleUrls: ['./home.component.scss']

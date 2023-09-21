@@ -1,21 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatSelectModule} from "@angular/material/select";
-import {NgForOf, NgIf} from "@angular/common";
-import {MatButtonModule} from "@angular/material/button";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {AuthService} from "../../../shared/services/auth.service";
-import {MatStepperModule} from "@angular/material/stepper";
-import {MatRadioModule} from "@angular/material/radio";
 import {TechnologyBackEnd} from "../../../shared/models/enums/TechnologyBackEnd";
 import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEnd";
 import {DevRegister} from "../../../shared/models/DevRegister";
 import {Address} from "../../../shared/models/Address";
 import {DevInfoForm} from "../../../shared/models/DevInfoForm";
-import {MatCheckboxModule} from "@angular/material/checkbox";
 import {RecruiterRegister} from "../../../shared/models/RecruiterRegister";
 import {CompanyForm} from "../../../shared/models/CompanyForm";
+import {RouterLink} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-register',
@@ -23,16 +18,11 @@ import {CompanyForm} from "../../../shared/models/CompanyForm";
     templateUrl: './register.component.html',
     imports: [
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
         NgForOf,
         NgIf,
-        MatButtonModule,
-        MatStepperModule,
-        MatRadioModule,
         FormsModule,
-        MatCheckboxModule
+        NgClass,
+        RouterLink
     ],
     styleUrls: ['./register.component.scss']
 })
@@ -47,6 +37,7 @@ export class RegisterComponent {
     isRecruiter: boolean = false
     roles: string[] = ["RECRUITER", "DEVELOPER"]
     isLinear = false;
+    step= signal(1)
 
     constructor(private _formBuilder: FormBuilder,
                 private _authService: AuthService) {
@@ -111,6 +102,7 @@ export class RegisterComponent {
 
     toggleRole() {
         this.isRecruiter = !this.isRecruiter
+        console.log(this.isRecruiter)
     }
 
     mapToUser(userInfoForm: DevRegister, devInfoForm: DevInfoForm, addressForm: Address): DevRegister {
@@ -137,6 +129,16 @@ export class RegisterComponent {
             companyForm: companyForm,
         };
     }
+
+    nextStep(){
+        this.step.update( value => value + 1)
+    }
+
+    previousStep(){
+        this.step.update(value => value - 1)
+    }
+
+    protected readonly signal = signal;
 }
 
 

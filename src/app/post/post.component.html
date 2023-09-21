@@ -1,34 +1,34 @@
-<mat-card  color="">
-    <mat-card-header>
-        <mat-card-title>{{ postHelp.title }}</mat-card-title>
-        <mat-card-subtitle>{{ postHelp.description }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <p>
-            Technology front end: {{ postHelp.technologyFrontEnd }}
-        </p>
-        <p>
-            Technology back end: {{ postHelp.technologyBackEnd }}
-        </p>
-        <p>
-            GitHub link: {{ postHelp.github }}
-        </p>
-        <p>
-            Status: {{ postHelp.ouvert ? 'Ouvert' : 'Fermé' }}
-        </p>
-        <p>
-            Nombre de commentaires: {{ postHelp.comments.length }}
-        </p>
+<!--<mat-card  color="">-->
+<!--    <mat-card-header>-->
+<!--        <mat-card-title>{{ postHelp.title }}</mat-card-title>-->
+<!--        <mat-card-subtitle>{{ postHelp.description }}</mat-card-subtitle>-->
+<!--    </mat-card-header>-->
+<!--    <mat-card-content>-->
+<!--        <p>-->
+<!--            Technology front end: {{ postHelp.technologyFrontEnd }}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            Technology back end: {{ postHelp.technologyBackEnd }}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            GitHub link: {{ postHelp.github }}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            Status: {{ postHelp.ouvert ? 'Ouvert' : 'Fermé' }}-->
+<!--        </p>-->
+<!--        <p>-->
+<!--            Nombre de commentaires: {{ postHelp.comments.length }}-->
+<!--        </p>-->
 
-    </mat-card-content>
+<!--    </mat-card-content>-->
 
-    <mat-card-actions align="end" *ngIf="vote$ | async as voteInfo">
-        <button (click)="vote(postHelp.id, 'UPVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'UPVOTE'}">Upvote</button>
-        <div class="align-bottom">
-            <p class="text-white align-bottom">
-                Score: {{ voteInfo.score }}
-            </p>
-        </div>
-        <button (click)="vote(postHelp.id, 'DOWNVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'DOWNVOTE'}">Downvote</button>
-    </mat-card-actions>
-</mat-card>
+<!--    <mat-card-actions align="end" *ngIf="vote$ | async as voteInfo">-->
+<!--        <button (click)="vote(postHelp.id, 'UPVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'UPVOTE'}">Upvote</button>-->
+<!--        <div class="align-bottom">-->
+<!--            <p class="text-white align-bottom">-->
+<!--                Score: {{ voteInfo.score }}-->
+<!--            </p>-->
+<!--        </div>-->
+<!--        <button (click)="vote(postHelp.id, 'DOWNVOTE')" mat-button [ngClass]="{active: voteInfo.voteType == 'DOWNVOTE'}">Downvote</button>-->
+<!--    </mat-card-actions>-->
+<!--</mat-card>-->
