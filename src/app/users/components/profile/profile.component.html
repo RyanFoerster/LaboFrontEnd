@@ -6,6 +6,8 @@
                 <p>{{dev.firstName}}</p>
                 <p>Nom de famille :</p>
                 <p>{{dev.lastName}}</p>
+                <p>Description :</p>
+                <p>{{dev.description}}</p>
                 <p>Pseudo :</p>
                 <p>{{dev.pseudo}}</p>
                 <p>GitHub :</p>
@@ -16,12 +18,12 @@
                 <p>{{dev.cv}}</p>
                 <ul>
                     <p>Technologies Back-end :</p>
-                    <li *ngFor="let backTec of dev.technologiesBackEnd">{{backTec}}</li>
+                    <li *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
                 </ul>
                 <br>
                 <ul>
                     <p>Technologies Front-end :</p>
-                    <li *ngFor="let frontTec of dev.technologiesFrontEnd">{{frontTec}}</li>
+                    <li *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
                 </ul>
                 <br>
                 <button (click)="modifyProfile()">Modifier le profil</button>
@@ -32,6 +34,8 @@
                     <input type="text" placeholder="{{dev.firstName}}" formControlName="firstName">
                     <p>Nom de famille :</p>
                     <input type="text" placeholder="{{dev.lastName}}" formControlName="lastName">
+                    <p>Description :</p>
+                    <input type="text" placeholder="{{dev.description}}" formControlName="description">
                     <p>Pseudo :</p>
                     <input type="text" placeholder="{{dev.pseudo}}" formControlName="pseudo">
                     <p>GitHub :</p>
@@ -49,9 +53,9 @@
                     <br>
                     <p>Technologies Front-end :</p>
                     <div *ngFor="let frontTec of technologiesFrontEnd">
-                        <label for="frontTec">{{frontTec}}</label>
+                        <label for="frontTec">{{frontTec.toString()}}</label>
                         <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}" (change)="updateFrontTecs($event)"
-                        [checked]="isFrontTechnologyInDB(frontTec)">
+                        [checked]="isFrontTechnologyInDB(frontTec.toString())">
                     </div>
                     <br>
                     <input type="submit" class="button" value="Valider les modifications">

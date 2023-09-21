@@ -6,6 +6,7 @@ export interface DevInfo {
     id: number;
     username: string;
     firstName: string;
+    description: string;
     lastName: string;
     email: string;
     pseudo: string;
@@ -13,8 +14,8 @@ export interface DevInfo {
     linkedIn: string;
     cv: string;
     birthDate: Date;
-    technologiesBackEnd: TechnologyBackEnd[];
-    technologiesFrontEnd: TechnologyFrontEnd[];
+    technologyBackEnds: string[];
+    technologyFrontEnds: string[];
     role: string[];
     address: Address;
 

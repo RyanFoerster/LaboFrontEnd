@@ -42,8 +42,8 @@ export class ProfileComponent implements OnInit {
     devInfoForm: FormGroup
     companyForm: FormGroup
     addressForm: FormGroup
-    technologiesBackEnd = Object.values(TechnologyBackEnd)
-    technologiesFrontEnd = Object.values(TechnologyFrontEnd)
+    technologiesBackEnd : string[] = Object.values(TechnologyBackEnd);
+    technologiesFrontEnd : string[] = Object.values(TechnologyFrontEnd);
     frontTechnologiesInDB!:String[];
     backTechnologiesInDB!:String[];
 
@@ -67,8 +67,8 @@ export class ProfileComponent implements OnInit {
             firstName: ["", []],
             lastName: ["", []],
             description: ["", []],
-            technologiesBackEnd: this._FB.array([], []),
-            technologiesFrontEnd: this._FB.array([], []),
+            technologyBackEnds: this._FB.array([], []),
+            technologyFrontEnds: this._FB.array([], []),
             gitHub: ["", []],
             cv: ["", []],
             linkedIn: ["", []],
@@ -96,6 +96,11 @@ export class ProfileComponent implements OnInit {
             this.devInfoSub = this._userService.getDevInfoFromServer(this.connectedUser?.id);
             this.devInfoSub.subscribe((data) => {
                 this.devInfoForm.patchValue(data);
+                this.frontTechnologiesInDB = data.technologyFrontEnds;
+                this.backTechnologiesInDB = data.technologyBackEnds;
+                console.log(this.frontTechnologiesInDB);
+                this.devInfoForm.setControl('technologyBackEnds', this._FB.array(data.technologyBackEnds));
+                this.devInfoForm.setControl('technologyFrontEnds', this._FB.array(data.technologyFrontEnds));
             })
             // this._userService.getDevInfoFromServer(this.connectedUser.id).subscribe((data) => {
             //     this.frontTechnologiesInDB = data.technologyFrontEnds;
@@ -136,13 +141,14 @@ export class ProfileComponent implements OnInit {
 
     updateDevProfile() {
         this._userService.updateDev(this.devInfoForm.value).pipe(
-            tap(() => this._router.navigateByUrl(`/profile/${this.connectedUser?.id}`)
-            )).subscribe();
+            tap(() => location.reload())
+        ).subscribe();
     }
     get frontFormArray(): FormArray {
-        return this.devInfoForm.get('technologiesFrontEnd') as FormArray;
+        return this.devInfoForm.get('technologyFrontEnds') as FormArray;
     }
     updateFrontTecs(event: any){
+        console.log(this.frontFormArray)
         const value = event.target.value;
         if (event.target.checked) {
             this.frontFormArray.push(this._FB.control(value));
@@ -155,7 +161,7 @@ export class ProfileComponent implements OnInit {
     }
 
     get backFormArray(): FormArray {
-        return this.devInfoForm.get('technologiesBackEnd') as FormArray;
+        return this.devInfoForm.get('technologyBackEnds') as FormArray;
     }
     updateBackTecs(event: any){
         const value = event.target.value;
