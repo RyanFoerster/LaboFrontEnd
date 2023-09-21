@@ -16,12 +16,12 @@
                 <p>{{dev.cv}}</p>
                 <ul>
                     <p>Technologies Back-end :</p>
-                    <li *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
+                    <li *ngFor="let backTec of dev.technologiesBackEnd">{{backTec}}</li>
                 </ul>
                 <br>
                 <ul>
                     <p>Technologies Front-end :</p>
-                    <li *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
+                    <li *ngFor="let frontTec of dev.technologiesFrontEnd">{{frontTec}}</li>
                 </ul>
                 <br>
                 <button (click)="modifyProfile()">Modifier le profil</button>
@@ -29,29 +29,29 @@
             <div *ngIf="editProfile">
                 <form [formGroup]="devInfoForm" (ngSubmit)="updateDevProfile()">
                     <p>Prénom :</p>
-                    <input type="text" placeholder="{{dev.firstName}}">
+                    <input type="text" placeholder="{{dev.firstName}}" formControlName="firstName">
                     <p>Nom de famille :</p>
-                    <input type="text" placeholder="{{dev.lastName}}">
+                    <input type="text" placeholder="{{dev.lastName}}" formControlName="lastName">
                     <p>Pseudo :</p>
-                    <input type="text" placeholder="{{dev.pseudo}}">
+                    <input type="text" placeholder="{{dev.pseudo}}" formControlName="pseudo">
                     <p>GitHub :</p>
-                    <input type="text" placeholder="{{dev.gitHub}}">
+                    <input type="text" placeholder="{{dev.gitHub}}" formControlName="gitHub">
                     <p>LinkedIn :</p>
-                    <input type="text" placeholder="{{dev.linkedIn}}">
+                    <input type="text" placeholder="{{dev.linkedIn}}" formControlName="linkedIn">
                     <p>CV :</p>
-                    <input type="text" placeholder="{{dev.cv}}">
-                    <p>Date de naissance</p>
-                    <input type="date" placeholder="{{dev.birthDate}}">
+                    <input type="text" [defaultValue]="dev.cv" formControlName="cv">
                     <p>Technologies Back-end :</p>
-                    <div *ngFor="let backTec of technologyBackEnd">
+                    <div *ngFor="let backTec of technologiesBackEnd">
                         <label for="backTec">{{backTec}}</label>
-                    <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}" >
+                    <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}" (change)="updateBackTecs($event)"
+                    [checked]="isBackTechnologyInDB(backTec)">
                     </div>
                     <br>
                     <p>Technologies Front-end :</p>
-                    <div *ngFor="let frontTec of technologyFrontEnd">
+                    <div *ngFor="let frontTec of technologiesFrontEnd">
                         <label for="frontTec">{{frontTec}}</label>
-                        <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}" >
+                        <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}" (change)="updateFrontTecs($event)"
+                        [checked]="isFrontTechnologyInDB(frontTec)">
                     </div>
                     <br>
                     <input type="submit" class="button" value="Valider les modifications">

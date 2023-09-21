@@ -13,8 +13,8 @@ export interface DevInfo {
     linkedIn: string;
     cv: string;
     birthDate: Date;
-    technologyBackEnds: TechnologyBackEnd[];
-    technologyFrontEnds: TechnologyFrontEnd[];
+    technologiesBackEnd: TechnologyBackEnd[];
+    technologiesFrontEnd: TechnologyFrontEnd[];
     role: string[];
     address: Address;
 
