@@ -1,28 +1,67 @@
 <div>
     <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('DEVELOPER')">
         <div *ngIf="devInfoSub |  async as dev">
-            <p>Prénom :</p>
-            <p>{{dev.firstName}}</p>
-            <p>Nom de famille :</p>
-            <p>{{dev.lastName}}</p>
-            <p>Pseudo :</p>
-            <p>{{dev.pseudo}}</p>
-            <p>GitHub :</p>
-            <p><a href="{{dev.gitHub}}">{{dev.gitHub}}</a></p>
-            <p>LinkedIn :</p>
-            <p><a href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
-            <p>CV :</p>
-            <p>{{dev.cv}}</p>
-            <ul>
-                <p>Technologies Back-end :</p>
-                <li *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
-            </ul>
-            <br>
-            <ul>
-                <p>Technologies Front-end :</p>
-                <li *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
-            </ul>
-            <br>
+            <div *ngIf="!editProfile">
+                <p>Prénom :</p>
+                <p>{{dev.firstName}}</p>
+                <p>Nom de famille :</p>
+                <p>{{dev.lastName}}</p>
+                <p>Description :</p>
+                <p>{{dev.description}}</p>
+                <p>Pseudo :</p>
+                <p>{{dev.pseudo}}</p>
+                <p>GitHub :</p>
+                <p><a href="{{dev.gitHub}}">{{dev.gitHub}}</a></p>
+                <p>LinkedIn :</p>
+                <p><a href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
+                <p>CV :</p>
+                <p>{{dev.cv}}</p>
+                <ul>
+                    <p>Technologies Back-end :</p>
+                    <li *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
+                </ul>
+                <br>
+                <ul>
+                    <p>Technologies Front-end :</p>
+                    <li *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
+                </ul>
+                <br>
+                <button (click)="modifyProfile()">Modifier le profil</button>
+            </div>
+            <div *ngIf="editProfile">
+                <form [formGroup]="devInfoForm" (ngSubmit)="updateDevProfile()">
+                    <p>Prénom :</p>
+                    <input type="text" placeholder="{{dev.firstName}}" formControlName="firstName">
+                    <p>Nom de famille :</p>
+                    <input type="text" placeholder="{{dev.lastName}}" formControlName="lastName">
+                    <p>Description :</p>
+                    <input type="text" placeholder="{{dev.description}}" formControlName="description">
+                    <p>Pseudo :</p>
+                    <input type="text" placeholder="{{dev.pseudo}}" formControlName="pseudo">
+                    <p>GitHub :</p>
+                    <input type="text" placeholder="{{dev.gitHub}}" formControlName="gitHub">
+                    <p>LinkedIn :</p>
+                    <input type="text" placeholder="{{dev.linkedIn}}" formControlName="linkedIn">
+                    <p>CV :</p>
+                    <input type="text" [defaultValue]="dev.cv" formControlName="cv">
+                    <p>Technologies Back-end :</p>
+                    <div *ngFor="let backTec of technologiesBackEnd">
+                        <label for="backTec">{{backTec}}</label>
+                    <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}" (change)="updateBackTecs($event)"
+                    [checked]="isBackTechnologyInDB(backTec)">
+                    </div>
+                    <br>
+                    <p>Technologies Front-end :</p>
+                    <div *ngFor="let frontTec of technologiesFrontEnd">
+                        <label for="frontTec">{{frontTec.toString()}}</label>
+                        <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}" (change)="updateFrontTecs($event)"
+                        [checked]="isFrontTechnologyInDB(frontTec.toString())">
+                    </div>
+                    <br>
+                    <input type="submit" class="button" value="Valider les modifications">
+                </form>
+            </div>
+
             <div>
                 <p>Adresse :</p>
                 <p>{{dev.address.street}}</p>
@@ -40,9 +79,6 @@
                     </form>
                 </div>
             </div>
-            <a routerLink="/profile/edit/{{connectedUser.id}}">
-                <button>Modifier profil</button>
-            </a>
         </div>
     </div>
     <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('RECRUITER')">
@@ -54,12 +90,12 @@
             <p>{{recruiter.company.name}}</p>
             <p>{{recruiter.company.description}}</p>
             <div>
-            <p>Adresse de la société :</p>
-            <p>{{recruiter.company.address.street}}</p>
-            <p>{{recruiter.company.address.number}}</p>
-            <p>{{recruiter.company.address.city}}</p>
-            <p>{{recruiter.company.address.zipcode}}</p>
-            <p>{{recruiter.company.address.country}}</p>
+                <p>Adresse de la société :</p>
+                <p>{{recruiter.company.address.street}}</p>
+                <p>{{recruiter.company.address.number}}</p>
+                <p>{{recruiter.company.address.city}}</p>
+                <p>{{recruiter.company.address.zipcode}}</p>
+                <p>{{recruiter.company.address.country}}</p>
             </div>
         </div>
         <div>
@@ -71,8 +107,5 @@
                 </form>
             </div>
         </div>
-        <a routerLink="/profile/edit/{{connectedUser.id}}">
-            <button>Modifier profil</button>
-        </a>
     </div>
 </div>

@@ -27,11 +27,14 @@ export class UserService {
         return this._httpClient.patch<PasswordForm>(`${environments.apiUrl}/dev`, newPassword)
     }
 
-    updateDev(updatedDev: DevInfoForm):Observable<DevInfoForm>{
-        return this._httpClient.put<DevInfoForm>(`${environments.apiUrl}/dev`,updatedDev)
+    updateDev(updatedDev: DevInfoForm): Observable<DevInfoForm> {
+        console.log(updatedDev)
+        return this._httpClient.put<DevInfoForm>(`${environments.apiUrl}/dev`, updatedDev)
     }
 
     updateRecPassword(newPassword: PasswordForm): Observable<PasswordForm> {
         return this._httpClient.patch<PasswordForm>(`${environments.apiUrl}/recruiter`, newPassword)
     }
+
+
 }
