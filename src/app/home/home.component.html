@@ -5,7 +5,7 @@
 
     </div>
 
-    <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen border-2 border-amber-600">
+    <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen">
         <ng-container *ngFor="let postHelp of postHelps">
             <app-post [post]="postHelp" ></app-post>
         </ng-container>

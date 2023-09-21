@@ -1,300 +1,9 @@
 <div>
-    <!--    <mat-stepper [linear]="isLinear" #stepper>-->
-    <!--        <mat-step [stepControl]="userInfoForm">-->
-    <!--            <form [formGroup]="userInfoForm" class="flex m-1 flex-col justify-center items-center">-->
-    <!--                <ng-template matStepLabel>Informations d'utilisateur</ng-template>-->
-
-    <!--                <div class="w-3/12 flex justify-between">-->
-    <!--                    <mat-form-field class="w-full">-->
-    <!--                        <mat-label>Username</mat-label>-->
-    <!--                        <input formControlName="username" matInput required>-->
-    <!--                        <mat-error-->
-    <!--                            *ngIf="userInfoForm.get('username')?.errors?.['required'] && userInfoForm.get('username')?.touched">-->
-    <!--                            Ce champs est requis-->
-    <!--                        </mat-error>-->
-    <!--                        <mat-error *ngIf="userInfoForm.get('username')?.errors?.['minlength'] ">-->
-    <!--                            Doit faire minimum 6 caractères-->
-    <!--                        </mat-error>-->
-    <!--                        <mat-error *ngIf="userInfoForm.get('username')?.errors?.['maxlength']">-->
-    <!--                            Doit faire maximum 20 caractères-->
-    <!--                        </mat-error>-->
-    <!--                    </mat-form-field>-->
-    <!--                </div>-->
-    <!--                <div class="w-3/12 flex justify-between">-->
-    <!--                    <mat-form-field class="w-full">-->
-    <!--                        <mat-label>Password</mat-label>-->
-    <!--                        <input formControlName="password" type="password" matInput required>-->
-    <!--                        <mat-error-->
-    <!--                            *ngIf="userInfoForm.get('password')?.errors?.['required'] && userInfoForm.get('password')?.touched">-->
-    <!--                            Ce champs est requis-->
-    <!--                        </mat-error>-->
-    <!--                        <mat-error *ngIf="userInfoForm.get('password')?.errors?.['minlength']">-->
-    <!--                            Doit faire minimum 6 caractères-->
-    <!--                        </mat-error>-->
-    <!--                    </mat-form-field>-->
-
-
-    <!--                </div>-->
-
-    <!--                <div class="w-3/12 flex justify-between">-->
-    <!--                    <mat-form-field class="w-56">-->
-    <!--                        <mat-label>Prénom</mat-label>-->
-    <!--                        <input formControlName="firstName" matInput required>-->
-    <!--                        <mat-error-->
-    <!--                            *ngIf="userInfoForm.get('firstName')?.errors?.['required'] && userInfoForm.get('firstName')?.touched">-->
-    <!--                            Ce champs est requis-->
-    <!--                        </mat-error>-->
-    <!--                    </mat-form-field>-->
-
-    <!--                    <mat-form-field class="w-56">-->
-    <!--                        <mat-label>Nom</mat-label>-->
-    <!--                        <input formControlName="lastName" matInput required>-->
-    <!--                        <mat-error-->
-    <!--                            *ngIf="userInfoForm.get('lastName')?.errors?.['required'] && userInfoForm.get('lastName')?.touched">-->
-    <!--                            Ce champs est requis-->
-    <!--                        </mat-error>-->
-    <!--                    </mat-form-field>-->
-    <!--                </div>-->
-
-    <!--                <div class="w-3/12 flex justify-between">-->
-    <!--                    <mat-form-field class="w-full">-->
-    <!--                        <mat-label>Email</mat-label>-->
-    <!--                        <input formControlName="email" matInput required>-->
-    <!--                        <mat-error-->
-    <!--                            *ngIf="userInfoForm.get('email')?.errors?.['required'] && userInfoForm.get('email')?.touched">-->
-    <!--                            Ce champs est requis-->
-    <!--                        </mat-error>-->
-    <!--                        <mat-error *ngIf="userInfoForm.get('email')?.errors?.['email']">-->
-    <!--                            L'email n'est pas valide-->
-    <!--                        </mat-error>-->
-    <!--                    </mat-form-field>-->
-    <!--                </div>-->
-
-    <!--                <mat-checkbox (click)="toggleRole()">Vous êtes un recruteur ?</mat-checkbox>-->
-
-
-    <!--                <div>-->
-    <!--                    <button mat-button matStepperNext>Suivant</button>-->
-    <!--                </div>-->
-    <!--            </form>-->
-    <!--        </mat-step>-->
-
-    <!--        <div *ngIf="!isRecruiter">-->
-    <!--            <mat-step [stepControl]="devInfoForm" label="Profil de développeur">-->
-    <!--                <form [formGroup]="devInfoForm" class="flex m-1 flex-col justify-center items-center">-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Description</mat-label>-->
-    <!--                            <textarea matInput-->
-    <!--                                      cdkTextareaAutosize-->
-    <!--                                      #autosize="cdkTextareaAutosize"-->
-    <!--                                      cdkAutosizeMinRows="1"-->
-    <!--                                      cdkAutosizeMaxRows="5"-->
-    <!--                                      formControlName="description">-->
-    <!--                        </textarea>-->
-    <!--                        </mat-form-field>-->
-
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Pseudo</mat-label>-->
-    <!--                            <input formControlName="pseudo" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Technologies back-end</mat-label>-->
-    <!--                            <mat-select formControlName="technologyBackEnds" multiple>-->
-    <!--                                <mat-option *ngFor="let technology of technologyBackEnd"-->
-    <!--                                            [value]="technology">{{technology}}</mat-option>-->
-    <!--                            </mat-select>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Technologies front-end</mat-label>-->
-    <!--                            <mat-select formControlName="technologyFrontEnds" multiple>-->
-    <!--                                <mat-option *ngFor="let technology of technologyFrontEnd"-->
-    <!--                                            [value]="technology">{{technology}}</mat-option>-->
-    <!--                            </mat-select>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Github</mat-label>-->
-    <!--                            <input formControlName="github" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>LinkedIn</mat-label>-->
-    <!--                            <input formControlName="linkedIn" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Date de naissance</mat-label>-->
-    <!--                            <input type="date" formControlName="birthDate" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-    <!--                    <div>-->
-    <!--                        <button mat-button matStepperPrevious>Back</button>-->
-    <!--                        <button mat-button matStepperNext>Next</button>-->
-    <!--                    </div>-->
-    <!--                </form>-->
-    <!--            </mat-step>-->
-
-    <!--            <mat-step [stepControl]="addressForm" label="Votre adresse">-->
-    <!--                <form [formGroup]="addressForm" class="flex m-1 flex-col justify-center items-center">-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Rue</mat-label>-->
-    <!--                            <input formControlName="street" matInput>-->
-    <!--                        </mat-form-field>-->
-
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Numéro</mat-label>-->
-    <!--                            <input formControlName="number" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Ville</mat-label>-->
-    <!--                            <input formControlName="city" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Code postal</mat-label>-->
-    <!--                            <input formControlName="zipcode" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Pays</mat-label>-->
-    <!--                            <input formControlName="country" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div>-->
-    <!--                        <button mat-button matStepperPrevious>Retour</button>-->
-    <!--                        <button mat-button matStepperNext>Suivant</button>-->
-    <!--                    </div>-->
-    <!--                </form>-->
-    <!--            </mat-step>-->
-    <!--        </div>-->
-
-    <!--        <div *ngIf="isRecruiter">-->
-
-    <!--            <mat-step *ngIf="isRecruiter" [stepControl]="companyForm" label="Information de l'entreprise">-->
-    <!--                <form [formGroup]="companyForm" class="flex m-1 flex-col justify-center items-center">-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Nom</mat-label>-->
-    <!--                            <input formControlName="name" matInput>-->
-    <!--                            <mat-error-->
-    <!--                                *ngIf="companyForm.get('name')?.errors?.['required'] && companyForm.get('name')?.touched">-->
-    <!--                                Ce champs est requis-->
-    <!--                            </mat-error>-->
-    <!--                        </mat-form-field>-->
-
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Description</mat-label>-->
-    <!--                            <input formControlName="description" matInput>-->
-    <!--                            <mat-error-->
-    <!--                                *ngIf="companyForm.get('description')?.errors?.['required'] && companyForm.get('description')?.touched">-->
-    <!--                                Ce champs est requis-->
-    <!--                            </mat-error>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div>-->
-    <!--                        <button mat-button matStepperPrevious>Retour</button>-->
-    <!--                        <button mat-button matStepperNext>Suivant</button>-->
-    <!--                    </div>-->
-    <!--                </form>-->
-    <!--            </mat-step>-->
-
-    <!--            <mat-step *ngIf="isRecruiter" [stepControl]="addressForm" label="Adresse de votre entreprise">-->
-    <!--                <form [formGroup]="addressForm" class="flex m-1 flex-col justify-center items-center">-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Rue</mat-label>-->
-    <!--                            <input formControlName="street" matInput>-->
-    <!--                        </mat-form-field>-->
-
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Numéro</mat-label>-->
-    <!--                            <input formControlName="number" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Ville</mat-label>-->
-    <!--                            <input formControlName="city" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Code postal</mat-label>-->
-    <!--                            <input formControlName="zipcode" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="w-3/12 flex justify-between">-->
-    <!--                        <mat-form-field class="w-full">-->
-    <!--                            <mat-label>Pays</mat-label>-->
-    <!--                            <input formControlName="country" matInput>-->
-    <!--                        </mat-form-field>-->
-    <!--                    </div>-->
-
-    <!--                    <div>-->
-    <!--                        <button mat-button matStepperPrevious>Retour</button>-->
-    <!--                        <button mat-button matStepperNext>Suivant</button>-->
-    <!--                    </div>-->
-    <!--                </form>-->
-    <!--            </mat-step>-->
-    <!--        </div>-->
-
-    <!--        <mat-step>-->
-    <!--            <ng-template matStepLabel>Finaliser</ng-template>-->
-    <!--            <p>You are now done.</p>-->
-    <!--            <div>-->
-    <!--                <button mat-button matStepperPrevious>Retour</button>-->
-    <!--                <button mat-button (click)="stepper.reset()">Réinitialiser</button>-->
-    <!--                <button mat-button (click)="register()">Envoyer</button>-->
-    <!--            </div>-->
-    <!--        </mat-step>-->
-    <!--    </mat-stepper>-->
 
     <ol class="flex items-center w-full mb-4 sm:mb-5">
-        <li class="flex w-full items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-100 after:border-4 after:inline-block dark:after:border-blue-800">
+        <li class="flex w-full items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-blue-100 after:border-4 after:inline-block dark:after:border-orange-800">
             <div
-                class="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-800 shrink-0">
+                class="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 dark:bg-orange-800 shrink-0">
                 <svg class="w-4 h-4 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                     <path
@@ -302,24 +11,13 @@
                 </svg>
             </div>
         </li>
-        <li *ngIf="isRecruiter"
-            class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block "
-            [ngClass]="{'dark:after:border-blue-800': step() === 2, 'dark:after:border-gray-700': step() === 1}">
-            <div
-                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
-                <svg class="w-4 h-4 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300" aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 14">
-                    <path d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM2 12V6h16v6H2Z"/>
-                    <path d="M6 8H4a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2Zm8 0H9a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2Z"/>
-                </svg>
-            </div>
 
-        </li>
-        <li *ngIf="!isRecruiter"
+        <li
             class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block "
-            [ngClass]="{'dark:after:border-blue-800': false, 'dark:after:border-gray-700': true}">
+            [ngClass]="{'dark:after:border-orange-800': step() >= 2, 'dark:after:border-gray-700': step() < 2}">
             <div
-                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
+                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
+                [ngClass]="{'dark:bg-orange-800': step() >= 2, 'dark:after:border-gray-700': step() < 2}">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -328,9 +26,23 @@
             </div>
 
         </li>
+        <li
+            class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block "
+            [ngClass]="{'dark:after:border-orange-800': step() === 3, 'dark:after:border-gray-700': step() !== 3}">
+            <div
+                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
+                [ngClass]="{'dark:bg-orange-800': step() >= 3, 'dark:after:border-gray-700': step() < 3}">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <path d="M16 0H4a2 2 0 0 0-2 2v1H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v2H1a1 1 0 0 0 0 2h1v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM13.929 17H7.071a.5.5 0 0 1-.5-.5 3.935 3.935 0 1 1 7.858 0 .5.5 0 0 1-.5.5Z"/>
+                </svg>
+            </div>
+
+        </li>
+
         <li class="flex items-center w-full">
             <div
-                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0">
+                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
+                [ngClass]="{'dark:bg-orange-800': step() >= 3, 'dark:after:border-gray-700': step() < 3}">
                 <svg class="w-4 h-4 text-blue-600 lg:w-6 lg:h-6 dark:text-blue-300" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                     <path
@@ -339,6 +51,7 @@
             </div>
         </li>
     </ol>
+
     <form *ngIf="step() == 1" [formGroup]="userInfoForm" class="flex m-1 flex-col justify-center items-center">
 
         <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
@@ -394,7 +107,7 @@
                 recruteur ?</label>
         </div>
 
-        <div class="flex justify-between relative z-0 w-3/12 mb-6 group">
+        <div class="relative z-0 w-3/12 mb-6 group">
             <button
                 class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
                 (click)="nextStep()">
@@ -402,90 +115,236 @@
             </button>
         </div>
     </form>
-    <form *ngIf="step() == 2" [formGroup]="devInfoForm" class="flex m-1 flex-col justify-center items-center">
 
-
-        <div class="w-3/12 flex justify-between flex-col">
-            <label for="message"
-                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-            <textarea formControlName="description" id="message" rows="4"
-                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Votre description...."></textarea>
-        </div>
+    <form *ngIf="!isRecruiter && step() == 2" [formGroup]="devInfoForm" class="flex m-1 flex-col justify-center items-center">
 
         <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
             <input type="email" name="floating_pseudo" id="floating_pseudo"
                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
                    placeholder=" " required formControlName="pseudo"/>
+
             <label for="floating_pseudo"
                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pseudo</label>
-        </div>
 
-        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group flex-col">
-            <label for="technologies-backend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technologies
-                back-end</label>
-            <select multiple id="technologies-backend"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    formControlName="technologyBackEnds">
-                <option selected>Choisissez vos technologies backend</option>
-                <option *ngFor="let technology of technologyBackEnd" [value]="technology">{{technology}}</option>
-            </select>
-        </div>
-
-        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group flex-col">
-            <label for="technologies-frontend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technologies
-                front-end</label>
-            <select multiple id="technologies-frontend"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    formControlName="technologyFrontEnds">
-                <option selected>Choisissez vos technologies frontend</option>
-                <option *ngFor="let technology of technologyFrontEnd" [value]="technology">{{technology}}</option>
-            </select>
         </div>
 
         <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
             <input type="email" name="floating_github" id="floating_github"
                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
                    placeholder=" " required formControlName="github"/>
+
             <label for="floating_github"
                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Github</label>
+
         </div>
 
         <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
             <input type="email" name="floating_linkedIn" id="floating_linkedIn"
                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
                    placeholder=" " required formControlName="linkedIn"/>
+
             <label for="floating_linkedIn"
                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">LinkedIn</label>
+
         </div>
 
+        <div class="w-3/12 flex justify-between flex-col">
+
+            <label for="message"
+                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+
+            <textarea formControlName="description" id="message" rows="4"
+                      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Votre description...."></textarea>
+
+        </div>
+
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group flex-col">
+
+            <label for="technologies-backend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technologies
+                back-end</label>
+
+            <select multiple id="technologies-backend"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    formControlName="technologyBackEnds">
+
+                <option selected>Choisissez vos technologies backend</option>
+
+                <option *ngFor="let technology of technologyBackEnd" [value]="technology">{{technology}}</option>
+
+            </select>
+        </div>
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group flex-col">
+
+            <label for="technologies-frontend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technologies
+                front-end</label>
+
+            <select multiple id="technologies-frontend"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    formControlName="technologyFrontEnds">
+
+                <option selected>Choisissez vos technologies frontend</option>
+
+                <option *ngFor="let technology of technologyFrontEnd" [value]="technology">{{technology}}</option>
+
+            </select>
+        </div>
+
+
         <div class="flex justify-between relative z-0 w-3/12 mb-6 group">
+
             <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+
                 <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path
                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                 </svg>
+
             </div>
+
             <input type="date"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                    placeholder="Select date" formControlName="birthDate">
+
         </div>
 
-        <!--        <div class="w-3/12 flex justify-between">-->
-        <!--            <mat-form-field class="w-full">-->
-        <!--                <mat-label>Date de naissance</mat-label>-->
-        <!--                <input type="date" formControlName="birthDate" matInput>-->
-        <!--            </mat-form-field>-->
-        <!--        </div>-->
-        <!--        <div>-->
-        <!--            <button mat-button matStepperPrevious>Back</button>-->
-        <!--            <button mat-button matStepperNext>Next</button>-->
-        <!--        </div>-->
+        <div class="flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <button
+                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                (click)="previousStep()">
+                Précédent
+            </button>
+
+            <button
+                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                (click)="nextStep()">
+                Suivant
+            </button>
+
+        </div>
+
+    </form>
+
+    <form *ngIf="isRecruiter && step() == 2" [formGroup]="companyForm" class="flex m-1 flex-col justify-center items-center">
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_company_name" id="floating_company_name"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="name"/>
+
+            <label for="floating_company_name"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nom de l'entreprise</label>
+        </div>
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_company_description" id="floating_company_description"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="description"/>
+
+            <label for="floating_company_description"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description de l'entreprise</label>
+        </div>
+
+        <div class="flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <button
+                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                (click)="previousStep()">
+                Précédent
+            </button>
+
+            <button
+                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                (click)="nextStep()">
+                Suivant
+            </button>
+
+        </div>
+    </form>
+
+    <form *ngIf="step() == 3" [formGroup]="addressForm" class="flex m-1 flex-col justify-center items-center">
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_street" id="floating_street"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="street"/>
+
+            <label for="floating_street"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Rue</label>
+
+        </div>
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_number" id="floating_number"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="number"/>
+
+            <label for="floating_number"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Numéro</label>
+
+        </div>
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_city" id="floating_city"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="city"/>
+
+            <label for="floating_city"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ville</label>
+
+        </div>
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_zipcode" id="floating_zipcode"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="zipcode"/>
+
+            <label for="floating_zipcode"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Code
+                postal</label>
+
+        </div>
+
+        <div class=" flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <input type="text" name="floating_country" id="floating_country"
+                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-orange-500 focus:outline-none focus:ring-0 focus:border-orange-600 peer"
+                   placeholder=" " required formControlName="country"/>
+
+            <label for="floating_country"
+                   class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-600 peer-focus:dark:text-orange-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Pays</label>
+        </div>
+
+        <div class="flex justify-between relative z-0 w-3/12 mb-6 group">
+
+            <button
+                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                (click)="previousStep()">
+                Précédent
+            </button>
+
+            <button
+                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                (click)="register()">
+                Terminer
+            </button>
+
+        </div>
     </form>
 
 </div>
-
-<script src="../path/to/flowbite/dist/datepicker.js"></script>
 
 

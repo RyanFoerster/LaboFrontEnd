@@ -9,7 +9,7 @@ import {Address} from "../../../shared/models/Address";
 import {DevInfoForm} from "../../../shared/models/DevInfoForm";
 import {RecruiterRegister} from "../../../shared/models/RecruiterRegister";
 import {CompanyForm} from "../../../shared/models/CompanyForm";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Observable} from "rxjs";
 
 @Component({
@@ -40,7 +40,8 @@ export class RegisterComponent {
     step= signal(1)
 
     constructor(private _formBuilder: FormBuilder,
-                private _authService: AuthService) {
+                private _authService: AuthService,
+                private _router: Router) {
 
         this.userInfoForm = _formBuilder.group({
             username: [null, [
@@ -87,22 +88,22 @@ export class RegisterComponent {
             if (this.userInfoForm.valid) {
                 const user = this.mapToUser(this.userInfoForm.value, this.devInfoForm.value, this.addressForm.value)
                 this._authService.registerDev(user).subscribe(data => console.log(data))
+                this.step.set(1)
+                this._router.navigateByUrl("/login")
             }
         }
         if (this.isRecruiter) {
-            console.log(this.userInfoForm)
-            console.log(`valid : ${this.userInfoForm.valid}`)
             if (this.userInfoForm.valid) {
-                console.log(this.userInfoForm.value)
                 const user = this.mapToRecruiter(this.userInfoForm.value, this.companyForm.value, this.addressForm.value)
                 this._authService.registerRecruiter(user).subscribe(data => console.log(data))
+                this.step.set(1)
+                this._router.navigateByUrl("/login")
             }
         }
     }
 
     toggleRole() {
         this.isRecruiter = !this.isRecruiter
-        console.log(this.isRecruiter)
     }
 
     mapToUser(userInfoForm: DevRegister, devInfoForm: DevInfoForm, addressForm: Address): DevRegister {

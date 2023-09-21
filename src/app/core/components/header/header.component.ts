@@ -3,6 +3,7 @@ import {Router, RouterLink} from "@angular/router";
 import {CommonModule, NgIf} from "@angular/common";
 import {AuthService} from "../../../shared/services/auth.service";
 import {Observable} from "rxjs";
+import {User} from "../../../shared/models/User";
 
 @Component({
     selector: 'app-header',
@@ -13,16 +14,15 @@ import {Observable} from "rxjs";
 })
 export class HeaderComponent {
 
-    isLogged$: Observable<boolean>
+    isLogged:boolean = false
     showSpinner: boolean = false
+    userConnected!: User | undefined
 
 
     constructor(private _authService: AuthService,
                 private _router: Router) {
-        this.isLogged$ = this._authService.isLogged$
-    }
-
-    ngOnInit(): void {
+       this._authService.isLogged$.subscribe(data => this.isLogged = data)
+        this.userConnected = this._authService.user
     }
 
     logout() {
