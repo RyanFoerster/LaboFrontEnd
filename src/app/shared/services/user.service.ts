@@ -6,6 +6,9 @@ import {environments} from "../../../environments/environments";
 import {Recruiter} from "../models/Recruiter";
 import {PasswordForm} from "../models/PasswordForm";
 import {DevInfoForm} from "../models/DevInfoForm";
+import {Address} from "../models/Address";
+import {Company} from "../models/Company";
+import {CompanyForm} from "../models/CompanyForm";
 
 @Injectable({
     providedIn: 'root'
@@ -32,9 +35,21 @@ export class UserService {
         return this._httpClient.put<DevInfoForm>(`${environments.apiUrl}/dev`, updatedDev)
     }
 
+    updateDevAddress(updatedAddress: Address):Observable<Address>{
+        return this._httpClient.put<Address>(`${environments.apiUrl}/dev/address`,updatedAddress)
+    }
     updateRecPassword(newPassword: PasswordForm): Observable<PasswordForm> {
         return this._httpClient.patch<PasswordForm>(`${environments.apiUrl}/recruiter`, newPassword)
     }
+    updateRec(updatedRec : Recruiter):Observable<Recruiter> {
+        return this._httpClient.put<Recruiter>(`${environments.apiUrl}/recruiter`,updatedRec)
+    }
 
+    updateCompany(updatedCompany : Company):Observable<CompanyForm> {
+        return this._httpClient.put<CompanyForm>(`${environments.apiUrl}/recruiter/company`,updatedCompany)
+    }
 
+    updateCompanyAddress(updatedAddress : Address):Observable<Address> {
+        return this._httpClient.put<Address>(`${environments.apiUrl}/recruiter/company/address`,updatedAddress)
+    }
 }
