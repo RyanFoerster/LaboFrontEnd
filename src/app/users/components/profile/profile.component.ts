@@ -38,14 +38,17 @@ export class ProfileComponent implements OnInit {
     recruiterSub!: Observable<Recruiter>;
     editPassword: boolean = false;
     editProfile: boolean = false;
+    editAddress: boolean = false;
+    editCompany: boolean=false;
     newPasswordForm: FormGroup;
-    devInfoForm: FormGroup
-    companyForm: FormGroup
-    addressForm: FormGroup
-    technologiesBackEnd : string[] = Object.values(TechnologyBackEnd);
-    technologiesFrontEnd : string[] = Object.values(TechnologyFrontEnd);
-    frontTechnologiesInDB!:String[];
-    backTechnologiesInDB!:String[];
+    devInfoForm: FormGroup;
+    companyForm: FormGroup;
+    addressForm: FormGroup;
+    recruiterForm: FormGroup;
+    technologiesBackEnd: string[] = Object.values(TechnologyBackEnd);
+    technologiesFrontEnd: string[] = Object.values(TechnologyFrontEnd);
+    frontTechnologiesInDB!: String[];
+    backTechnologiesInDB!: String[];
 
     constructor(private _authService: AuthService,
                 private _userService: UserService,
@@ -75,17 +78,22 @@ export class ProfileComponent implements OnInit {
             pseudo: ["", []]
         })
 
+        this.recruiterForm = _FB.group({
+            firstName: ["",[]],
+            lastName: ["",[]]
+        })
+
         this.addressForm = this._FB.group({
-            street: [null, [Validators.required]],
-            number: [null, [Validators.required]],
-            city: [null, [Validators.required]],
-            zipcode: [null, [Validators.required]],
-            country: [null, [Validators.required]]
+            street: ["", [Validators.required]],
+            number: ["", [Validators.required]],
+            city: ["", [Validators.required]],
+            zipcode: ["", [Validators.required]],
+            country: ["", [Validators.required]]
         })
 
         this.companyForm = _FB.group({
-            name: [null, [Validators.required]],
-            description: [null, [Validators.required]]
+            name: ["", [Validators.required]],
+            description: ["", [Validators.required]]
         })
     }
 
@@ -144,10 +152,12 @@ export class ProfileComponent implements OnInit {
             tap(() => location.reload())
         ).subscribe();
     }
+
     get frontFormArray(): FormArray {
         return this.devInfoForm.get('technologyFrontEnds') as FormArray;
     }
-    updateFrontTecs(event: any){
+
+    updateFrontTecs(event: any) {
         console.log(this.frontFormArray)
         const value = event.target.value;
         if (event.target.checked) {
@@ -163,7 +173,8 @@ export class ProfileComponent implements OnInit {
     get backFormArray(): FormArray {
         return this.devInfoForm.get('technologyBackEnds') as FormArray;
     }
-    updateBackTecs(event: any){
+
+    updateBackTecs(event: any) {
         const value = event.target.value;
         if (event.target.checked) {
             this.backFormArray.push(this._FB.control(value));
@@ -178,7 +189,40 @@ export class ProfileComponent implements OnInit {
     isFrontTechnologyInDB(tech: String): boolean {
         return this.frontTechnologiesInDB.includes(tech);
     }
+
     isBackTechnologyInDB(tech: String): boolean {
         return this.backTechnologiesInDB.includes(tech);
+    }
+
+    modifyAddress(){
+        this.editAddress=!this.editAddress;
+    }
+
+    updateAddress() {
+        this._userService.updateDevAddress(this.addressForm.value).pipe(
+            tap(() => location.reload())
+        ).subscribe();
+    }
+
+    updateRec() {
+        this._userService.updateRec(this.recruiterForm.value).pipe(
+            tap(()=>location.reload())
+        ).subscribe();
+    }
+
+    updateCompany() {
+        this._userService.updateCompany(this.companyForm.value).pipe(
+            tap(()=>location.reload())
+        ).subscribe();
+    }
+
+    updateCompanyAddress() {
+        this._userService.updateCompanyAddress(this.addressForm.value).pipe(
+            tap(()=>location.reload())
+        ).subscribe();
+    }
+
+    modifyCompany() {
+        this.editCompany=!this.editCompany;
     }
 }

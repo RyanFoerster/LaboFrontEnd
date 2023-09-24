@@ -47,28 +47,45 @@
                     <p>Technologies Back-end :</p>
                     <div *ngFor="let backTec of technologiesBackEnd">
                         <label for="backTec">{{backTec}}</label>
-                    <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}" (change)="updateBackTecs($event)"
-                    [checked]="isBackTechnologyInDB(backTec)">
+                        <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}"
+                               (change)="updateBackTecs($event)"
+                               [checked]="isBackTechnologyInDB(backTec)">
                     </div>
                     <br>
                     <p>Technologies Front-end :</p>
                     <div *ngFor="let frontTec of technologiesFrontEnd">
                         <label for="frontTec">{{frontTec.toString()}}</label>
-                        <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}" (change)="updateFrontTecs($event)"
-                        [checked]="isFrontTechnologyInDB(frontTec.toString())">
+                        <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}"
+                               (change)="updateFrontTecs($event)"
+                               [checked]="isFrontTechnologyInDB(frontTec.toString())">
                     </div>
                     <br>
                     <input type="submit" class="button" value="Valider les modifications">
                 </form>
             </div>
-
-            <div>
+            <div *ngIf="!editAddress">
                 <p>Adresse :</p>
                 <p>{{dev.address.street}}</p>
                 <p>{{dev.address.number}}</p>
                 <p>{{dev.address.city}}</p>
                 <p>{{dev.address.zipcode}}</p>
                 <p>{{dev.address.country}}</p>
+                <button (click)="modifyAddress()">Modifier l'adresse</button>
+            </div>
+            <div *ngIf="editAddress">
+                <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
+                    <p>Rue :</p>
+                    <input type="text" placeholder="{{dev.address.street}}" formControlName="street">
+                    <p>Numéro :</p>
+                    <input type="text" placeholder="{{dev.address.number}}" formControlName="number">
+                    <p>Ville :</p>
+                    <input type="text" placeholder="{{dev.address.city}}" formControlName="city">
+                    <p>Code postal :</p>
+                    <input type="text" placeholder="{{dev.address.zipcode}}" formControlName="zipcode">
+                    <p>Pays :</p>
+                    <input type="text" placeholder="{{dev.address.country}}" formControlName="country">
+                    <input type="submit" class="button" value="Valider l'adresse">
+                </form>
             </div>
             <div>
                 <button (click)="setPassword()">Modifier mot de passe</button>
@@ -83,19 +100,65 @@
     </div>
     <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('RECRUITER')">
         <div *ngIf="recruiterSub | async as recruiter">
-            <p>{{recruiter.firstName}}</p>
-            <p>{{recruiter.lastName}}</p>
-            <p>{{recruiter.email}}</p>
+            <div *ngIf="!editProfile">
+                <p>Prénom :</p>
+                <p>{{recruiter.firstName}}</p>
+                <p>Nom :</p>
+                <p>{{recruiter.lastName}}</p>
+                <p>Email :</p>
+                <p>{{recruiter.email}}</p>
+                <button (click)="modifyProfile()">Modifier le profil</button>
+            </div>
+            <div *ngIf="editProfile">
+                <form [formGroup]="recruiterForm" (ngSubmit)="updateRec()">
+                    <p>Prénom :</p>
+                    <input type="text" formControlName="firstName" placeholder="{{recruiter.firstName}}">
+                    <p>Nom :</p>
+                    <input type="text" formControlName="lastName" placeholder="{{recruiter.lastName}}">
+                    <input type="submit" class="button" value="Valider les infos">
+                </form>
+            </div>
+            <div *ngIf="!editCompany">
             <p>Société :</p>
+            <p>Nom de la société :</p>
             <p>{{recruiter.company.name}}</p>
+            <p>Description de la société :</p>
             <p>{{recruiter.company.description}}</p>
-            <div>
+                <button (click)="modifyCompany()">Modifier infos de la société</button>
+            </div>
+            <div *ngIf="editCompany">
+                <form [formGroup]="companyForm" (ngSubmit)="updateCompany()">
+                    <p>Société :</p>
+                    <p>Nom de la société :</p>
+                    <input type="text" placeholder="{{recruiter.company.name}}" formControlName="name">
+                    <input type="text" placeholder="{{recruiter.company.description}}" formControlName="description">
+                    <input type="submit" value="Modifier les infos de la société">
+                </form>
+            </div>
+            <div *ngIf="!editAddress">
                 <p>Adresse de la société :</p>
                 <p>{{recruiter.company.address.street}}</p>
                 <p>{{recruiter.company.address.number}}</p>
                 <p>{{recruiter.company.address.city}}</p>
                 <p>{{recruiter.company.address.zipcode}}</p>
                 <p>{{recruiter.company.address.country}}</p>
+                <button (click)="modifyAddress()">Modifier l'addresse de la société</button>
+            </div>
+            <div *ngIf="editAddress">
+                <form [formGroup]="addressForm" (ngSubmit)="updateCompanyAddress()">
+                    <p>Addresse de la société :</p>
+                    <p>Rue :</p>
+                    <input type="text" placeholder="{{recruiter.company.address.street}}" formControlName="street">
+                    <p>Numéro :</p>
+                    <input type="text" placeholder="{{recruiter.company.address.number}}" formControlName="number">
+                    <p>Ville :</p>
+                    <input type="text" placeholder="{{recruiter.company.address.city}}" formControlName="city">
+                    <p>Code postal :</p>
+                    <input type="text" placeholder="{{recruiter.company.address.zipcode}}" formControlName="zipcode">
+                    <p>Pays :</p>
+                    <input type="text" placeholder="{{recruiter.company.address.country}}" formControlName="country">
+                    <input type="submit" class="button" value="Valider l'adresse">
+                </form>
             </div>
         </div>
         <div>
@@ -103,7 +166,7 @@
             <div *ngIf="editPassword">
                 <form [formGroup]="newPasswordForm" (ngSubmit)="updateRecPassword()">
                     <input type="text" placeholder="Nouveau Mot de passe" formControlName="password">
-                    <input type="submit" value="Valider nouveau mot de passe">
+                    <input class="button" type="submit" value="Valider nouveau mot de passe">
                 </form>
             </div>
         </div>
