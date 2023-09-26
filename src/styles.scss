@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-family);
+    font-family: var(--font-family);
+    background-color: #111827;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,33 +1,18 @@
 import {Component} from '@angular/core';
-import {MatButtonModule} from "@angular/material/button";
 import {Router, RouterLink} from "@angular/router";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
 import {AuthService} from "../../../shared/services/auth.service";
-import {
-    bounceAnimation,
-    fadeInOnEnterAnimation, fadeInRightAnimation, fadeInRightOnEnterAnimation,
-    fadeOutOnLeaveAnimation,
-    pulseAnimation,
-    rubberBandAnimation
-} from "angular-animations";
 import {NgIf} from "@angular/common";
-import {MatStepperModule} from "@angular/material/stepper";
 
 @Component({
     selector: 'app-login',
     standalone: true,
     templateUrl: './login.component.html',
     imports: [
-        MatButtonModule,
         RouterLink,
         FormsModule,
-        MatFormFieldModule,
-        MatInputModule,
         ReactiveFormsModule,
-        NgIf,
-        MatStepperModule
+        NgIf
     ],
     styleUrls: ['./login.component.scss'],
     animations: []

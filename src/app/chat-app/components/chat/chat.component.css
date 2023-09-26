@@ -1,0 +1,30 @@
+h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.container_block {
+  height: calc(100% - 64px);
+}
+.container_block aside .btn {
+  height: 75px;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+.msg_content {
+  @apply mt-5;
+}
+
+.main_color__bg {
+  background-color: #424242;
+}
+
+.card {
+  box-shadow: none;
+}
+
+/*# sourceMappingURL=chat.component.css.map */
