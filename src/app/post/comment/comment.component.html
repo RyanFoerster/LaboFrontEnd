@@ -1,0 +1,13 @@
+<ng-container *ngIf="voteInfo$ | async as voteInfo">
+
+    <p>{{comment.message}}</p>
+
+    <button  (click)="voteComment('UPVOTE')" mat-raised-button
+    >Upvote</button>
+    <p>
+        {{voteInfo.score}}
+    </p>
+    <button  (click)="voteComment('DOWNVOTE')" mat-raised-button
+    >DOWNVOTE</button>
+
+</ng-container>

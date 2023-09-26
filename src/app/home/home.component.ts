@@ -7,6 +7,7 @@ import {PostHelp} from "../shared/models/PostHelp";
 import {PosthelpService} from "../shared/services/posthelp.service";
 import {Observable, tap} from "rxjs";
 import {PostComponent} from "../post/post.component";
+import {data} from "autoprefixer";
 
 
 @Component({

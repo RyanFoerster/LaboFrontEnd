@@ -1,6 +1,6 @@
 import {TechnologyFrontEnd} from "./enums/TechnologyFrontEnd";
 import {TechnologyBackEnd} from "./enums/TechnologyBackEnd";
-import {Comment} from "./Comment";
+import {PostComment} from "./PostComment";
 import {VoteSujet} from "./VoteSujet";
 
 export interface PostHelp {
@@ -11,7 +11,7 @@ export interface PostHelp {
     description: string
     github: string
     ouvert: boolean
-    comments: Comment[]
+    comments: PostComment[]
     voteSujets: VoteSujet
     score: number
 

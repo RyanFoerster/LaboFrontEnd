@@ -28,6 +28,7 @@ const routes: Routes = [
         loadChildren: () => import("./app/jobOffers/job-offer.routes")
     },
     {
+
         path: "",
         loadChildren: () => import("./app/chat-app/chat.routes"),
         canActivate: [authGuard]
@@ -36,6 +37,11 @@ const routes: Routes = [
         path: "relation",
         loadComponent: () => import("./app/relation/relation.component").then(module => module.RelationComponent),
         canActivate: [authGuard]
+    },
+    {
+        path: "profile",
+        loadChildren: () => import("./app/users/user.routes")
+
     },
     {
         path: "**",

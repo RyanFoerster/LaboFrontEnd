@@ -19,8 +19,12 @@ export class PosthelpService {
         return this._httpClient.get<PostHelp[]>(`${environments.apiUrl}/posthelp`)
     }
 
+    getComment(commentId: number): Observable<Comment>{
+        return this._httpClient.get<Comment>(`${environments.apiUrl}/posthelp/comment/${commentId}`)
+    }
 
-    votePost(id: number, voteType: VoteType): Observable<Vote> {
+
+    votePostHelp(id: number, voteType: VoteType): Observable<Vote> {
         return this._httpClient.post<Vote>(
             `${environments.apiUrl}/posthelp/${id}/vote`,
             null,
@@ -29,11 +33,22 @@ export class PosthelpService {
             }
         );
     }
-
-    getVote(postId: number){
-        return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/${postId}/vote`)
+    votePostComment(id: number, voteType: VoteType): Observable<Vote> {
+        return this._httpClient.post<Vote>(
+            `${environments.apiUrl}/posthelp/comment/${id}/vote`,
+            null,
+            {
+                params: { voteType: voteType }
+            }
+        );
     }
 
+    getVotePostHelp(postId: number){
+        return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/${postId}/vote`)
+    }
+    getCommentVote(commentId: number){
+        return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/comment/${commentId}/vote`)
+    }
 
 }
 
