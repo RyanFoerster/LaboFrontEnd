@@ -16,7 +16,7 @@ export interface DevInfo {
     birthDate: Date;
     technologyBackEnds: string[];
     technologyFrontEnds: string[];
-    role: string[];
+    role: string;
     address: Address;
 
 

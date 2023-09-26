@@ -1,5 +1,5 @@
 <div>
-    <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('DEVELOPER')">
+    <div *ngIf="connectedUser && connectedUser?.role && connectedUser.role === 'DEVELOPER'">
         <div *ngIf="devInfoSub |  async as dev">
             <div *ngIf="!editProfile">
                 <p>Prénom :</p>
@@ -98,7 +98,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="connectedUser && connectedUser?.roles && connectedUser.roles.includes('RECRUITER')">
+    <div *ngIf="connectedUser && connectedUser?.role && connectedUser.role ==='RECRUITER'">
         <div *ngIf="recruiterSub | async as recruiter">
             <div *ngIf="!editProfile">
                 <p>Prénom :</p>
