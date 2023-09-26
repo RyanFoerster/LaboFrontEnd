@@ -18,11 +18,11 @@ export class UserService {
     constructor(private _httpClient: HttpClient) {
     }
 
-    getDevInfoFromServer(id: string): Observable<DevInfo> {
+    getDevInfoFromServer(id: number): Observable<DevInfo> {
         return this._httpClient.get<DevInfo>(`${environments.apiUrl}/dev/${id}`)
     }
 
-    getRecruiterInfoFromServer(id: string): Observable<Recruiter> {
+    getRecruiterInfoFromServer(id: number): Observable<Recruiter> {
         return this._httpClient.get<Recruiter>(`${environments.apiUrl}/recruiter/${id}`)
     }
 

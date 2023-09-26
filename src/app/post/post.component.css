@@ -1,5 +1,9 @@
+.my-bg {
+  background-color: #6c4a4a;
+}
+
 .active {
-  background-color: goldenrod;
+  background-color: magenta;
   color: black;
 }
 
