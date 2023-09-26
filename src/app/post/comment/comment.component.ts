@@ -1,15 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {MatButtonModule} from "@angular/material/button";
+import {CommonModule} from '@angular/common';
 import {PosthelpService, Vote, VoteType} from "../../shared/services/posthelp.service";
 import {Observable, tap} from "rxjs";
 import {PostComment} from "../../shared/models/PostComment";
-import {VoteComment} from "../../shared/models/VoteComment";
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-    imports: [CommonModule, MatButtonModule],
+    imports: [CommonModule],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })

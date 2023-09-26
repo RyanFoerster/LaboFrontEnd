@@ -35,8 +35,6 @@ export class RegisterComponent {
     technologyBackEnd = Object.values(TechnologyBackEnd)
     technologyFrontEnd = Object.values(TechnologyFrontEnd)
     isRecruiter: boolean = false
-    roles: string[] = ["RECRUITER", "DEVELOPER"]
-    isLinear = false;
     step= signal(1)
 
     constructor(private _formBuilder: FormBuilder,
@@ -60,14 +58,14 @@ export class RegisterComponent {
         })
 
         this.devInfoForm = _formBuilder.group({
-            description: ["", []],
+            description: [null, []],
             birthDate: [null, []],
             technologyBackEnds: [null, []],
             technologyFrontEnds: [null, []],
-            gitHub: ["", []],
-            cv: ["",[]],
-            linkedIn: ["", []],
-            pseudo: ["", []]
+            gitHub: [null, []],
+            cv: [null,[]],
+            linkedIn: [null, []],
+            pseudo: [null, []]
         })
 
         this.addressForm = this._formBuilder.group({
@@ -86,6 +84,9 @@ export class RegisterComponent {
 
     register(): void {
         if (!this.isRecruiter) {
+            console.log(this.userInfoForm.value)
+            console.log(this.devInfoForm.value)
+            console.log(this.addressForm.value)
             if (this.userInfoForm.valid) {
                 const user = this.mapToUser(this.userInfoForm.value, this.devInfoForm.value, this.addressForm.value)
                 this._authService.registerDev(user).subscribe(data => console.log(data))
