@@ -14,7 +14,6 @@ import {RelationService} from "../shared/services/relation.service";
 })
 export class RelationComponent {
 
-    displayedColumns: string[] = ['id', 'name', 'button'];
     devs$!: Observable<User[]>
 
 
