@@ -5,13 +5,17 @@ import {PosthelpService, Vote, VoteType} from "../shared/services/posthelp.servi
 import {Observable, tap} from "rxjs";
 import {AuthService} from "../shared/services/auth.service";
 import {User} from "../shared/models/User";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CommentComponent} from "./comment/comment.component";
+import {TechnologyBackEnd} from "../shared/models/enums/TechnologyBackEnd";
+import {TechnologyFrontEnd} from "../shared/models/enums/TechnologyFrontEnd";
+import {PostHelpForm} from "../shared/models/PostHelpForm";
+
 
 @Component({
     selector: 'app-post',
     standalone: true,
-    imports: [CommonModule, FormsModule, CommentComponent],
+    imports: [CommonModule, FormsModule, CommentComponent, ReactiveFormsModule],
     templateUrl: './post.component.html',
     styleUrls: ['./post.component.scss']
 })
@@ -26,10 +30,16 @@ export class PostComponent implements OnInit {
     panelOpenState: boolean = false;
 
 
+
+
     constructor(
         private readonly _posthelpService: PosthelpService,
-        private _authService: AuthService
+        private _authService: AuthService,
+
     ) {
+
+
+
     }
 
     ngOnInit(): void {
@@ -41,6 +51,9 @@ export class PostComponent implements OnInit {
             this.connectedUser = undefined;
         }
     }
+
+
+
 
     vote(id: number, type: VoteType) {
 

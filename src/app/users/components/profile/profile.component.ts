@@ -10,6 +10,8 @@ import {Recruiter} from "../../../shared/models/Recruiter";
 import {Router, RouterLink} from "@angular/router";
 import {TechnologyBackEnd} from "../../../shared/models/enums/TechnologyBackEnd";
 import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEnd";
+import {DevService} from "../../../shared/services/dev.service";
+import {data} from "autoprefixer";
 
 @Component({
     selector: 'app-profile',
@@ -42,9 +44,11 @@ export class ProfileComponent implements OnInit {
     technologiesFrontEnd: string[] = Object.values(TechnologyFrontEnd);
     frontTechnologiesInDB!: String[];
     backTechnologiesInDB!: String[];
+    fileToUpload: File | null = null;
 
     constructor(private _authService: AuthService,
                 private _userService: UserService,
+                private _devService: DevService,
                 private _FB: FormBuilder,
                 private _router: Router) {
 
@@ -93,7 +97,7 @@ export class ProfileComponent implements OnInit {
     ngOnInit(): void {
         this.connectedUser = this._authService.user
 
-        if (this.connectedUser && this.connectedUser?.roles.includes("DEVELOPER")) {
+        if (this.connectedUser && this.connectedUser?.role === "DEVELOPER") {
             this.devInfoSub = this._userService.getDevInfoFromServer(this.connectedUser?.id);
             this.devInfoSub.subscribe((data) => {
                 this.devInfoForm.patchValue(data);
@@ -113,7 +117,7 @@ export class ProfileComponent implements OnInit {
             // })
 
         }
-        if (this.connectedUser && this.connectedUser.roles.includes("RECRUITER"))
+        if (this.connectedUser && this.connectedUser.role === "RECRUITER")
             this.recruiterSub = this._userService.getRecruiterInfoFromServer(this.connectedUser.id)
 
 
@@ -180,11 +184,11 @@ export class ProfileComponent implements OnInit {
     }
 
     isFrontTechnologyInDB(tech: String): boolean {
-        return this.frontTechnologiesInDB.includes(tech);
+        return this.frontTechnologiesInDB ? this.frontTechnologiesInDB.includes(tech) : false;
     }
 
     isBackTechnologyInDB(tech: String): boolean {
-        return this.backTechnologiesInDB.includes(tech);
+        return this.backTechnologiesInDB ? this.backTechnologiesInDB.includes(tech) : false;
     }
 
     modifyAddress(){
@@ -217,5 +221,45 @@ export class ProfileComponent implements OnInit {
 
     modifyCompany() {
         this.editCompany=!this.editCompany;
+    }
+
+    handleFileInput(event: any): void {
+        this.fileToUpload = <File>event.target.files[0];
+    }
+
+    uploadCV(devId: number): void {
+        console.log("1 - "+ this.fileToUpload?.name)
+        if (this.fileToUpload) {
+            console.log("2 - "+ this.fileToUpload.name)
+            this._devService.uploadCV(devId, this.fileToUpload).subscribe({
+                next : response => console.log("Cv upload successfully", response),
+                error : error => console.log("Error uploading the CV", error)
+            })
+
+            //     .pipe(
+            //     tap({
+            //         next : response => console.log("Cv upload successfully", response),
+            //         error : error => console.log("Error uploading the CV", error)
+            //     })
+            // )
+        }
+    }
+
+    downloadCV(devId: number): void {
+        this._devService.downloadCV(devId).subscribe({
+            next : data => {
+                const blob = new Blob([data], { type: 'application/pdf' }); // assuming it's a pdf file
+                const url= window.URL.createObjectURL(blob);
+                window.open(url);
+            },
+            error : error => {
+                console.error("Error downloading the file.", error);
+            }
+        })
+    }
+
+    getFileNameFromPath(path: string): string {
+        // @ts-ignore
+        return path.split('\\').pop().split('/').pop();
     }
 }
