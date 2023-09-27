@@ -1,113 +1,69 @@
 <main>
 <a routerLink="/job-offers">
-    <button>Retour</button>
+    <button class="text-white mt-4 mb-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 sm:w-1/6 px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800">
+        Retour
+    </button>
 </a>
-<div>
+<div *ngIf="jobOfferSub | async as job">
     <form [formGroup]="jobOfferForm" (ngSubmit)="editJobOffer()">
         <div>
-            <p>Intitulé de l'offre</p>
+            <h6 class="mb-2 mt-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Intitulé de l'offre :</h6>
             <input type="text" placeholder="Intitulé de l'offre" formControlName="title">
+            <span class="error"
+                  *ngIf="jobOfferForm.get('title')?.touched && jobOfferForm.get('title')?.errors?.['required']">Ce champ est requis</span>
         </div>
         <div>
-            <p>Description de l'offre</p>
+            <h6 class="mb-2 mt-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de
+                l'offre :</h6>
             <input type="text" placeholder="Description de l'offre" formControlName="description">
+            <span class="error"
+                  *ngIf="jobOfferForm.get('description')?.touched && jobOfferForm.get('description')?.errors?.['required']">Ce champ est requis</span>
         </div>
         <div>
-            <p>Technologies front-end (minimum 1)</p>
-            <label>
-                <input type="checkbox" value="REACT" (change)="updateTechnologyFrontEnds($event)">
-                React
-            </label>
-            <label >
-                <input type="checkbox" value="VUE" (change)="updateTechnologyFrontEnds($event)">
-                Vue
-            </label>
-            <label>
-                <input type="checkbox" value="ANGULAR" (change)="updateTechnologyFrontEnds($event)">
-                Angular
-            </label>
-            <label>
-                <input type="checkbox" value="SVELTE" (change)="updateTechnologyFrontEnds($event)">
-                Svelte
-            </label>
-            <label>
-                <input type="checkbox" value="JQUERY" (change)="updateTechnologyFrontEnds($event)">
-                JQuery
-            </label>
-            <label>
-                <input type="checkbox" value="EMBER" (change)="updateTechnologyFrontEnds($event)">
-                Ember
-            </label>
-            <label>
-                <input type="checkbox" value="BACKBONE" (change)="updateTechnologyFrontEnds($event)">
-                BackBone
-            </label>
-            <label>
-                <input type="checkbox" value="PREACT" (change)="updateTechnologyFrontEnds($event)">
-                PReact
-            </label>
+            <h6 class="mb-2 mt-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies front-end (minimum 1)</h6>
+            <div class="z-10 mt-4 bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                    <li *ngFor="let frontTec of technologiesFrontEnd">
+                        <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}"
+                                   (change)="updateTechnologyFrontEnds($event)"
+                                   [checked]="isFrontTechnologyInDB(frontTec.toString())">
+                            <label class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                                   for="frontTec">{{frontTec.toString()}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div>
-            <p>Technologies back-end (minimum 1)</p>
-            <label>
-                <input type="checkbox" value="NODE" (change)="updateTechnologyBackEnds($event)">
-                Node
-            </label>
-            <label>
-                <input type="checkbox" value="PYTHON_DJANGO" (change)="updateTechnologyBackEnds($event)">
-                Python Django
-            </label>
-            <label>
-                <input type="checkbox" value="RUBY_ON_RAILS" (change)="updateTechnologyBackEnds($event)">
-                Ruby on rails
-            </label>
-            <label>
-                <input type="checkbox" value="SPRING_BOOT" (change)="updateTechnologyBackEnds($event)">
-                Spring Boot
-            </label>
-            <label>
-                <input type="checkbox" value="NET_CORE" (change)="updateTechnologyBackEnds($event)">
-                Net Core
-            </label>
-            <label>
-                <input type="checkbox" value="PHP_LARAVEL" (change)="updateTechnologyBackEnds($event)">
-                PHP Lavarel
-            </label>
-            <label>
-                <input type="checkbox" value="ASP_NET" (change)="updateTechnologyBackEnds($event)">
-                ASP Net
-            </label>
-            <label>
-                <input type="checkbox" value="EXPRESS" (change)="updateTechnologyBackEnds($event)">
-                Express
-            </label>
-            <label>
-                <input type="checkbox" value="KOA" (change)="updateTechnologyBackEnds($event)">
-                Koa
-            </label>
-            <label>
-                <input type="checkbox" value="GO" (change)="updateTechnologyBackEnds($event)">
-                Go
-            </label>
-            <label>
-                <input type="checkbox" value="RUST" (change)="updateTechnologyBackEnds($event)">
-                Rust
-            </label>
-            <label>
-                <input type="checkbox" value="HASKELL" (change)="updateTechnologyBackEnds($event)">
-                Haskell
-            </label>
-            <label>
-                <input type="checkbox" value="SCALA" (change)="updateTechnologyBackEnds($event)">
-                Scala
-            </label>
+            <h6 class="mb-2 mt-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies back-end
+                (minimum 1)</h6>
+            <div class="z-10 mt-4 bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                    <li *ngFor="let backTec of technologiesBackEnd">
+                        <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                id="backTec" type="checkbox" value="{{backTec.valueOf()}}"
+                                (change)="updateTechnologyBackEnds($event)"
+                                [checked]="isBackTechnologyInDB(backTec)">
+                            <label
+                                class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                                for="backTec">{{backTec}}</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div>
-            <p>Lien de l'offre</p>
+            <h6 class="mb-2 mt-4 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Lien de l'offre</h6>
             <input type="text" placeholder="Lien de l'offre" formControlName="link">
+            <span class="error"
+                  *ngIf="jobOfferForm.get('link')?.touched && jobOfferForm.get('link')?.errors?.['required']">Ce champ est requis</span>
         </div>
         <div>
-            <input type="submit" value="Modifier offre d'emploi">
+            <input class="text-white mt-4 mb-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 sm:w-1/6 px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                   type="submit" value="Modifier offre d'emploi">
         </div>
     </form>
 </div>
