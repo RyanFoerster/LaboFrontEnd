@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {PostHelp} from "../models/PostHelp";
 import {environments} from "../../../environments/environments";
 import {Observable} from "rxjs";
+import {PostHelpForm} from "../models/PostHelpForm";
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,10 @@ export class PosthelpService {
 
 
     constructor(private _httpClient: HttpClient) {
+    }
+
+    createPost(post: PostHelpForm): Observable<PostHelpForm> {
+        return this._httpClient.post<PostHelpForm>(`${environments.apiUrl}/posthelp`, post);
     }
 
     getAll(): Observable<PostHelp[]>{
