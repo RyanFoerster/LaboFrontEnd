@@ -22,8 +22,8 @@ export class PostComponent implements OnInit {
     connectedUser?: User;
 
     vote$!: Observable<Vote>;
-    voteComment$!: Observable<Vote>;
-    panelOpenState: boolean = false;
+
+    isShowCommentary: boolean = false
 
 
     constructor(
@@ -58,4 +58,7 @@ export class PostComponent implements OnInit {
     }
 
 
+    showCommentaire() {
+        this.isShowCommentary = !this.isShowCommentary
+    }
 }
