@@ -23,18 +23,14 @@
 
                 <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600 dark:text-accent">
                     GitHub link:
-                    <a [href]="postHelp.github" class="dark:italic dark:text-gray-300 hover:underline">{{ postHelp.github }}</a>
+                    <a [href]="postHelp.gitHub" class="dark:italic dark:text-gray-300 hover:underline">{{ postHelp.gitHub }}</a>
                 </li>
 
-                <li class="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600 dark:text-accent">
-                    Status:
-                    <span class="dark:italic dark:text-gray-300 ">{{ postHelp.ouvert ? 'Ouvert' : 'Fermé' }}</span>
-                </li>
 
             </ul>
 
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 hover:underline cursor-pointer" (click)="showCommentaire()">Nombre de commentaires: <span
-                class="dark:italic">{{ postHelp.comments.length }}</span></p>
+            <p class="mt-3 font-normal  text-gray-700 dark:text-gray-400 hover:underline cursor-pointer" (click)="showCommentaire()">Afficher les commentaires<span
+                class="dark:italic">({{ postHelp.comments.length }})</span></p>
         </div>
 
 
@@ -43,7 +39,7 @@
             <a
                 (click)="vote(postHelp.id, 'UPVOTE')"
                 [ngClass]="{active: voteInfo.voteType == 'UPVOTE'}"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-accent dark:hover:bg-yellow-300 dark:focus:ring-blue-800">
+                class="cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-accent dark:hover:bg-yellow-300 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-gray-800 dark:text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 10 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -60,7 +56,7 @@
             <a
                 (click)="vote(postHelp.id, 'DOWNVOTE')"
                 [ngClass]="{active: voteInfo.voteType == 'DOWNVOTE'}"
-                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-accent dark:hover:bg-yellow-300 dark:focus:ring-blue-800">
+                class="cursor-pointer inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-accent dark:hover:bg-yellow-300 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-gray-800 dark:text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 10 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -81,20 +77,24 @@
     </div>
 </div>
 
-<div>
-    <form [formGroup]="commentForm" (ngSubmit)="addComment()">
-        <div class="mb-4">
-            <label for="message" class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea id="message" formControlName="message" rows="4" placeholder="Entrez le message"
-                      class="mt-1 p-2 w-full border rounded-md"></textarea>
-        </div>
 
-        <div class="mt-4">
-            <button type="submit"
-                    class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-                Poster
-            </button>
+
+<form [formGroup]="commentForm" (ngSubmit)="addComment()">
+    <div class="w-full mt-1 mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+        <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+            <label for="message" class="sr-only"></label>
+            <textarea id="message" formControlName="message" rows="1" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Votre commentaire" required></textarea>
         </div>
-    </form>
-</div>
+        <div class="flex items-center justify-between px-3 py-2 border-t dark:border-gray-600">
+            <button type="submit" class="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
+                Laisser un commentaire
+            </button>
+            <div class="flex pl-0 space-x-1 sm:pl-2">
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
 

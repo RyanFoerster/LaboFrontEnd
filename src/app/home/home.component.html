@@ -4,68 +4,76 @@
 
     </div>
 
-    <div >
+    <div>
 
     </div>
 
     <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen">
-        <form class="mb-3" *ngIf="user?.role === 'DEVELOPER'" [formGroup]="postForm" (ngSubmit)="post()">
+
+        <button (click)="toggleForm()" type="button" class="text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">
+            Ecrire un post
+        </button>
+
+        <form class="mb-3" *ngIf="showForm && user?.role === 'DEVELOPER'" [formGroup]="postForm" (ngSubmit)="post()">
 
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700">Titre</label>
+                <label for="title" class="block text-sm font-medium text-yellow-500">Titre</label>
                 <input type="text" id="title" formControlName="title" placeholder="Entrez le titre"
-                       class="mt-1 p-2 w-full border rounded-md">
+                       class="mt-1 p-2 w-full border rounded-md bg-gray-700 text-white placeholder-white">
             </div>
 
             <div class="flex justify-between w-full">
                 <div class=" flex justify-between relative z-0 w-1/3 mb-6 group flex-col">
 
-                    <label for="technologies-backend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center">Technologies
+                    <label for="technologies-backend"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-yellow-500 text-center">Technologies
                         back-end</label>
 
                     <select id="technologies-backend"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
 
                             formControlName="technologyBackEnd">
 
                         <option selected>Choisissez vos technologies backend</option>
 
-                        <option *ngFor="let technology of technologyBackEnd" [value]="technology">{{technology}}</option>
+                        <option *ngFor="let technology of technologyBackEnd"
+                                [value]="technology">{{technology}}</option>
 
                     </select>
                 </div>
 
                 <div class=" flex justify-between relative z-0 w-1/3 mb-6 group flex-col">
 
-                    <label for="technologies-frontend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center">Technologies
+                    <label for="technologies-frontend"
+                           class="block mb-2 text-sm font-medium text-gray-900 dark:text-yellow-500 text-center">Technologies
                         front-end</label>
 
                     <select id="technologies-frontend"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
 
                             formControlName="technologyFrontEnd">
 
                         <option selected>Choisissez vos technologies frontend</option>
 
-                        <option *ngFor="let technology of technologyFrontEnd" [value]="technology">{{technology}}</option>
+                        <option *ngFor="let technology of technologyFrontEnd"
+                                [value]="technology">{{technology}}</option>
 
                     </select>
                 </div>
             </div>
 
 
-
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <label for="description" class="block text-sm font-medium text-yellow-500">Description</label>
                 <textarea id="description" formControlName="description" rows="4" placeholder="Entrez la description"
-                          class="mt-1 p-2 w-full border rounded-md"></textarea>
+                          class="mt-1 p-2 w-full border rounded-md bg-gray-700 text-white placeholder-white"></textarea>
 
             </div>
 
             <div class="mb-4">
-                <label for="gitHub" class="block text-sm font-medium text-gray-700">GitHub Link</label>
+                <label for="gitHub" class="block text-sm font-medium text-yellow-500">GitHub Link</label>
                 <input type="text" id="gitHub" formControlName="gitHub" placeholder="Entrez le lien GitHub"
-                       class="mt-1 p-2 w-full border rounded-md">
+                       class="mt-1 p-2 w-full border rounded-md bg-gray-700 text-white placeholder-white">
             </div>
 
             <div class="mt-4">
@@ -76,8 +84,9 @@
             </div>
 
         </form>
+
         <ng-container *ngFor="let postHelp of postHelps">
-            <app-post [post]="postHelp" ></app-post>
+            <app-post [post]="postHelp"></app-post>
         </ng-container>
     </div>
 
