@@ -1,7 +1,4 @@
 import {Address} from "./Address";
-import {TechnologyBackEnd} from "./enums/TechnologyBackEnd";
-import {TechnologyFrontEnd} from "./enums/TechnologyFrontEnd";
-
 export interface DevInfo {
     id: number;
     username: string;
@@ -16,7 +13,7 @@ export interface DevInfo {
     birthDate: Date;
     technologyBackEnds: string[];
     technologyFrontEnds: string[];
-    role: string[];
+    role: string;
     address: Address;
 
 
