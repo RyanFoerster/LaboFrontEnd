@@ -123,8 +123,7 @@ export class ProfileComponent implements OnInit {
 
 
     }
-
-
+    
     updateDevPassword() {
         this._userService.updateDevPassword(this.newPasswordForm.value).pipe(
             tap(() => this._router.navigateByUrl('/home'))

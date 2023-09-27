@@ -1,26 +1,28 @@
 <main><a routerLink="/job-offers">
-    <button>Retour</button>
+    <button class="text-white mt-4 mb-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-1/6 sm:w-1/6 px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800">
+        Retour
+    </button>
 </a>
-<div *ngIf="jobOfferSub$ |async as jobOffer">
-    <table>
-        <thead>
+<div *ngIf="jobOfferSub$ |async as jobOffer" class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <td>Intitulé</td>
-            <td>Technologies</td>
-            <td>Description</td>
-            <td>Lien</td>
-            <td>Recruteur</td>
-            <td>Société</td>
+            <th scope="col" class="px-6 py-3">Intitulé</th>
+            <th scope="col" class="px-6 py-3">Technologies</th>
+            <th scope="col" class="px-6 py-3">Description</th>
+            <th scope="col" class="px-6 py-3">Lien</th>
+            <th scope="col" class="px-6 py-3">Recruteur</th>
+            <th scope="col" class="px-6 py-3">Société</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>{{jobOffer.title}}</td>
-            <td>{{jobOffer.technologyBackEnds}}, {{jobOffer.technologyFrontEnds}}</td>
-            <td>{{jobOffer.description}}</td>
-            <td><a href="{{jobOffer.link}}">{{jobOffer.link}}</a></td>
-            <td>{{jobOffer.recruiter.lastName}} {{jobOffer.recruiter.firstName}}</td>
-            <td>{{jobOffer.recruiter.company.name}}</td>
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{jobOffer.title}}</th>
+            <td class="px-6 py-4">{{jobOffer.technologyBackEnds}}, {{jobOffer.technologyFrontEnds}}</td>
+            <td class="px-6 py-4">{{jobOffer.description}}</td>
+            <td class="px-6 py-4"><a href="{{jobOffer.link}}">{{jobOffer.link}}</a></td>
+            <td class="px-6 py-4">{{jobOffer.recruiter.lastName}} {{jobOffer.recruiter.firstName}}</td>
+            <td class="px-6 py-4">{{jobOffer.recruiter.company.name}}</td>
         </tr>
         </tbody>
     </table>

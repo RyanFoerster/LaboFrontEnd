@@ -6,6 +6,7 @@ import {JobOfferService} from "../../../shared/services/job-offer.service";
 import {NgForOf, NgIf} from "@angular/common";
 import {min, tap} from "rxjs";
 import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEnd";
+import {TechnologyBackEnd} from "../../../shared/models/enums/TechnologyBackEnd";
 
 @Component({
     selector: 'app-create-job-offer',
@@ -14,7 +15,8 @@ import {TechnologyFrontEnd} from "../../../shared/models/enums/TechnologyFrontEn
     imports: [
         RouterLink,
         ReactiveFormsModule,
-        NgIf
+        NgIf,
+        NgForOf
     ],
     styleUrls: ['./create-job-offer.component.scss']
 })
@@ -22,6 +24,8 @@ export class CreateJobOfferComponent {
 
     newJobOfferForm: FormGroup;
     newJobOffer!: JobOffer;
+    technologiesBackEnd: string[] = Object.values(TechnologyBackEnd);
+    technologiesFrontEnd: string[] = Object.values(TechnologyFrontEnd);
 
     constructor(private _FB: FormBuilder,
                 private _jobServ: JobOfferService,
