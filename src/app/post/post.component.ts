@@ -22,8 +22,8 @@ export class PostComponent implements OnInit {
     connectedUser?: User;
 
     vote$!: Observable<Vote>;
-    voteComment$!: Observable<Vote>;
-    panelOpenState: boolean = false;
+
+    isShowCommentary: boolean = false
 
 
     constructor(
@@ -33,13 +33,18 @@ export class PostComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.vote$ = this._posthelpService.getVotePostHelp(this.postHelp.id)
+
 
         if (this._authService.user) {
             this.connectedUser = this._authService.user;
         } else {
             this.connectedUser = undefined;
         }
+
+        if(this.connectedUser?.role === 'DEVELOPER'){
+            this.vote$ = this._posthelpService.getVotePostHelp(this.postHelp.id)
+        }
+
     }
 
     vote(id: number, type: VoteType) {
@@ -53,4 +58,7 @@ export class PostComponent implements OnInit {
     }
 
 
+    showCommentaire() {
+        this.isShowCommentary = !this.isShowCommentary
+    }
 }

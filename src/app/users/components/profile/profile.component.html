@@ -1,4 +1,5 @@
 <div>
+
     <div class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
          *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='DEVELOPER'">
         <div *ngIf="devInfoSub |  async as dev">
@@ -54,6 +55,7 @@
                                [checked]="isBackTechnologyInDB(backTec)">
                         <label class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" for="backTec">{{backTec}}</label>
                     </div>
+
                     <br>
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies Front-end :</h6>
                     <div *ngFor="let frontTec of technologiesFrontEnd">
@@ -117,6 +119,7 @@
             </div>
         </div>
     </div>
+
     <div class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
          *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='RECRUITER'">
         <div *ngIf="recruiterSub | async as recruiter">
@@ -214,3 +217,7 @@
         </div>
     </div>
 </div>
+
+
+
+
