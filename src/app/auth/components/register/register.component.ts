@@ -58,14 +58,14 @@ export class RegisterComponent {
         })
 
         this.devInfoForm = _formBuilder.group({
-            description: [null, []],
+            description: ["", []],
             birthDate: [null, []],
-            technologyBackEnds: [null, []],
-            technologyFrontEnds: [null, []],
-            gitHub: [null, []],
-            cv: [null,[]],
-            linkedIn: [null, []],
-            pseudo: [null, []]
+            technologyBackEnds: ["", []],
+            technologyFrontEnds: ["", []],
+            gitHub: ["", []],
+            cv: ["",[]],
+            linkedIn: ["", []],
+            pseudo: ["", []]
         })
 
         this.addressForm = this._formBuilder.group({
