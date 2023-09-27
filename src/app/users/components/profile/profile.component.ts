@@ -93,7 +93,8 @@ export class ProfileComponent implements OnInit {
     ngOnInit(): void {
         this.connectedUser = this._authService.user
 
-        if (this.connectedUser && this.connectedUser?.role==="DEVELOPER") {
+
+        if (this.connectedUser && this.connectedUser?.role === "DEVELOPER") {
             this.devInfoSub = this._userService.getDevInfoFromServer(this.connectedUser?.id);
             this.devInfoSub.subscribe((data) => {
                 this.devInfoForm.patchValue(data);
@@ -113,6 +114,7 @@ export class ProfileComponent implements OnInit {
             // })
 
         }
+
         if (this.connectedUser && this.connectedUser.role==="RECRUITER")
             this.recruiterSub = this._userService.getRecruiterInfoFromServer(this.connectedUser.id)
 

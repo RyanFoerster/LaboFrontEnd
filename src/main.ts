@@ -7,6 +7,7 @@ import {provideRouter, Routes} from "@angular/router";
 import {authGuard} from "./app/guards/auth.guard";
 import {AuthService} from "./app/shared/services/auth.service";
 import {JwtInterceptor} from "./app/interceptors/jwt.interceptor";
+import {recruiterGuard} from "./app/guards/recruiter.guard";
 
 const routes: Routes = [
     {
@@ -36,7 +37,7 @@ const routes: Routes = [
     {
         path: "relation",
         loadComponent: () => import("./app/relation/relation.component").then(module => module.RelationComponent),
-        canActivate: [authGuard]
+        canActivate: [authGuard, recruiterGuard]
     },
     {
         path: "profile",

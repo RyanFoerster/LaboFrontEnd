@@ -69,11 +69,11 @@ export class RegisterComponent {
         })
 
         this.addressForm = this._formBuilder.group({
-            street: [null, [Validators.required]],
-            number: [null, [Validators.required]],
-            city: [null, [Validators.required]],
-            zipcode: [null, [Validators.required]],
-            country: [null, [Validators.required]]
+            street: ['', [Validators.required]],
+            number: ['', [Validators.required]],
+            city: ['', [Validators.required]],
+            zipcode: ['', [Validators.required]],
+            country: ['', [Validators.required]]
         })
 
         this.companyForm = _formBuilder.group({
