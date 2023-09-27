@@ -118,6 +118,7 @@ export class ProfileComponent implements OnInit {
 
         }
         if (this.connectedUser && this.connectedUser.role === "RECRUITER")
+
             this.recruiterSub = this._userService.getRecruiterInfoFromServer(this.connectedUser.id)
 
 

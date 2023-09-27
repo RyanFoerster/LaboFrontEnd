@@ -188,186 +188,267 @@
 
 
 <div>
-    <div *ngIf="connectedUser && connectedUser?.role">
 
-        <!-- Developer Profile -->
-        <div *ngIf="connectedUser.role === 'DEVELOPER' && (devInfoSub | async) as dev">
-
-            <!-- View Profile -->
+    <div class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+         *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='DEVELOPER'">
+        <div *ngIf="devInfoSub |  async as dev">
             <div *ngIf="!editProfile">
-                <table>
-                    <tr>
-                        <th>Prénom : </th>
-                        <td>{{dev.firstName}}</td>
-                    </tr>
-                    <tr>
-                        <th>Nom de famille : </th>
-                        <td>{{dev.lastName}}</td>
-                    </tr>
-                    <tr>
-                        <th>Description : </th>
-                        <td>{{dev.description}}</td>
-                    </tr>
-                    <tr>
-                        <th>Pseudo : </th>
-                        <td>{{dev.pseudo}}</td>
-                    </tr>
-                    <tr>
-                        <th>GitHub :</th>
-                        <td><a href="{{dev.gitHub}}">{{dev.gitHub}}</a></td>
-                    </tr>
-                    <tr>
-                        <th>Linkedin :</th>
-                        <td><a href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></td>
-                    </tr>
-                    <tr *ngIf="dev.cv">
-                        <th>CV :</th>
-                        <td (click)="downloadCV(dev.id)">{{ getFileNameFromPath(dev.cv) }}</td>
-                    </tr>
-                    <tr *ngIf="!dev.cv">
-                        <input type="file" (change)="handleFileInput($event)">
-                        <button (click)="uploadCV(dev.id)">Uploader CV</button>
-                    </tr>
-                    <tr>
-                        <th>Technologies Back-end :</th>
-                        <td>
-                            <li *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Technologies Front-end :</th>
-                        <td>
-                            <li *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
-                        </td>
-                    </tr>
-                </table>
-
-
-                <button (click)="modifyProfile()">Modifier le profil</button>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.firstName}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de famille :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.lastName}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.description}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pseudo :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.pseudo}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">GitHub :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a
+                    href="{{dev.gitHub}}">{{dev.gitHub}}</a></p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">LinkedIn :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a
+                    href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">CV :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.cv}}</p>
+                <ul>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Back-end :</h6>
+                    <li class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                        *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
+                </ul>
+                <br>
+                <ul>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Front-end :</h6>
+                    <li class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                        *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
+                </ul>
+                <br>
+                <button
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="modifyProfile()">Modifier le profil
+                </button>
             </div>
 
             <!-- Edit Profile Form -->
             <div *ngIf="editProfile">
                 <form [formGroup]="devInfoForm" (ngSubmit)="updateDevProfile()">
-                    <table>
-                        <tr>
-                            <th>Prénom : </th>
-                            <td><input type="text" placeholder="{{dev.firstName}}" formControlName="firstName"></td>
-                        </tr>
-                        <tr>
-                            <th>Nom de famille : </th>
-                            <td><input type="text" placeholder="{{dev.lastName}}" formControlName="lastName"></td>
-                        </tr>
-                        <tr>
-                            <th>Description</th>
-                            <td><input type="text" placeholder="{{dev.description}}" formControlName="description"></td>
-                        </tr>
-                        <tr>
-                            <th>Pseudo : </th>
-                            <td><input type="text" placeholder="{{dev.pseudo}}" formControlName="pseudo"></td>
-                        </tr>
-                        <tr>
-                            <th>Github : </th>
-                            <td><input type="text" placeholder="{{dev.gitHub}}" formControlName="gitHub"></td>
-                        </tr>
-                        <tr>
-                            <th>Linkedin : </th>
-                            <td><input type="text" placeholder="{{dev.linkedIn}}" formControlName="linkedIn"></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><input type="file" (change)="handleFileInput($event)">
-                                <button (click)="uploadCV(dev.id)">Uploader CV</button></td>
-                        </tr>
-                        <tr>
-                            <th>Technologies Back-end :</th>
-                            <td><div *ngFor="let backTec of technologiesBackEnd">
-                                <label for="backTec">{{backTec}}</label>
-                                <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}"
-                                       (change)="updateBackTecs($event)"
-                                       [checked]="isBackTechnologyInDB(backTec)">
-                            </div></td>
-                        </tr>
-                        <tr>
-                            <th>Technologies Front-end :</th>
-                            <td><div *ngFor="let frontTec of technologiesFrontEnd">
-                                <label for="frontTec">{{frontTec.toString()}}</label>
-                                <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}"
-                                       (change)="updateFrontTecs($event)"
-                                       [checked]="isFrontTechnologyInDB(frontTec.toString())">
-                            </div></td>
-                        </tr>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
+                    <input type="text" placeholder="{{dev.firstName}}" formControlName="firstName">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de famille
+                        :</h6>
+                    <input type="text" placeholder="{{dev.lastName}}" formControlName="lastName">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description :</h6>
+                    <input type="text" placeholder="{{dev.description}}" formControlName="description">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pseudo :</h6>
+                    <input type="text" placeholder="{{dev.pseudo}}" formControlName="pseudo">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">GitHub :</h6>
+                    <input type="text" placeholder="{{dev.gitHub}}" formControlName="gitHub">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">LinkedIn :</h6>
+                    <input type="text" placeholder="{{dev.linkedIn}}" formControlName="linkedIn">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">CV :</h6>
+                    <input type="text" [defaultValue]="dev.cv" formControlName="cv">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Back-end :</h6>
+                    <div class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                        <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                            <li *ngFor="let backTec of technologiesBackEnd">
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        id="backTec" type="checkbox" value="{{backTec.valueOf()}}"
+                                        (change)="updateBackTecs($event)"
+                                        [checked]="isBackTechnologyInDB(backTec)">
+                                    <label
+                                        class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                                        for="backTec">{{backTec}}</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
 
-
-                    </table>
-                    <input type="submit" class="button" value="Valider les modifications">
+                    <br>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Front-end :</h6>
+                    <div class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                        <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                            <li *ngFor="let frontTec of technologiesFrontEnd">
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}"
+                                           (change)="updateFrontTecs($event)"
+                                           [checked]="isFrontTechnologyInDB(frontTec.toString())">
+                                    <label class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                                           for="frontTec">{{frontTec.toString()}}</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                    <input
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        type="submit" value="Valider les modifications">
                 </form>
             </div>
-
-            <!-- Address & Password sections -->
-            <!-- ... -->
+            <div *ngIf="!editAddress">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Adresse :</h5>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rue :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.address.street}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Numéro :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.address.number}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ville :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.address.city}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Code postal :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.address.zipcode}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pays :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.address.country}}</p>
+                <button
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="modifyAddress()">Modifier l'adresse
+                </button>
+            </div>
+            <div *ngIf="editAddress">
+                <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Adresse :</h5>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rue :</h6>
+                    <input type="text" placeholder="{{dev.address.street}}" formControlName="street">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Numéro :</h6>
+                    <input type="text" placeholder="{{dev.address.number}}" formControlName="number">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ville :</h6>
+                    <input type="text" placeholder="{{dev.address.city}}" formControlName="city">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Code postal :</h6>
+                    <input type="text" placeholder="{{dev.address.zipcode}}" formControlName="zipcode">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pays :</h6>
+                    <input type="text" placeholder="{{dev.address.country}}" formControlName="country">
+                    <input
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        type="submit" value="Valider l'adresse">
+                </form>
+            </div>
+            <div>
+                <button *ngIf="!editPassword"
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        (click)="setPassword()">Modifier mot de passe
+                </button>
+                <div *ngIf="editPassword">
+                    <form [formGroup]="newPasswordForm" (ngSubmit)="updateDevPassword()">
+                        <input type="text" placeholder="Nouveau mot de passe" formControlName="password">
+                        <input
+                            class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                            type="submit" value="Valider nouveau mot de passe">
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <!-- Recruiter Profile -->
-        <div *ngIf="connectedUser.role === 'RECRUITER' && (recruiterSub | async) as recruiter">
-
-            <!-- View Profile -->
+    </div>
+    <div class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+         *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='RECRUITER'">
+        <div *ngIf="recruiterSub | async as recruiter">
             <div *ngIf="!editProfile">
-                <table>
-                    <tr>
-                        <th>Prénom</th>
-                        <td>{{recruiter.firstName}}</td>
-                    </tr>
-                    <tr>
-                        <th>Nom</th>
-                        <td>{{recruiter.lastName}}</td>
-                    </tr>
-                    <!-- ... ajouter d'autres informations ici ... -->
-                </table>
-
-                <button (click)="modifyProfile()">Modifier le profil</button>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.firstName}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.lastName}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Email :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.email}}</p>
+                <button
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="modifyProfile()">Modifier le profil
+                </button>
             </div>
 
             <!-- Edit Profile Form -->
             <div *ngIf="editProfile">
                 <form [formGroup]="recruiterForm" (ngSubmit)="updateRec()">
-                    <table>
-                        <tr>
-                            <th>Prénom</th>
-                            <td><input type="text" placeholder="{{recruiter.firstName}}" formControlName="firstName"></td>
-                        </tr>
-                        <!-- ... ajouter d'autres champs de formulaire ici ... -->
-                    </table>
-                    <input type="submit" class="button" value="Valider les infos">
+
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
+                    <input type="text" formControlName="firstName" placeholder="{{recruiter.firstName}}">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom :</h6>
+                    <input type="text" formControlName="lastName" placeholder="{{recruiter.lastName}}">
+                    <input
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        type="submit" value="Valider les infos">
                 </form>
             </div>
 
             <!-- Company, Address & Password sections -->
             <div *ngIf="!editCompany">
-                <table>
-                    <tr>
-                        <th>Nom de la société</th>
-                        <td>{{recruiter.company.name}}</td>
-                    </tr>
-                    <!-- ... -->
-                </table>
-                <button (click)="modifyCompany()">Modifier infos de la société</button>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Société :</h5>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de la société :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.name}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de la
+                    société :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.description}}</p>
+                <button
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="modifyCompany()">Modifier infos de la société
+                </button>
             </div>
 
             <!-- Edit Company Form -->
             <div *ngIf="editCompany">
                 <form [formGroup]="companyForm" (ngSubmit)="updateCompany()">
-                    <table>
-                        <tr>
-                            <th>Nom de la société</th>
-                            <td><input type="text" placeholder="{{recruiter.company.name}}" formControlName="name"></td>
-                        </tr>
-                        <!-- ... -->
-                    </table>
-                    <input type="submit" value="Modifier les infos de la société">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Société :</h5>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de la société
+                        :</h6>
+                    <input type="text" placeholder="{{recruiter.company.name}}" formControlName="name">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de la
+                        société :</h6>
+                    <input type="text" placeholder="{{recruiter.company.description}}" formControlName="description">
+                    <input
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        type="submit" value="Modifier les infos de la société">
+                </form>
+            </div>
+            <div *ngIf="!editAddress">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Adresse de la société
+                    :</h5>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rue :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.street}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Numéro :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.number}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ville :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.city}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Code postal :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.zipcode}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pays :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.country}}</p>
+                <button
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="modifyAddress()">Modifier l'addresse de la société
+                </button>
+            </div>
+            <div *ngIf="editAddress">
+                <form [formGroup]="addressForm" (ngSubmit)="updateCompanyAddress()">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Addresse de la
+                        société :</h5>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rue :</h6>
+                    <input type="text" placeholder="{{recruiter.company.address.street}}" formControlName="street">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Numéro :</h6>
+                    <input type="text" placeholder="{{recruiter.company.address.number}}" formControlName="number">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ville :</h6>
+                    <input type="text" placeholder="{{recruiter.company.address.city}}" formControlName="city">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Code postal :</h6>
+                    <input type="text" placeholder="{{recruiter.company.address.zipcode}}" formControlName="zipcode">
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pays :</h6>
+                    <input type="text" placeholder="{{recruiter.company.address.country}}" formControlName="country">
+                    <input
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        type="submit" value="Valider l'adresse">
+                </form>
+            </div>
+        </div>
+        <div>
+            <button *ngIf="!editPassword"
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="setPassword()">Modifier mot de passe
+            </button>
+            <div *ngIf="editPassword">
+                <form [formGroup]="newPasswordForm" (ngSubmit)="updateRecPassword()">
+                    <input type="text" placeholder="Nouveau Mot de passe" formControlName="password">
+                    <input
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        type="submit" value="Valider nouveau mot de passe">
                 </form>
             </div>
         </div>
     </div>
 </div>
-
