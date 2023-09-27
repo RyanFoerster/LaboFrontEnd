@@ -4,6 +4,7 @@ import {PostHelp} from "../models/PostHelp";
 import {environments} from "../../../environments/environments";
 import {Observable} from "rxjs";
 import {PostHelpForm} from "../models/PostHelpForm";
+import {CommentForm} from "../models/CommentForm";
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +18,9 @@ export class PosthelpService {
 
     createPost(post: PostHelpForm): Observable<PostHelpForm> {
         return this._httpClient.post<PostHelpForm>(`${environments.apiUrl}/posthelp`, post);
+    }
+    createComment(comment: CommentForm, id: number) : Observable<CommentForm> {
+        return this._httpClient.post<CommentForm>(`${environments.apiUrl}/posthelp/comment/${id}`, comment)
     }
 
     getAll(): Observable<PostHelp[]>{
@@ -54,6 +58,7 @@ export class PosthelpService {
     getCommentVote(commentId: number){
         return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/comment/${commentId}/vote`)
     }
+
 
 }
 
