@@ -208,7 +208,9 @@
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a
                     href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">CV :</h6>
-                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.cv}}</p>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" *ngIf="!dev.cv"><input type="file" (change)="handleFileInput($event)">
+                    <button (click)="uploadCV(dev.id)">Uploader CV</button></p>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" *ngIf="dev.cv" (click)="downloadCV(dev.id)">{{ getFileNameFromPath(dev.cv)}}</p>
                 <ul>
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
                         Back-end :</h6>
@@ -246,7 +248,8 @@
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">LinkedIn :</h6>
                     <input type="text" placeholder="{{dev.linkedIn}}" formControlName="linkedIn">
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">CV :</h6>
-                    <input type="text" [defaultValue]="dev.cv" formControlName="cv">
+                    <input type="file" (change)="handleFileInput($event)">
+                    <button (click)="uploadCV(dev.id)">Uploader CV</button>
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
                         Back-end :</h6>
                     <div class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
