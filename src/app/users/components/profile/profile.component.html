@@ -1,6 +1,7 @@
 <div>
-    <div class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-         *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='DEVELOPER'">
+    <div
+        class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='DEVELOPER'">
         <div *ngIf="devInfoSub |  async as dev">
             <div *ngIf="!editProfile">
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
@@ -12,30 +13,38 @@
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Pseudo :</h6>
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.pseudo}}</p>
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">GitHub :</h6>
-                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a href="{{dev.gitHub}}">{{dev.gitHub}}</a></p>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a
+                    href="{{dev.gitHub}}">{{dev.gitHub}}</a></p>
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">LinkedIn :</h6>
-                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"><a
+                    href="{{dev.linkedIn}}">{{dev.linkedIn}}</a></p>
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">CV :</h6>
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.cv}}</p>
                 <ul>
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies Back-end :</h6>
-                    <li class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Back-end :</h6>
+                    <li class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                        *ngFor="let backTec of dev.technologyBackEnds">{{backTec}}</li>
                 </ul>
                 <br>
                 <ul>
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies Front-end :</h6>
-                    <li class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Front-end :</h6>
+                    <li class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                        *ngFor="let frontTec of dev.technologyFrontEnds">{{frontTec}}</li>
                 </ul>
                 <br>
                 <button
                     class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                    (click)="modifyProfile()">Modifier le profil</button>
+                    (click)="modifyProfile()">Modifier le profil
+                </button>
             </div>
             <div *ngIf="editProfile">
                 <form [formGroup]="devInfoForm" (ngSubmit)="updateDevProfile()">
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
                     <input type="text" placeholder="{{dev.firstName}}" formControlName="firstName">
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de famille :</h6>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de famille
+                        :</h6>
                     <input type="text" placeholder="{{dev.lastName}}" formControlName="lastName">
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description :</h6>
                     <input type="text" placeholder="{{dev.description}}" formControlName="description">
@@ -47,20 +56,39 @@
                     <input type="text" placeholder="{{dev.linkedIn}}" formControlName="linkedIn">
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">CV :</h6>
                     <input type="text" [defaultValue]="dev.cv" formControlName="cv">
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies Back-end :</h6>
-                    <div *ngFor="let backTec of technologiesBackEnd">
-                        <input id="backTec" type="checkbox" value="{{backTec.valueOf()}}"
-                               (change)="updateBackTecs($event)"
-                               [checked]="isBackTechnologyInDB(backTec)">
-                        <label class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" for="backTec">{{backTec}}</label>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Back-end :</h6>
+                    <div class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                        <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                            <li *ngFor="let backTec of technologiesBackEnd">
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        id="backTec" type="checkbox" value="{{backTec.valueOf()}}"
+                                        (change)="updateBackTecs($event)"
+                                        [checked]="isBackTechnologyInDB(backTec)">
+                                    <label
+                                        class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                                        for="backTec">{{backTec}}</label>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <br>
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies Front-end :</h6>
-                    <div *ngFor="let frontTec of technologiesFrontEnd">
-                        <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}"
-                               (change)="updateFrontTecs($event)"
-                               [checked]="isFrontTechnologyInDB(frontTec.toString())">
-                        <label class="mb-2 text-m tracking-tight text-gray-900 dark:text-white" for="frontTec">{{frontTec.toString()}}</label>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Technologies
+                        Front-end :</h6>
+                    <div class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                        <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200">
+                            <li *ngFor="let frontTec of technologiesFrontEnd">
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="frontTec" type="checkbox" value="{{frontTec.valueOf()}}"
+                                           (change)="updateFrontTecs($event)"
+                                           [checked]="isFrontTechnologyInDB(frontTec.toString())">
+                                    <label class="mb-2 text-m tracking-tight text-gray-900 dark:text-white"
+                                           for="frontTec">{{frontTec.toString()}}</label>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                     <br>
                     <input
@@ -82,7 +110,8 @@
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{dev.address.country}}</p>
                 <button
                     class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                    (click)="modifyAddress()">Modifier l'adresse</button>
+                    (click)="modifyAddress()">Modifier l'adresse
+                </button>
             </div>
             <div *ngIf="editAddress">
                 <form [formGroup]="addressForm" (ngSubmit)="updateAddress()">
@@ -104,8 +133,9 @@
             </div>
             <div>
                 <button *ngIf="!editPassword"
-                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                    (click)="setPassword()">Modifier mot de passe</button>
+                        class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                        (click)="setPassword()">Modifier mot de passe
+                </button>
                 <div *ngIf="editPassword">
                     <form [formGroup]="newPasswordForm" (ngSubmit)="updateDevPassword()">
                         <input type="text" placeholder="Nouveau mot de passe" formControlName="password">
@@ -117,8 +147,9 @@
             </div>
         </div>
     </div>
-    <div class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-         *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='RECRUITER'">
+    <div
+        class="block m-auto max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        *ngIf="connectedUser && connectedUser?.role && connectedUser.role==='RECRUITER'">
         <div *ngIf="recruiterSub | async as recruiter">
             <div *ngIf="!editProfile">
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Prénom :</h6>
@@ -129,7 +160,8 @@
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.email}}</p>
                 <button
                     class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                    (click)="modifyProfile()">Modifier le profil</button>
+                    (click)="modifyProfile()">Modifier le profil
+                </button>
             </div>
             <div *ngIf="editProfile">
                 <form [formGroup]="recruiterForm" (ngSubmit)="updateRec()">
@@ -143,21 +175,25 @@
                 </form>
             </div>
             <div *ngIf="!editCompany">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Société :</h5>
-            <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de la société :</h6>
-            <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.name}}</p>
-            <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de la société :</h6>
-            <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.description}}</p>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Société :</h5>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de la société :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.name}}</p>
+                <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de la
+                    société :</h6>
+                <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.description}}</p>
                 <button
                     class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                    (click)="modifyCompany()">Modifier infos de la société</button>
+                    (click)="modifyCompany()">Modifier infos de la société
+                </button>
             </div>
             <div *ngIf="editCompany">
                 <form [formGroup]="companyForm" (ngSubmit)="updateCompany()">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Société :</h5>
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de la société :</h6>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Nom de la société
+                        :</h6>
                     <input type="text" placeholder="{{recruiter.company.name}}" formControlName="name">
-                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de la société :</h6>
+                    <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Description de la
+                        société :</h6>
                     <input type="text" placeholder="{{recruiter.company.description}}" formControlName="description">
                     <input
                         class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
@@ -165,7 +201,8 @@
                 </form>
             </div>
             <div *ngIf="!editAddress">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Adresse de la société :</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Adresse de la société
+                    :</h5>
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rue :</h6>
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.street}}</p>
                 <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Numéro :</h6>
@@ -178,11 +215,13 @@
                 <p class="mb-2 text-m tracking-tight text-gray-900 dark:text-white">{{recruiter.company.address.country}}</p>
                 <button
                     class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                    (click)="modifyAddress()">Modifier l'addresse de la société</button>
+                    (click)="modifyAddress()">Modifier l'addresse de la société
+                </button>
             </div>
             <div *ngIf="editAddress">
                 <form [formGroup]="addressForm" (ngSubmit)="updateCompanyAddress()">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Addresse de la société :</h5>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Addresse de la
+                        société :</h5>
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rue :</h6>
                     <input type="text" placeholder="{{recruiter.company.address.street}}" formControlName="street">
                     <h6 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Numéro :</h6>
@@ -201,8 +240,9 @@
         </div>
         <div>
             <button *ngIf="!editPassword"
-                class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
-                (click)="setPassword()">Modifier mot de passe</button>
+                    class="text-white mt-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-full px-5 py-2.5 text-center dark:bg-orange-700 dark:hover:bg-orange-800 dark:focus:ring-blue-800"
+                    (click)="setPassword()">Modifier mot de passe
+            </button>
             <div *ngIf="editPassword">
                 <form [formGroup]="newPasswordForm" (ngSubmit)="updateRecPassword()">
                     <input type="text" placeholder="Nouveau Mot de passe" formControlName="password">
