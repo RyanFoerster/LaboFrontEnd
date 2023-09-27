@@ -4,8 +4,12 @@
 
     </div>
 
-    <div *ngIf="user?.role === 'DEVELOPER'">
-        <form [formGroup]="postForm" (ngSubmit)="post()">
+    <div >
+
+    </div>
+
+    <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen">
+        <form class="mb-3" *ngIf="user?.role === 'DEVELOPER'" [formGroup]="postForm" (ngSubmit)="post()">
 
             <div class="mb-4">
                 <label for="title" class="block text-sm font-medium text-gray-700">Titre</label>
@@ -13,39 +17,43 @@
                        class="mt-1 p-2 w-full border rounded-md">
             </div>
 
-            <div class=" flex justify-between relative z-0 w-3/12 mb-6 group flex-col">
+            <div class="flex justify-between w-full">
+                <div class=" flex justify-between relative z-0 w-1/3 mb-6 group flex-col">
 
-                <label for="technologies-backend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technologies
-                    back-end</label>
+                    <label for="technologies-backend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center">Technologies
+                        back-end</label>
 
-                <select id="technologies-backend"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <select id="technologies-backend"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 
-                        formControlName="technologyBackEnd">
+                            formControlName="technologyBackEnd">
 
-                    <option selected>Choisissez vos technologies backend</option>
+                        <option selected>Choisissez vos technologies backend</option>
 
-                    <option *ngFor="let technology of technologyBackEnd" [value]="technology">{{technology}}</option>
+                        <option *ngFor="let technology of technologyBackEnd" [value]="technology">{{technology}}</option>
 
-                </select>
+                    </select>
+                </div>
+
+                <div class=" flex justify-between relative z-0 w-1/3 mb-6 group flex-col">
+
+                    <label for="technologies-frontend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-center">Technologies
+                        front-end</label>
+
+                    <select id="technologies-frontend"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+
+                            formControlName="technologyFrontEnd">
+
+                        <option selected>Choisissez vos technologies frontend</option>
+
+                        <option *ngFor="let technology of technologyFrontEnd" [value]="technology">{{technology}}</option>
+
+                    </select>
+                </div>
             </div>
 
-            <div class=" flex justify-between relative z-0 w-3/12 mb-6 group flex-col">
 
-                <label for="technologies-frontend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technologies
-                    front-end</label>
-
-                <select id="technologies-frontend"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
-                        formControlName="technologyFrontEnd">
-
-                    <option selected>Choisissez vos technologies frontend</option>
-
-                    <option *ngFor="let technology of technologyFrontEnd" [value]="technology">{{technology}}</option>
-
-                </select>
-            </div>
 
             <div class="mb-4">
                 <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
@@ -68,9 +76,6 @@
             </div>
 
         </form>
-    </div>
-
-    <div *ngIf="postsHelp$ | async as postHelps" class="w-3/6 h-screen">
         <ng-container *ngFor="let postHelp of postHelps">
             <app-post [post]="postHelp" ></app-post>
         </ng-container>
