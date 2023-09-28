@@ -49,6 +49,10 @@ export class PostComponent implements OnInit {
             this.connectedUser = undefined;
         }
 
+        if (this.postHelp.comments) {
+            this.postHelp.comments.sort((a, b) => b.score - a.score); // Tri des commentaires par score
+        }
+
         if(this.connectedUser?.role === 'DEVELOPER'){
             this.vote$ = this._posthelpService.getVotePostHelp(this.postHelp.id)
         }
@@ -56,11 +60,18 @@ export class PostComponent implements OnInit {
     }
 
     vote(id: number, type: VoteType) {
-
         this.vote$ = this._posthelpService.votePostHelp(id, type).pipe(
             tap({
-                next: response => console.log('Upvoted successfully', response),
-                error: error => console.log('Error upvoting', error)
+                next: response => {
+                    console.log('Voted successfully', response);
+
+                    // Mettre à jour le score du post
+                    this.postHelp.score = response.score;
+
+                    // Si vous avez besoin de trier les commentaires après avoir voté sur le post
+                    this.postHelp.comments.sort((a, b) => b.score - a.score);
+                },
+                error: error => console.log('Error voting', error)
             })
         );
     }
@@ -69,9 +80,12 @@ export class PostComponent implements OnInit {
         if(this.connectedUser?.role === 'DEVELOPER'){
             if(this.commentForm.valid){
                 let newComment: CommentForm = this.commentForm.value;
-                this._posthelpService.createComment(newComment, this.connectedUser.id).subscribe({
+                this._posthelpService.createComment(newComment, this.postHelp.id).subscribe({
                     next : response => {
-                        console.log("Comment created with success", response)
+                        console.log("Comment created with success", response);
+                        if (this.postHelp.comments) {
+                            this.postHelp.comments.sort((a, b) => b.score - a.score); // Tri des commentaires par score
+                        }
                     },
                     error: error => {
                         console.error("Error with the comment:", error);

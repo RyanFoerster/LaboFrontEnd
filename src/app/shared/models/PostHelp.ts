@@ -9,7 +9,7 @@ export interface PostHelp {
     technologyFrontEnd?: TechnologyFrontEnd
     technologyBackEnd?: TechnologyBackEnd
     description: string
-    github: string
+    gitHub: string
     ouvert: boolean
     comments: PostComment[]
     voteSujets: VoteSujet

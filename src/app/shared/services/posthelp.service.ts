@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {PostHelp} from "../models/PostHelp";
 import {environments} from "../../../environments/environments";
-import {Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {PostHelpForm} from "../models/PostHelpForm";
 import {CommentForm} from "../models/CommentForm";
 
@@ -10,8 +10,6 @@ import {CommentForm} from "../models/CommentForm";
     providedIn: 'root'
 })
 export class PosthelpService {
-
-
 
     constructor(private _httpClient: HttpClient) {
     }
@@ -23,9 +21,15 @@ export class PosthelpService {
         return this._httpClient.post<CommentForm>(`${environments.apiUrl}/posthelp/comment/${id}`, comment)
     }
 
-    getAll(): Observable<PostHelp[]>{
-
-        return this._httpClient.get<PostHelp[]>(`${environments.apiUrl}/posthelp`)
+    getAll(): Observable<PostHelp[]> {
+        return this._httpClient.get<PostHelp[]>(`${environments.apiUrl}/posthelp`).pipe(
+            map(posts => {
+                posts.forEach(post => {
+                    post.comments.sort((a, b) => b.score - a.score);
+                });
+                return posts;
+            })
+        );
     }
 
     getComment(commentId: number): Observable<Comment>{
@@ -58,6 +62,7 @@ export class PosthelpService {
     getCommentVote(commentId: number){
         return this._httpClient.get<Vote>(`${environments.apiUrl}/posthelp/comment/${commentId}/vote`)
     }
+
 
 
 }

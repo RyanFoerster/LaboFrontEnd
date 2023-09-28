@@ -5,7 +5,7 @@ import {User} from "../shared/models/User";
 
 import {PostHelp} from "../shared/models/PostHelp";
 import {PosthelpService} from "../shared/services/posthelp.service";
-import {Observable, tap} from "rxjs";
+import {BehaviorSubject, map, Observable, switchMap, tap} from "rxjs";
 import {PostComponent} from "../post/post.component";
 import {data} from "autoprefixer";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -27,10 +27,10 @@ import {PostHelpForm} from "../shared/models/PostHelpForm";
     ],
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
 
     user?: User
-    postsHelp$!: Observable<PostHelp[]>
+    postsHelp$ = new BehaviorSubject<PostHelp[]>([]);
     technologyBackEnd = Object.values(TechnologyBackEnd)
     technologyFrontEnd = Object.values(TechnologyFrontEnd)
     showForm: boolean = false;
@@ -49,23 +49,29 @@ export class HomeComponent implements OnInit{
                 Validators.minLength(10),
                 Validators.maxLength(500)
             ]],
-            gitHub: ['', [Validators.required]],
+            gitHub: [null, [Validators.required]],
         });
     }
+
     post(): void {
         if (this.user?.role === 'DEVELOPER') {
-            console.log(this.user.role)
             if (this.postForm.valid) {
                 let newPost: PostHelpForm = this.postForm.value;
-                console.log(newPost)
-                this._posthelpService.createPost(newPost).subscribe({
-                    next: response => {
-                        console.log("Post créé avec succès:", response);
+
+                this._posthelpService.createPost(newPost).pipe(
+                    switchMap(() => this._posthelpService.getAll()),
+                    map(posts => posts.sort((a, b) => b.id - a.id)) // Tri des posts ici
+                ).subscribe({
+                    next: updatedPosts => {
+                        this.postsHelp$.next(updatedPosts);
+                        console.log("Post créé avec succès.");
+                        this.toggleForm();
                     },
                     error: error => {
                         console.error("Erreur lors de la création du post:", error);
                     }
-                })
+                });
+
             } else {
                 console.warn("Le formulaire n'est pas valide");
             }
@@ -76,16 +82,20 @@ export class HomeComponent implements OnInit{
 
     ngOnInit() {
 
-        if(this._authService.token){
+        if (this._authService.token) {
             this.user = this._authService.user
         }
 
-        this.postsHelp$ = this._posthelpService.getAll().pipe(
-            tap(data => console.log('ici', data))
-        )
+
+        this._posthelpService.getAll().pipe(
+            map(posts => posts.sort((a, b) => b.id - a.id))
+        ).subscribe(sortedPosts => this.postsHelp$.next(sortedPosts));
 
     }
 
+    toggleForm(): void {
+        this.showForm = !this.showForm;
+    }
 
 
 }
